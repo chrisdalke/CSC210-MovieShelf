@@ -1,11 +1,10 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
-<head>
-    <title>Spring Security Example</title>
-</head>
-<body>
-<h1>Welcome!</h1>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head th:include="fragments/header :: header">
+    </head>
+    <body>
+        <h1 class="uk-heading-divider" th:text="${title}"></h1>
 
-<p>Click <a th:href="@{/test_web}">here</a> to see a greeting.</p>
-</body>
+        <div th:include="fragments/footer :: footer"></div>
+    </body>
 </html>

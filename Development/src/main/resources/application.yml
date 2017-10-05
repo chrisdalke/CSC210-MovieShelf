@@ -2,10 +2,10 @@ spring:
   datasource:
     username: chrisdal_csc210
     password: csc210final
-    url: jdbc:mysql://208.131.135.17/chrisdal_csc210?useUnicode=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+    url: jdbc:mysql://208.131.135.17/chrisdal_csc210_final?useUnicode=true&useLegacyDatetimeCode=false&serverTimezone=UTC
     driver-class-name: com.mysql.cj.jdbc.Driver
   thymeleaf:
     cache: false
   jpa:
     hibernate:
-      ddl-auto: none
+      ddl-auto: update

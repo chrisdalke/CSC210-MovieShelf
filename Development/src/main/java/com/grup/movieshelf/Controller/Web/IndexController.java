@@ -9,6 +9,9 @@ public class IndexController {
 
     @RequestMapping("/")
     public String testWeb(Model model){
+
+        model.addAttribute("value","Hello World");
+
         return "index";
     }
 }

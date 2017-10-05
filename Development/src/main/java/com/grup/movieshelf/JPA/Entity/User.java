@@ -7,7 +7,6 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import javax.management.relation.Role;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
@@ -36,7 +35,7 @@ public class User implements Comparable<User>, Serializable, UserDetails {
     private String password;
 
     @NotNull
-    @OneToMany(fetch = FetchType.EAGER)
+    @OneToMany(targetEntity = Role.class, fetch = FetchType.EAGER)
     @JoinTable(name = "UsersRoles",
             inverseJoinColumns = { @JoinColumn(referencedColumnName = "roleName")},
             joinColumns = { @JoinColumn( referencedColumnName = "userId")})

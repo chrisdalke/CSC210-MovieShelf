@@ -18,13 +18,6 @@ public class Role implements Comparable<Role>, Serializable {
     @Column( name = "roleName", unique = true, updatable = false )
     private String roleName;
 
-    private Set<User> users;
-
-    @ManyToMany(mappedBy = "roles")
-    public Set<User> getUsers() {
-        return users;
-    }
-
     @Override
     public int compareTo(Role other) {
         return getRoleName().compareTo(other.getRoleName());
