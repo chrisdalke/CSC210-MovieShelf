@@ -1,11 +1,11 @@
-package com.grup.movieshelf.Controller.Web;
+package com.grup.movieshelf.Controller.Web.User;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-public class LoginController {
+public class UserLoginController {
 
     @RequestMapping("/login")
     public String testWeb(Model model){

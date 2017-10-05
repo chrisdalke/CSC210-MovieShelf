@@ -1,11 +1,11 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <title>Error</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<head th:include="fragments/header :: header">
 </head>
 <body>
-<h1>Error 404</h1>
-<p>The page was not found.</p>
+<h1 class="uk-heading-divider">Error</h1>
+<p>An error has occurred. <a href="javascript:history.back()">Go Back</a></p>
+
+<div th:include="fragments/footer :: footer"></div>
 </body>
 </html>

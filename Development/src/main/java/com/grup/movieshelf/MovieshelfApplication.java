@@ -1,9 +1,15 @@
 package com.grup.movieshelf;
 
+import com.grup.movieshelf.JPA.Utility.HibernateUserDetailsService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.security.core.userdetails.UserDetailsService;
 
 @SpringBootApplication
+@EnableJpaRepositories
 public class MovieshelfApplication {
 
 	public static void main(String[] args) {
