@@ -3,6 +3,8 @@
 <head th:include="fragments/header :: header">
 </head>
 <body>
+<div class="uk-container uk-light uk-background-secondary">
+
 <h1 class="uk-heading-divider">Login</h1>
 
 <div th:if="${param.error}">
@@ -11,12 +13,20 @@
 <div th:if="${param.logout}">
     You have been logged out.
 </div>
-<form th:action="@{/login}" method="post">
-    <div><label> User Name : <input class="uk-input" type="text" name="username"/> </label></div>
-    <div><label> Password: <input class="uk-input" type="password" name="password"/> </label></div>
-    <div><input class="uk-button uk-button-default" type="submit" value="Sign In"/></div>
+<form th:action="@{/login}" method="post" class="uk-form-stacked">
+    <div class="uk-inline uk-width-1-1">
+        <span class="uk-form-icon" uk-icon="icon: user"></span>
+        <input class="uk-input" type="text" name="username" placeholder="Username"/>
+    </div>
+    <div class="uk-inline uk-width-1-1">
+        <span class="uk-form-icon" uk-icon="icon: lock"></span>
+        <input class="uk-input" type="password" name="password" placeholder="Password"/>
+    </div>
+    <div><input class="uk-width-1-1 uk-button uk-button-default" type="submit" value="Sign In"/></div>
 </form>
+</div>
 
 <div th:include="fragments/footer :: footer"></div>
+</div>
 </body>
 </html>

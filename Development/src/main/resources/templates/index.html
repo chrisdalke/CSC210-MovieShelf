@@ -3,8 +3,30 @@
     <head th:include="fragments/header :: header">
     </head>
     <body>
-        <h1 class="uk-heading-divider" th:text="${title}"></h1>
+        <div class="uk-offcanvas-content uk-light">
 
-        <div th:include="fragments/footer :: footer"></div>
+            <div th:include="fragments/nav :: nav"></div>
+
+            <div class="uk-flex uk-flex-center uk-margin">
+                <div class="uk-card uk-card-secondary uk-card-hover uk-card-body">
+                    <div class="uk-card-header">
+                        <h1 class="uk-card-title" th:text="${title}"></h1>
+                    </div>
+                    <div class="uk-card-body">Login Form</div>
+                </div>
+            </div>
+
+            <button class="uk-button uk-button-default uk-margin-small-right" type="button" uk-toggle="target: #offcanvas-usage">Open</button>
+
+            <div id="offcanvas-usage" uk-offcanvas>
+                <div class="uk-offcanvas-bar">
+                    <button class="uk-offcanvas-close" type="button" uk-close></button>
+                    <h3>Off Canvas Menu</h3>
+                </div>
+            </div>
+
+
+            <div th:include="fragments/footer :: footer"></div>
+        </div>
     </body>
 </html>
