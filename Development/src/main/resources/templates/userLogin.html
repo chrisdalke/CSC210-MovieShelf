@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+    <head th:include="fragments/header :: header">
+    </head>
+    <body>
+        <div class="uk-offcanvas-content uk-light">
+
+            <!-- Include the nav fragment -->
+            <div th:include="fragments/nav :: nav"></div>
+
+            <div class="uk-padding">
+
+                <h1>Login Page</h1>
+
+                <!-- Display a login form if the user is not already loggeed in -->
+                <div sec:authorize="isAnonymous()">
+                    <div class="uk-flex uk-flex-right uk-margin">
+                        <div class="uk-card uk-card-secondary uk-card-hover uk-card-body">
+                            <div class="uk-card-header">
+                                <h1 class="uk-card-title" th:text="${title}"></h1>
+                            </div>
+                            <div class="uk-card-body">
+                                <div th:if="${param.error}">
+                                    Invalid username and password.
+                                </div>
+                                <div th:if="${param.logout}">
+                                    You have been logged out.
+                                </div>
+                                <form th:action="@{/login}" method="post" class="uk-form-stacked">
+                                    <div class="uk-inline uk-width-1-1">
+                                        <span class="uk-form-icon" uk-icon="icon: user"></span>
+                                        <input class="uk-input" type="text" name="username" placeholder="Username"/>
+                                    </div>
+                                    <div class="uk-inline uk-width-1-1">
+                                        <span class="uk-form-icon" uk-icon="icon: lock"></span>
+                                        <input class="uk-input" type="password" name="password" placeholder="Password"/>
+                                    </div>
+                                    <div><input class="uk-width-1-1 uk-button uk-button-default" type="submit" value="Sign In"/></div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Redirect to the landing page if the user is already logged in (TODO) -->
+                <div sec:authorize="isAuthenticated()">
+                    <h2>Already Logged In!</h2>
+                    <p>Todo: Redirect to landing page.</p>
+                </div>
+
+            </div>
+
+            <!-- Include the footer fragment -->
+            <div th:include="fragments/footer :: footer"></div>
+        </div>
+    </body>
+</html>

@@ -1,20 +1,25 @@
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <div th:fragment="nav">
     <div class="uk-background-secondary uk-container uk-container-expand">
         <nav class="uk-navbar-container uk-navbar-transparent" uk-navbar>
             <div class="uk-navbar-left">
                 <ul class="uk-navbar-nav">
-                    <li>Movie Shelf v0.0.1</li>
+                    <li><a href="/" id="title-display">MovieShelf</a></li>
                 </ul>
             </div>
-            <div class="uk-navbar-right">
-                <ul class="uk-navbar-nav">
+
+            <div class="uk-navbar-right" >
+                <ul class="uk-navbar-nav" sec:authorize="isAuthenticated()">
+                    <li><a href="/logout">Logout</a></li>
+                </ul>
+                <ul class="uk-navbar-nav" sec:authorize="isAnonymous()">
                     <li><a href="/login">Login</a></li>
                 </ul>
-                <div class="uk-navbar-item">
+                <div class="uk-navbar-item" sec:authorize="isAnonymous()">
                     <a class="uk-button uk-button-default" href="/user/register">Sign Up</a>
                 </div>
             </div>
+
         </nav>
     </div>
 </div>

@@ -1,31 +1,32 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
     <head th:include="fragments/header :: header">
     </head>
     <body>
         <div class="uk-offcanvas-content uk-light">
 
+            <!-- Include the nav fragment -->
             <div th:include="fragments/nav :: nav"></div>
 
-            <div class="uk-flex uk-flex-center uk-margin">
-                <div class="uk-card uk-card-secondary uk-card-hover uk-card-body">
-                    <div class="uk-card-header">
-                        <h1 class="uk-card-title" th:text="${title}"></h1>
-                    </div>
-                    <div class="uk-card-body">Login Form</div>
+            <div class="uk-padding">
+
+                <h1>Index Page</h1>
+
+                <!-- Landing Page for a not-logged-in user -->
+                <div sec:authorize="isAnonymous()">
+                    <h2>Not Logged In</h2>
+                    <h3>Todo: Display a landing page here</h3>
                 </div>
+
+                <!-- Landing page for a logged-in user -->
+                <div sec:authorize="isAuthenticated()">
+                    <h2>Logged In</h2>
+                    <h2>Hello, <span sec:authentication="name">null</span>!</h2>
+                </div>
+
             </div>
 
-            <button class="uk-button uk-button-default uk-margin-small-right" type="button" uk-toggle="target: #offcanvas-usage">Open</button>
-
-            <div id="offcanvas-usage" uk-offcanvas>
-                <div class="uk-offcanvas-bar">
-                    <button class="uk-offcanvas-close" type="button" uk-close></button>
-                    <h3>Off Canvas Menu</h3>
-                </div>
-            </div>
-
-
+            <!-- Include the footer fragment -->
             <div th:include="fragments/footer :: footer"></div>
         </div>
     </body>

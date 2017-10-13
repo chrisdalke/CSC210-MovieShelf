@@ -4,3 +4,14 @@ body {
 html {
     background-color: #4a4a4a;
 }
+
+@font-face {
+    font-family: titleFont;
+    src: url("/fonts/titleFont.ttf");
+}
+
+#title-display {
+    font-family: titleFont;
+    font-size:34px;
+    color: white;
+}
