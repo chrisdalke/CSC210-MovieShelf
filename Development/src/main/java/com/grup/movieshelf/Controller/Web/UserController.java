@@ -9,7 +9,7 @@ public class UserController {
 
     @RequestMapping("/login")
     public String userLoginEndpoint(Model model){
-        return "login";
+        return "userLogin";
     }
 
     @RequestMapping("/user/options")

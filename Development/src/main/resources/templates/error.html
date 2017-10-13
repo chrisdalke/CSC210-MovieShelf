@@ -1,11 +1,21 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head th:include="fragments/header :: header">
 </head>
 <body>
-<h1 class="uk-heading-divider">Error</h1>
-<p>An error has occurred. <a href="javascript:history.back()">Go Back</a></p>
+<div class="uk-offcanvas-content uk-light">
 
-<div th:include="fragments/footer :: footer"></div>
+    <!-- Include the nav fragment -->
+    <div th:include="fragments/nav :: nav"></div>
+
+    <!-- Display a really simple error page that doesn't even tell you which error happened -->
+    <div class="uk-padding">
+        <h1>Error Page</h1>
+        <p>An error has occurred. <a href="javascript:history.back()">Go Back</a></p>
+    </div>
+
+    <!-- Include the footer fragment -->
+    <div th:include="fragments/footer :: footer"></div>
+</div>
 </body>
 </html>
