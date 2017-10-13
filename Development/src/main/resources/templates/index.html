@@ -8,22 +8,21 @@
             <!-- Include the nav fragment -->
             <div th:include="fragments/nav :: nav"></div>
 
-            <div class="uk-padding">
+            <!-- Include the sidebar fragment if the user is logged in -->
+            <div th:include="fragments/sidebar :: sidebar" sec:authorize="isAuthenticated()"></div>
 
+            <!-- Landing Page for a not-logged-in user -->
+            <div class="uk-padding" sec:authorize="isAnonymous()">
                 <h1>Index Page</h1>
 
-                <!-- Landing Page for a not-logged-in user -->
-                <div sec:authorize="isAnonymous()">
-                    <h2>Not Logged In</h2>
-                    <h3>Todo: Display a landing page here</h3>
-                </div>
+                <h2>Not Logged In</h2>
+                <h3>Todo: Display a landing page here</h3>
+            </div>
 
-                <!-- Landing page for a logged-in user -->
-                <div sec:authorize="isAuthenticated()">
-                    <h2>Logged In</h2>
-                    <h2>Hello, <span sec:authentication="name">null</span>!</h2>
-                </div>
-
+            <!-- Landing page for a logged-in user -->
+            <div id="main-with-sidebar" class="uk-padding" sec:authorize="isAuthenticated()">
+                <h2>Logged In</h2>
+                <h2>Hello, <span sec:authentication="name">null</span>!</h2>
             </div>
 
             <!-- Include the footer fragment -->

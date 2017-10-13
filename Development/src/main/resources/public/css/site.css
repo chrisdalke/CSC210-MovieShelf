@@ -15,3 +15,20 @@ html {
     font-size:34px;
     color: white;
 }
+
+#sidebar {
+    position: fixed;
+    top: 80px;
+    bottom: 0;
+    left: 0;
+    width: 240px;
+    box-sizing: border-box;
+    padding:20px;
+    background-color: black;
+    color: white;
+    overflow: hidden;
+}
+
+#main-with-sidebar {
+    margin-left:240px;
+}
