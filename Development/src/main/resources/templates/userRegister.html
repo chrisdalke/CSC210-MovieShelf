@@ -15,10 +15,14 @@
 
                 <div id="landing-sidebar" class="uk-card-secondary uk-card-hover uk-card-body">
                     <!-- TODO: Display a registration form here -->
-                    <p th:text="${message}"></p> <!-- added to receive message from controller -->
+                     <!-- added to receive message from controller -->
+
                     <form action="#" th:action="@{/user/register}" th:object="${user}" method="post">
                         <fieldset class="uk-fieldset">
                             <legend class="uk-legend">Sign Up</legend>
+
+                            <div class="uk-margin" th:if="${message}" th:text="${message}">
+                            </div>
 
                             <div class="uk-margin">
                                 <input class="uk-input" type="text" th:field="*{username}" placeholder="Username"/>
