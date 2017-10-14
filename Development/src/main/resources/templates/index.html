@@ -3,6 +3,9 @@
     <head th:include="fragments/header :: header">
     </head>
     <body>
+        <!-- Include the landing page background image fragment -->
+        <div th:include="fragments/landing-bg :: landing-bg"></div>
+
         <div class="uk-offcanvas-content uk-light">
 
             <!-- Include the nav fragment -->
@@ -12,7 +15,7 @@
             <div th:include="fragments/sidebar :: sidebar" sec:authorize="isAuthenticated()"></div>
 
             <!-- Landing Page for a not-logged-in user -->
-            <div class="uk-padding" sec:authorize="isAnonymous()">
+            <div class="uk-padding text-align-right" sec:authorize="isAnonymous()">
                 <h1>Index Page</h1>
 
                 <h2>Not Logged In</h2>
@@ -20,7 +23,7 @@
             </div>
 
             <!-- Landing page for a logged-in user -->
-            <div id="main-with-sidebar" class="uk-padding" sec:authorize="isAuthenticated()">
+            <div id="main-with-sidebar" class="uk-padding text-align-right" sec:authorize="isAuthenticated()">
                 <h2>Logged In</h2>
                 <h2>Hello, <span sec:authentication="name">null</span>!</h2>
             </div>
