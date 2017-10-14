@@ -3,6 +3,7 @@ package com.grup.movieshelf.Controller.API;
 import com.grup.movieshelf.JPA.Entity.*;
 import com.grup.movieshelf.JPA.Repository.RoleRepository;
 import com.grup.movieshelf.JPA.Repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 
 public class UserRegistrationController {
     //should handle user login
@@ -18,9 +19,10 @@ public class UserRegistrationController {
     // how to push User objects to UserRepository?
 
     @Autowired
-    private UserRepository users;
+    private UserRepository userRepository;
+
     @Autowired
-    private RoleRepository roles;
+    private RoleRepository roleRepository;
 
     public void register (User user) {
         //repository = user table?

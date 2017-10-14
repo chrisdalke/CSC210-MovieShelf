@@ -3,13 +3,15 @@
 <head th:include="fragments/header :: header">
 </head>
 <body>
+<!-- Include the landing page background image fragment -->
+<div th:include="fragments/landing-bg :: landing-bg"></div>
 <div class="uk-offcanvas-content uk-light">
 
     <!-- Include the nav fragment -->
     <div th:include="fragments/nav :: nav"></div>
 
     <!-- Display a really simple error page that doesn't even tell you which error happened -->
-    <div class="uk-padding">
+    <div class="uk-padding text-align-right">
         <h1>Error Page</h1>
         <p>An error has occurred. <a href="javascript:history.back()">Go Back</a></p>
     </div>
