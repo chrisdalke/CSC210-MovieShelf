@@ -16,7 +16,11 @@
                 <h1>Register Page</h1>
 
                 <!-- TODO: Display a registration form here -->
-
+                <form action="#" th:action="@{/userRegister}" th:object="${user}" method="post">
+    	            <p>Username: <input type="text" th:field="*{username}" /></p>
+                    <p>Password: <input type="text" th:field="*{password}" /></p>
+                    <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+                </form>
             </div>
 
             <!-- Include the footer fragment -->
