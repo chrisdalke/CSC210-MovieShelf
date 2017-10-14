@@ -3,8 +3,8 @@
     <head th:include="fragments/header :: header">
     </head>
     <body>
-        <!-- Include the landing page background image fragment -->
-        <div th:include="fragments/landing-bg :: landing-bg"></div>
+        <!-- Include the landing page background image fragment for unauthorized user -->
+        <div th:include="fragments/landing-bg :: landing-bg" sec:authorize="isAnonymous()"></div>
 
         <div class="uk-offcanvas-content uk-light">
 
