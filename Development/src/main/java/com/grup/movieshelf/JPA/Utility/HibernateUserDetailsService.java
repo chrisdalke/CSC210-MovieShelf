@@ -4,6 +4,7 @@ import com.grup.movieshelf.JPA.Entity.User;
 import com.grup.movieshelf.JPA.Repository.RoleRepository;
 import com.grup.movieshelf.JPA.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -21,6 +22,7 @@ public class HibernateUserDetailsService implements UserDetailsService {
    @Autowired
    private RoleRepository roleRepository;
 
+   @Lazy
    @Autowired
    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
@@ -39,4 +41,6 @@ public class HibernateUserDetailsService implements UserDetailsService {
       user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
       userRepository.save(user);
    }
+
+
 }
