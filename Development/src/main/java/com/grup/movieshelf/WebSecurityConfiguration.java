@@ -28,6 +28,9 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     @SuppressWarnings("SpringJavaAutowiringInspection")
     private UserDetailsService userDetailsService;
 
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
+
     @Bean
     @Override
     public AuthenticationManager authenticationManagerBean() throws Exception {
@@ -41,7 +44,8 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Bean
     public BCryptPasswordEncoder bCryptPasswordEncoder() {
-        return new BCryptPasswordEncoder();
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        return passwordEncoder;
     }
 
     @Bean
@@ -77,6 +81,6 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth
                 .userDetailsService(userDetailsService)
-                .passwordEncoder(new BCryptPasswordEncoder());
+                .passwordEncoder(bCryptPasswordEncoder);
     }
 }
