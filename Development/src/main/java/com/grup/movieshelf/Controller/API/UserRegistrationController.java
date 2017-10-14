@@ -5,6 +5,7 @@ import com.grup.movieshelf.JPA.Repository.RoleRepository;
 import com.grup.movieshelf.JPA.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
+@Controller
 public class UserRegistrationController {
     //should handle user login
     //link to account creation page
@@ -23,10 +24,25 @@ public class UserRegistrationController {
 
     @Autowired
     private RoleRepository roleRepository;
-
-    public void register (User user) {
-        //repository = user table?
-        //how to push to it?
-        //take user as input, or build in method?
+    
+    @GetMapping("/userRegister")
+    public String getUser (Model model) {
+        model.addAttribute("user", new User()); //builds user from form input provided by userRegister.html
+        return "userRegister";
+    }
+    
+    @PostMapping("/userRegister")
+    public String registerUser (@ModelAttribute User user) { //get the user object from before
+        if (userRepository.findByUsername(user.username) != NULL)
+        {
+            userRepository.save(user);
+            //print out success message - not SOPL, but to .html page?
+        }
+        else
+        {
+            //error message
+        }
+        
+        return "userRegister"; //return to a different page? maybe the home page?
     }
 }
