@@ -16,9 +16,4 @@ public class UserController {
     public String userOptionsEndpoint(Model model){
         return "userOptions";
     }
-
-    @RequestMapping("/user/register")
-    public String userRegisterEndpoint(Model model){
-        return "userRegister";
-    }
 }

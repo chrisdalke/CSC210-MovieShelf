@@ -37,7 +37,8 @@ html {
     bottom: 0;
     margin: 20px;
     background-color: rgba(34, 34, 34, 0.83);
-    padding:10px;
+    box-sizing: border-box;
+    padding:20px;
 }
 
 #main-with-sidebar {

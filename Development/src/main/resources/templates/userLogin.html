@@ -11,34 +11,44 @@
             <!-- Include the nav fragment -->
             <div th:include="fragments/nav :: nav"></div>
 
-            <div class="uk-padding text-align-right">
-
+            <div class="uk-padding">
 
                 <!-- Display a login form if the user is not already loggeed in -->
                 <div sec:authorize="isAnonymous()">
                     <div id="landing-sidebar" class="uk-card-secondary uk-card-hover uk-card-body">
-                        <div class="uk-card-header">
-                            <h1>Login Page</h1>
-                        </div>
-                        <div class="uk-card-body">
-                            <div th:if="${param.error}">
-                                Invalid username and password.
-                            </div>
-                            <div th:if="${param.logout}">
-                                You have been logged out.
-                            </div>
-                            <form th:action="@{/login}" method="post" class="uk-form-stacked">
-                                <div class="uk-inline uk-width-1-1">
-                                    <span class="uk-form-icon" uk-icon="icon: user"></span>
-                                    <input class="uk-input" type="text" name="username" placeholder="Username"/>
+                        <form th:action="@{/login}" method="post">
+                            <fieldset class="uk-fieldset">
+
+                                <legend class="uk-legend">Sign In</legend>
+
+                                <div class="uk-margin">
+                                    <div th:if="${param.error}">
+                                        Invalid username and password.
+                                    </div>
+                                    <div th:if="${param.logout}">
+                                        You have been logged out.
+                                    </div>
                                 </div>
-                                <div class="uk-inline uk-width-1-1">
-                                    <span class="uk-form-icon" uk-icon="icon: lock"></span>
-                                    <input class="uk-input" type="password" name="password" placeholder="Password"/>
+
+                                <div class="uk-margin">
+                                    <div class="uk-inline uk-width-1-1">
+                                        <span class="uk-form-icon" uk-icon="icon: user"></span>
+                                        <input class="uk-input" type="text" name="username" placeholder="Username"/>
+                                    </div>
                                 </div>
-                                <div><input class="uk-width-1-1 uk-button uk-button-default" type="submit" value="Sign In"/></div>
-                            </form>
-                        </div>
+
+                                <div class="uk-margin">
+                                    <div class="uk-inline uk-width-1-1">
+                                        <span class="uk-form-icon" uk-icon="icon: lock"></span>
+                                        <input class="uk-input" type="password" name="password" placeholder="Password"/>
+                                    </div>
+                                </div>
+
+                                <div class="uk-margin">
+                                    <input class="uk-width-1-1 uk-button uk-button-default" type="submit" value="Sign In"/>
+                                </div>
+                            </fieldset>
+                        </form>
                     </div>
                 </div>
 
