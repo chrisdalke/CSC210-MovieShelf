@@ -4,6 +4,11 @@ import com.grup.movieshelf.JPA.Entity.*;
 import com.grup.movieshelf.JPA.Repository.RoleRepository;
 import com.grup.movieshelf.JPA.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class UserRegistrationController {
@@ -24,22 +29,19 @@ public class UserRegistrationController {
 
     @Autowired
     private RoleRepository roleRepository;
-    
-    @GetMapping("/userRegister")
+
+    @GetMapping("/user/register")
     public String getUser (Model model) {
         model.addAttribute("user", new User()); //builds user from form input provided by userRegister.html
         return "userRegister";
     }
     
-    @PostMapping("/userRegister")
+    @PostMapping("/user/register")
     public String registerUser (@ModelAttribute User user) { //get the user object from before
-        if (userRepository.findByUsername(user.username) != NULL)
-        {
+        if (userRepository.findByUsername(user.getUsername()) == null) {
             userRepository.save(user);
             //print out success message - not SOPL, but to .html page?
-        }
-        else
-        {
+        } else {
             //error message
         }
         

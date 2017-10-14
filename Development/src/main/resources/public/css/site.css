@@ -29,12 +29,24 @@ html {
     overflow: hidden;
 }
 
+#landing-sidebar {
+    position: fixed;
+    max-width: 300px;
+    right: 0;
+    top: 80px;
+    bottom: 0;
+    margin: 20px;
+    background-color: rgba(34, 34, 34, 0.83);
+    padding:10px;
+}
+
 #main-with-sidebar {
     margin-left:240px;
 }
 
 #nav {
     background-color: rgba(34, 34, 34, 0.83);
+    height: 80px;
 }
 
 #landing-bg {
