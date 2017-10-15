@@ -38,4 +38,5 @@ dependencies {
 	compile('org.springframework.boot:spring-boot-starter-web')
 	compile('org.springframework.boot:spring-boot-starter-websocket')
 	compileOnly 'org.projectlombok:lombok:1.16.18'
+	compile("com.h2database:h2")
 }

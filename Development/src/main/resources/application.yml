@@ -1,9 +1,13 @@
 spring:
   datasource:
-    username: chrisdal_csc210
-    password: csc210final
-    url: jdbc:mysql://208.131.135.17/chrisdal_csc210_final?useUnicode=true&useLegacyDatetimeCode=false&serverTimezone=UTC
-    driver-class-name: com.mysql.cj.jdbc.Driver
+    #username: chrisdal_csc210
+    #password: csc210final
+    #url: jdbc:mysql://208.131.135.17/chrisdal_csc210_final?useUnicode=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+    #driver-class-name: com.mysql.cj.jdbc.Driver
+    username: sa
+    password: sa
+    url: jdbc:h2:mem:db;DB_CLOSE_DELAY=-1
+    driver-class-name: org.h2.Driver
   thymeleaf:
     cache: false
   jpa:
