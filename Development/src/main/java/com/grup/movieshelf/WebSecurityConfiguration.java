@@ -1,5 +1,6 @@
 package com.grup.movieshelf;
 
+import com.grup.movieshelf.JPA.Utility.HibernateSecurityService;
 import com.grup.movieshelf.JPA.Utility.HibernateUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -35,6 +36,11 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Bean
     public UserDetailsService userDetailsService(){
         return new HibernateUserDetailsService();
+    }
+
+    @Bean
+    public HibernateSecurityService hibernateSecurityService(){
+        return new HibernateSecurityService();
     }
 
     @Bean
