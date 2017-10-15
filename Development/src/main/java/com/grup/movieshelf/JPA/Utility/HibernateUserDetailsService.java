@@ -19,6 +19,9 @@ import java.util.HashSet;
 public class HibernateUserDetailsService implements UserDetailsService {
 
    @Autowired
+   HibernateSecurityService hibernateSecurityService;
+
+   @Autowired
    private UserRepository userRepository;
 
    @Autowired
@@ -45,6 +48,24 @@ public class HibernateUserDetailsService implements UserDetailsService {
    public void saveNewUser(User user) {
       user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
       userRepository.save(user);
+   }
+
+   /*
+   Gets the options for the current user.
+    */
+   public UserOptions getUserOptionsForUser(){
+      User user = hibernateSecurityService.getLoggedInUser();
+      if (user == null){
+         return null;
+      }
+
+      UserOptions userOptions = userOptionsRepository.findByUserId(user.getUserId());
+
+      if(userOptions == null) {
+         userOptions = new UserOptions(user);
+      }
+
+      return userOptions;
    }
 
    public void saveUserOptions(UserOptions userOptions) {

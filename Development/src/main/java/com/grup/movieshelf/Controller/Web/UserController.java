@@ -16,40 +16,41 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class UserController {
 
-    @Autowired
-    HibernateSecurityService hibernateSecurityService;
 
     @Autowired
     private HibernateUserDetailsService hibernateUserDetailsService;
 
-    @Autowired
-    UserOptionsRepository userOptionsRepository;
 
     @RequestMapping("/login")
     public String userLoginEndpoint(Model model){
         return "userLogin";
     }
 
+    /*
+    Displays the user profile.
+     */
+    @GetMapping("/user/profile")
+    public String displayUserProfile(Model model){
+        UserOptions userOptions = hibernateUserDetailsService.getUserOptionsForUser();
+        model.addAttribute("userProfile", userOptions);
+        return "userProfile";
+    }
+
+    /*
+    Allows the user to edit their profile.
+     */
     @GetMapping("/user/options")
     public String displayUserOptions(Model model) {
-        User user = hibernateSecurityService.getLoggedInUser();
-        UserOptions userOptions = userOptionsRepository.findByUserId(user.getUserId());
-        if (userOptions == null){
-            userOptions = new UserOptions(user);
-        }
+        UserOptions userOptions = hibernateUserDetailsService.getUserOptionsForUser();
         model.addAttribute("userOptions", userOptions);
         return "userOptions";
     }
 
+
     @PostMapping("/user/options")
     public String saveUserOptions(Model model, @ModelAttribute UserOptions userOptionsFormData) {
 
-        User user = hibernateSecurityService.getLoggedInUser();
-        UserOptions userOptions = userOptionsRepository.findByUserId(user.getUserId());
-
-        if(userOptions == null) {
-            userOptions = new UserOptions(user);
-        }
+        UserOptions userOptions = hibernateUserDetailsService.getUserOptionsForUser();
 
         String displayName = userOptionsFormData.getDisplayName();
         String primaryLanguage = userOptionsFormData.getPrimaryLanguage();
@@ -68,6 +69,8 @@ public class UserController {
         hibernateUserDetailsService.saveUserOptions(userOptions);
         model.addAttribute("message", "Successfully saved user options.");
 
-        return "userOptions";
+        //return "userOptions";
+        return "redirect:/user/profile";
     }
+
 }

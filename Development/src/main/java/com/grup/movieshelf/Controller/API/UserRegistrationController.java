@@ -29,6 +29,7 @@ public class UserRegistrationController {
     @GetMapping("/user/register")
     public String getUser (Model model) {
         model.addAttribute("user", new User()); //builds user from form input provided by userRegister.html
+        model.addAttribute("showForm",true);
         return "userRegister";
     }
     
@@ -39,10 +40,12 @@ public class UserRegistrationController {
         {
             hibernateUserDetailsService.saveNewUser(user);
             model.addAttribute("message", "Account made successfully.");
+            model.addAttribute("showForm",false);
         }
         else
         {
             model.addAttribute("message", "Account creation failed. Username already exists.");
+            model.addAttribute("showForm",true);
         }
         
         return "userRegister"; //return to a different page? maybe the home page?
