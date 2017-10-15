@@ -23,17 +23,8 @@ public class HibernateSecurityService {
     private UserRepository userRepository;
 
     public User getLoggedInUser() {
-        Object userDetails = SecurityContextHolder.getContext().getAuthentication().getDetails();
-        if (userDetails instanceof User) {
-            return ((User)userDetails);
-        } else {
-            if (userDetails instanceof UserDetails){
-                String username = ((UserDetails) userDetails).getUsername();
-                return userRepository.findByUsername(username);
-            } else {
-                return null;
-            }
-        }
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        return userRepository.findByUsername(username);
     }
 
     public void autologin(String username, String password) {

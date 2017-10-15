@@ -1,7 +1,9 @@
 package com.grup.movieshelf.JPA.Utility;
 
 import com.grup.movieshelf.JPA.Entity.User;
+import com.grup.movieshelf.JPA.Entity.UserOptions;
 import com.grup.movieshelf.JPA.Repository.RoleRepository;
+import com.grup.movieshelf.JPA.Repository.UserOptionsRepository;
 import com.grup.movieshelf.JPA.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
@@ -18,6 +20,9 @@ public class HibernateUserDetailsService implements UserDetailsService {
 
    @Autowired
    private UserRepository userRepository;
+
+   @Autowired
+   private UserOptionsRepository userOptionsRepository;
 
    @Autowired
    private RoleRepository roleRepository;
@@ -42,5 +47,7 @@ public class HibernateUserDetailsService implements UserDetailsService {
       userRepository.save(user);
    }
 
-
+   public void saveUserOptions(UserOptions userOptions) {
+      userOptionsRepository.save(userOptions);
+   }
 }
