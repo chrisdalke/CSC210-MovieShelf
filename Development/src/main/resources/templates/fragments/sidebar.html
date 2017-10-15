@@ -1,7 +1,12 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
     <div th:fragment="sidebar">
          <div id="sidebar">
-
+             <ul class="uk-nav-default" uk-nav>
+                 <li class="uk-nav-header">Pages</li>
+                 <li class="uk-nav-divider"></li>
+                 <li><a href="/"><span class="uk-margin-small-right" uk-icon="icon: home"></span> My Shelf</a></li>
+                 <li><a href="/user/options"><span class="uk-margin-small-right" uk-icon="icon: user"></span> My Profile</a></li>
+             </ul>
          </div>
     </div>
 </html>
