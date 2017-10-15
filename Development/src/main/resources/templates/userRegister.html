@@ -24,15 +24,15 @@
                             <div class="uk-margin" th:if="${message}" th:text="${message}">
                             </div>
 
-                            <div class="uk-margin">
+                            <div class="uk-margin" th:if="${showForm}">
                                 <input class="uk-input" type="text" th:field="*{username}" placeholder="Username"/>
                             </div>
 
-                            <div class="uk-margin">
+                            <div class="uk-margin" th:if="${showForm}">
                                 <input class="uk-input" type="text" th:field="*{password}" placeholder="Password"/>
                             </div>
 
-                            <div class="uk-margin">
+                            <div class="uk-margin" th:if="${showForm}">
                                 <input class="uk-width-1-1 uk-button uk-button-default" type="submit" value="Register"/>
                             </div>
                         </fieldset>
