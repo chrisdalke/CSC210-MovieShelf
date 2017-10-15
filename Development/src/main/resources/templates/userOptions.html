@@ -14,7 +14,28 @@
     <!-- Landing page for a logged-in user -->
     <div id="main-with-sidebar" class="uk-padding">
         <h2>User Options</h2>
-        <h2>User account: <span sec:authentication="name">null</span>!</h2>
+        <p th:text="${message}"></p> <!-- added to receive message from controller -->
+
+        <form action="#" th:action="@{/user/options}" th:object="${userOptions}" method="post">
+            <fieldset class="uk-fieldset">
+
+                <div class="uk-margin">
+                    <input class="uk-input" type="text" th:field="*{displayName}" placeholder="Display Name"/>
+                </div>
+
+                <div class="uk-margin">
+                    <input class="uk-input" type="text" th:field="*{primaryLanguage}" placeholder="Primary Language"/>
+                </div>
+
+                <div class="uk-margin">
+                    <input class="uk-input" type="text" th:field="*{birthdate}" placeholder="Birth Date"/>
+                </div>
+
+                <div class="uk-margin">
+                    <input class="uk-width-1-1 uk-button uk-button-default" type="submit" value="Save"/>
+                </div>
+            </fieldset>
+        </form>
     </div>
 
     <!-- Include the footer fragment -->
