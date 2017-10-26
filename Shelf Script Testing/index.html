@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    	<link rel="stylesheet" href="css/uikit.min.css" />
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="js/uikit.min.js"></script>
+        <script src="js/uikit-icons.min.js"></script>
+        <style>
+           html {
+                background-image:
+                    url('popcorn.jpg');
+                background-size:     cover;                    
+                background-repeat:   no-repeat;
+               
+                }
+            #welcome{
+                 background:
+            }
+        </style>
+    </head>
+    <body>
+        <nav class="uk-navbar-container" uk-navbar>
+            <div class="uk-navbar-left">
+                <ul class="uk-navbar-nav">
+                    <li class="uk-active"><a href="index.html">Login</a></li>
+                    <li><a href="movies.html">Movies</a></li>
+                    <li><a href="#">Groups</a></li>
+                </ul>
+
+            </div>
+            <div class="uk-navbar-right">
+            <form action="javascript:void(0)">
+                <input class="uk-input uk-form-width-small" type="text" placeholder="Username">
+                <input class="uk-input uk-form-width-small" type="text" placeholder="Password">
+                <button class="uk-button uk-button-default">Login</button>
+            </form>
+                <div class="uk-padding-small"</div>
+            </div>
+        </nav>
+        <div class="uk-overlay uk-overlay-primary uk-position-bottom uk-dark">
+                <h1>Welcome to MovieShelf</h1>
+                <p> Please log in to continue</p>
+        </div>
+    </body>
+</html>
