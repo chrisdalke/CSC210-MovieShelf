@@ -1,0 +1,12 @@
+.card {
+                background-image: url("../inception.jpg");
+                background-size:     cover;                    
+                background-position: center;
+                }
+ html {
+                background-color: black;
+                background-image:
+                   url('../shelving.jpg');
+                background-position: top;
+                background-repeat: repeat-y;
+            }

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="css/uikit.min.css" />
+        <link rel="stylesheet" type="text/css" href="css/main.css" />
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="js/uikit.min.js"></script>
+        <script src="js/uikit-icons.min.js"></script>
+        <script src="js/movieShelf.js"></script>
+    </head>
+    <body>
+            <nav class="uk-navbar-container" uk-navbar>
+                <div class="uk-navbar-left">
+                    <ul class="uk-navbar-nav">
+                        <li><a href="index.html">Login</a></li>
+                        <li class="uk-active"><a href="movies.html">Movies</a></li>
+                        <li><a href="groups.html">Groups</a></li>
+                    </ul>
+                </div>
+                <div class="uk-navbar-right">
+                    <button class="uk-button uk-button-default" onclick="addGrid()">Add</button>
+                    <div class="uk-padding-small"></div>
+                </div>
+            </nav>
+            <div id="gridElement">
+                <div class="uk-grid-match uk-child-width-1-4 uk-grid-small uk-text-center uk-padding-large grid" id="grid" value="1" uk-grid>
+                    <div>
+                        <div class="uk-card uk-card-secondary uk-card-body uk-height-large card"></div>
+                    </div>
+                </div>
+            </div>
+    </body>
+</html>
