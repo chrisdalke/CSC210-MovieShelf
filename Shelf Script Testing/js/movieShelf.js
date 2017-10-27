@@ -15,7 +15,7 @@ function addToGrid() {
 */
 
 function addToGrid(grid){
-    var outerDiv=$("<div><div>");
+    var outerDiv=$("<div></div>");
     var card=$("<div></div>");
     card.addClass("uk-card uk-card-secondary uk-height-large uk-card-body card");
     outerDiv.append(card);
@@ -23,9 +23,9 @@ function addToGrid(grid){
 }
 
 function addNewGrid(master){
-    var newGrid=$("<div uk-grid><div>");
-    newGrid.addClass("uk-grid-match uk-child-width-1-4 uk-grid-small uk-text-center uk-padding-large grid");
+    var newGrid=$("<div uk-grid></div>");
     newGrid.attr("data-value","1");
+    newGrid.addClass("uk-grid-match uk-child-width-1-4 uk-grid-small uk-text-center uk-padding-large grid");
     addToGrid(newGrid);
     master.append(newGrid);
 }
