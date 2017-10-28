@@ -2,7 +2,9 @@ package com.grup.movieshelf.Controller.Web;
 
 import com.grup.movieshelf.JPA.Entity.User;
 import com.grup.movieshelf.JPA.Entity.UserOptions;
+import com.grup.movieshelf.JPA.Repository.RoleRepository;
 import com.grup.movieshelf.JPA.Repository.UserOptionsRepository;
+import com.grup.movieshelf.JPA.Repository.UserRepository;
 import com.grup.movieshelf.JPA.Utility.HibernateSecurityService;
 import com.grup.movieshelf.JPA.Utility.HibernateUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +18,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class UserController {
 
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private RoleRepository roleRepository;
 
     @Autowired
     private HibernateUserDetailsService hibernateUserDetailsService;
@@ -71,6 +78,31 @@ public class UserController {
 
         //return "userOptions";
         return "redirect:/user/profile";
+    }
+
+    @GetMapping("/user/register")
+    public String getUser (Model model) {
+        model.addAttribute("user", new User()); //builds user from form input provided by userRegister.html
+        model.addAttribute("showForm",true);
+        return "userRegister";
+    }
+
+    @PostMapping("/user/register")
+    public String registerUser (Model model, @ModelAttribute User user) { //get the user object from before
+
+        if (userRepository.findByUsername(user.getUsername()) == null)
+        {
+            hibernateUserDetailsService.saveNewUser(user);
+            model.addAttribute("message", "Account made successfully.");
+            model.addAttribute("showForm",false);
+        }
+        else
+        {
+            model.addAttribute("message", "Account creation failed. Username already exists.");
+            model.addAttribute("showForm",true);
+        }
+
+        return "userRegister"; //return to a different page? maybe the home page?
     }
 
 }
