@@ -36,7 +36,7 @@ public class UserController {
     /*
     Displays the user profile.
      */
-    @GetMapping("/user/profile")
+    @RequestMapping("/user/profile")
     public String displayUserProfile(Model model){
         UserOptions userOptions = hibernateUserDetailsService.getUserOptionsForUser();
         model.addAttribute("userProfile", userOptions);
