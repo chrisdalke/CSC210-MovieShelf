@@ -52,12 +52,12 @@ public class HibernateUserDetailsService implements UserDetailsService {
       userRepository.save(user);
    }
 
-   public void addTitleToShelf(Integer titleId) {
+   public void addTitleToShelf(String titleId) {
        User user = hibernateSecurityService.getLoggedInUser();
        user.getTitles().add(titleRepository.getTitleByTitleId(titleId));
    }
 
-   public void removeTitleFromShelf(Integer titleId) {
+   public void removeTitleFromShelf(String titleId) {
        User user = hibernateSecurityService.getLoggedInUser();
        // not sure if this will work yet, still have to test
        user.getTitles().remove(titleRepository.getTitleByTitleId(titleId));
