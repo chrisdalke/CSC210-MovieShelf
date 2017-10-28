@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head th:include="fragments/header :: header">
+</head>
+<body>
+<div class="uk-offcanvas-content uk-light">
+
+    <!-- Include the nav fragment -->
+    <div th:include="fragments/nav :: nav"></div>
+
+    <!-- Include the sidebar fragment -->
+    <div th:include="fragments/sidebar :: sidebar"></div>
+
+    <!-- Landing page for a logged-in user -->
+    <div id="main-with-sidebar" class="uk-padding">
+
+        <h2>Session History</h2>
+        <p>You have not been a part of any sessions.</p>
+    </div>
+
+    <!-- Include the footer fragment -->
+    <div th:include="fragments/footer :: footer"></div>
+</div>
+</body>
+</html>

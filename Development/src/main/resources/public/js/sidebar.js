@@ -1,0 +1,3 @@
+$("#create-session").click(function(){
+
+});
