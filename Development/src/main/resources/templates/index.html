@@ -29,6 +29,16 @@
                 <h4>My Shelf</h4>
                 <p>You do not have any favorite movies yet! Add some movies to your shelf to start finding suggestions.</p>
 
+                <form th:action="@{/shelf/addMovie}" th:object="${String}" method="post">
+                    <fieldset class="uk-fieldset">
+                        <div class="uk-margin">
+                            <input class="uk-input" type="text" placeholder="Title ID"/>
+                        </div>
+                        <div class="uk-margin">
+                            <input class="uk-width-1-1 uk-button uk-button-default" type="submit" value="Add Movie"/>
+                        </div>
+                    </fieldset>
+                </form>
             </div>
 
             <!-- Include the footer fragment -->

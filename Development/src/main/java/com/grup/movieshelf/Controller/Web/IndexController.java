@@ -5,6 +5,7 @@ import com.grup.movieshelf.JPA.Utility.HibernateUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
@@ -28,5 +29,12 @@ public class IndexController {
         model.addAttribute("userProfile", userOptions);
 
         return "index";
+    }
+
+    @PostMapping("/shelf/addMovie")
+    public String addTitle (Model model, String titleId) {
+        hibernateUserDetailsService.addTitleToShelf(titleId);
+
+        return "redirect:/";
     }
 }

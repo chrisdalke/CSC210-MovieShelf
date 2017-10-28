@@ -3,9 +3,7 @@ package com.grup.movieshelf.Controller.Web;
 import com.grup.movieshelf.JPA.Entity.Users.User;
 import com.grup.movieshelf.JPA.Entity.Users.UserOptions;
 import com.grup.movieshelf.JPA.Repository.RoleRepository;
-import com.grup.movieshelf.JPA.Repository.UserOptionsRepository;
 import com.grup.movieshelf.JPA.Repository.UserRepository;
-import com.grup.movieshelf.JPA.Utility.HibernateSecurityService;
 import com.grup.movieshelf.JPA.Utility.HibernateUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -26,7 +24,6 @@ public class UserController {
 
     @Autowired
     private HibernateUserDetailsService hibernateUserDetailsService;
-
 
     @RequestMapping("/login")
     public String userLoginEndpoint(Model model){
@@ -104,5 +101,4 @@ public class UserController {
 
         return "userRegister"; //return to a different page? maybe the home page?
     }
-
 }
