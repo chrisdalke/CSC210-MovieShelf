@@ -3,10 +3,19 @@
                 background-size:     cover;                    
                 background-position: center;
                 }
+
  html {
-                background-color: black;
+                background-color: rgb(223,198,162);
+     /*
                 background-image:
                    url('../shelving.jpg');
                 background-position: top;
                 background-repeat: repeat-y;
+     */
+
             }
+.grid {
+                background-image: url("../shelving.png");
+                background-size:     cover;                    
+                background-position: center;
+}
