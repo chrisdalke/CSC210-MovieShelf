@@ -4,10 +4,34 @@
              <ul class="uk-nav-default" uk-nav>
                  <li class="uk-nav-header">Pages</li>
                  <li class="uk-nav-divider"></li>
+                 <li>
+                     <button id="create-session" class="uk-button uk-button-primary uk-width-1-1" href="#modal-create-session" uk-toggle>Create Session</button>
+                 </li>
+                 <li>
+                     <a href="/sessions/history"><button class="uk-button uk-button-text uk-width-1-1">Previous Sessions</button></a>
+                 </li>
+                 <li class="uk-nav-divider"></li>
                  <li><a href="/"><span class="uk-margin-small-right" uk-icon="icon: home"></span> My Shelf</a></li>
                  <li><a href="/user/profile"><span class="uk-margin-small-right" uk-icon="icon: user"></span> My Profile</a></li>
                  <li class="uk-nav-divider"></li>
                  <li><a href="/logout"><span class="uk-margin-small-right" uk-icon="icon: sign-out"></span> Logout</a></li>
+
+                 <div id="modal-create-session" class="uk-flex-top" uk-modal>
+                     <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical">
+                         <button class="uk-modal-close-default" type="button" uk-close></button>
+                             <form class="uk-form-stacked">
+                                 <div class="uk-modal-header">
+                                     <h2 class="uk-modal-title">Create Session</h2>
+                                 </div>
+                                 <div class="uk-modal-body"></div>
+                                 <div class="uk-modal-footer">
+                                     <button class="uk-button uk-button-default uk-modal-close" type="button">Cancel</button>
+                                     <button class="uk-button uk-button-primary" type="button">Create</button>
+                                 </div>
+                         </form>
+                     </div>
+                 </div>
+
              </ul>
          </div>
     </div>
