@@ -1,5 +1,6 @@
-package com.grup.movieshelf.JPA.Entity;
+package com.grup.movieshelf.JPA.Entity.Users;
 
+import com.grup.movieshelf.JPA.Entity.Movies.Title;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
@@ -40,6 +41,12 @@ public class User implements Comparable<User>, Serializable, UserDetails {
             inverseJoinColumns = { @JoinColumn(referencedColumnName = "roleName")},
             joinColumns = { @JoinColumn( referencedColumnName = "userId")})
     private Set<Role> roles = new HashSet< Role >();
+
+    @OneToMany(targetEntity = Title.class, fetch = FetchType.EAGER)
+    @JoinTable(name = "UsersTitles",
+            inverseJoinColumns = { @JoinColumn(referencedColumnName = "tconst")},
+            joinColumns = { @JoinColumn(referencedColumnName = "userId")})
+    private Set<Title> titles = new HashSet<>();
 
     @CreationTimestamp
     @Column(name = "created")

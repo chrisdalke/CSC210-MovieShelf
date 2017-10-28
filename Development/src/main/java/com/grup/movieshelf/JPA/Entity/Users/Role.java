@@ -1,12 +1,10 @@
-package com.grup.movieshelf.JPA.Entity;
+package com.grup.movieshelf.JPA.Entity.Users;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.domain.Sort;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Set;
 
 @Entity
 @Table(name = "Roles")
