@@ -1,6 +1,6 @@
 package com.grup.movieshelf.JPA.Repository;
 
-import com.grup.movieshelf.JPA.Entity.UserOptions;
+import com.grup.movieshelf.JPA.Entity.Users.UserOptions;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

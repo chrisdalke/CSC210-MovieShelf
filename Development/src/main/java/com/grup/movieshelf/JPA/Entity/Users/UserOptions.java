@@ -1,4 +1,4 @@
-package com.grup.movieshelf.JPA.Entity;
+package com.grup.movieshelf.JPA.Entity.Users;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,7 +9,6 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
-import java.util.Date;
 
 @Entity
 @Table(name = "UserOptions")

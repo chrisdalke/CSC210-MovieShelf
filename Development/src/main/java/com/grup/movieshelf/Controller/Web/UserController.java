@@ -1,7 +1,7 @@
 package com.grup.movieshelf.Controller.Web;
 
-import com.grup.movieshelf.JPA.Entity.User;
-import com.grup.movieshelf.JPA.Entity.UserOptions;
+import com.grup.movieshelf.JPA.Entity.Users.User;
+import com.grup.movieshelf.JPA.Entity.Users.UserOptions;
 import com.grup.movieshelf.JPA.Repository.RoleRepository;
 import com.grup.movieshelf.JPA.Repository.UserOptionsRepository;
 import com.grup.movieshelf.JPA.Repository.UserRepository;

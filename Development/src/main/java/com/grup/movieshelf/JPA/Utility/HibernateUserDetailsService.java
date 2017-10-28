@@ -1,8 +1,9 @@
 package com.grup.movieshelf.JPA.Utility;
 
-import com.grup.movieshelf.JPA.Entity.User;
-import com.grup.movieshelf.JPA.Entity.UserOptions;
+import com.grup.movieshelf.JPA.Entity.Users.User;
+import com.grup.movieshelf.JPA.Entity.Users.UserOptions;
 import com.grup.movieshelf.JPA.Repository.RoleRepository;
+import com.grup.movieshelf.JPA.Repository.TitleRepository;
 import com.grup.movieshelf.JPA.Repository.UserOptionsRepository;
 import com.grup.movieshelf.JPA.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,8 +13,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import java.util.HashSet;
 
 @Service
 public class HibernateUserDetailsService implements UserDetailsService {
@@ -26,6 +25,9 @@ public class HibernateUserDetailsService implements UserDetailsService {
 
    @Autowired
    private UserOptionsRepository userOptionsRepository;
+
+   @Autowired
+   private TitleRepository titleRepository;
 
    @Autowired
    private RoleRepository roleRepository;
@@ -48,6 +50,17 @@ public class HibernateUserDetailsService implements UserDetailsService {
    public void saveNewUser(User user) {
       user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
       userRepository.save(user);
+   }
+
+   public void addTitleToShelf(Integer titleId) {
+       User user = hibernateSecurityService.getLoggedInUser();
+       user.getTitles().add(titleRepository.getTitleByTitleId(titleId));
+   }
+
+   public void removeTitleFromShelf(Integer titleId) {
+       User user = hibernateSecurityService.getLoggedInUser();
+       // not sure if this will work yet, still have to test
+       user.getTitles().remove(titleRepository.getTitleByTitleId(titleId));
    }
 
    /*

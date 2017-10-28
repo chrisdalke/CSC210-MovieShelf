@@ -1,6 +1,6 @@
 package com.grup.movieshelf.JPA.Utility;
 
-import com.grup.movieshelf.JPA.Entity.User;
+import com.grup.movieshelf.JPA.Entity.Users.User;
 import com.grup.movieshelf.JPA.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
