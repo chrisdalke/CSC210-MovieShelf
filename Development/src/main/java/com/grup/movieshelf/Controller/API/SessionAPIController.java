@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class SessionAPIController {
 
-    @PostMapping
     public void sessionCreate(){
 
     }
