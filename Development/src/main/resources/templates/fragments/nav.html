@@ -9,11 +9,16 @@
             </div>
 
             <div class="uk-navbar-right" >
-                <!--
+
                 <ul class="uk-navbar-nav" sec:authorize="isAuthenticated()">
-                    <li><a href="/logout">Logout</a></li>
+                    <!--<li><a href="/logout">Logout</a></li>-->
+                    <li>
+                        <form class="uk-search uk-search-default">
+                            <a href="" class="uk-search-icon-flip" uk-search-icon></a>
+                            <input class="uk-search-input" type="search" placeholder="Search Movies...">
+                        </form>
+                    </li>
                 </ul>
-                -->
                 <ul class="uk-navbar-nav" sec:authorize="isAnonymous()">
                     <li><a href="/login">Login</a></li>
                 </ul>

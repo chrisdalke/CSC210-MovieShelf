@@ -46,6 +46,9 @@ html {
 
 #main-with-sidebar {
     margin-left:240px;
+    /*background-image: url("/img/shelving.png");
+    background-repeat: repeat-y;
+    background-size: contain;*/
 }
 
 #nav {

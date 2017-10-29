@@ -63,6 +63,8 @@ public class HibernateUserDetailsService implements UserDetailsService {
        User user = hibernateSecurityService.getLoggedInUser();
        // not sure if this will work yet, still have to test
        user.getTitles().remove(titleRepository.getByTitleId(titleId));
+      System.out.println(user.getTitles());
+      userRepository.save(user);
    }
 
    /*

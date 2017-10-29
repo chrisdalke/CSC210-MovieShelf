@@ -27,18 +27,29 @@
                 <h2>Hello, <span th:text="${userProfile.getDisplayName()}">null</span>!</h2>
                 <hr>
                 <h4>My Shelf</h4>
-                <p>You do not have any favorite movies yet! Add some movies to your shelf to start finding suggestions.</p>
+                <p>Add some movies to your shelf to start finding suggestions.</p>
+                <p>Examples: tt1375666 - Inception<br>tt0816692 - Interstellar<br>tt3659388 - The Martian</p>
 
                 <form th:action="@{/shelf/addMovie}" th:object="${String}" method="post">
                     <fieldset class="uk-fieldset">
                         <div class="uk-margin">
-                            <input class="uk-input" type="text" placeholder="Title ID"/>
+                            <input class="uk-input" type="text" name="titleId" id="titleId" placeholder="Title ID"/>
                         </div>
                         <div class="uk-margin">
                             <input class="uk-width-1-1 uk-button uk-button-default" type="submit" value="Add Movie"/>
                         </div>
                     </fieldset>
                 </form>
+
+                <p>Your movie list:</p>
+                <table class="table table-bordered">
+                    <tr th:each="title : ${userData.getTitles()}" th:object="${title}">
+                        <td>
+                            <span th:text="${title.getTitleName()}"></span>
+                            <a th:href="'/shelf/removeMovie/'+${title.getTitleId()}">(Remove)</a>
+                        </td>
+                    </tr>
+                </table>
             </div>
 
             <!-- Include the footer fragment -->
