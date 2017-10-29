@@ -54,27 +54,33 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
         return new SpringSecurityDialect();
     }
 
+    private static final String[] STATIC_FILES = {"/css/**", "/img/**", "/js/**", "/fonts/**"};
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
                     .antMatchers("/").permitAll()
                     .antMatchers("/user/register").permitAll()
+                    .antMatchers(STATIC_FILES).permitAll()
                     .anyRequest().authenticated()
                     .and()
                 .formLogin()
                     .loginPage("/login").permitAll()
                     .and()
                 .logout()
+                .deleteCookies("remember-me")
                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                .logoutSuccessUrl("/");
+                .logoutSuccessUrl("/")
+                .and()
+                .rememberMe();
     }
 
     // Ignore static files
     @Override
     public void configure(WebSecurity web) throws Exception {
         web.ignoring()
-                .antMatchers("/css/**", "/img/**", "/js/**", "/fonts/**");
+                .antMatchers(STATIC_FILES);
     }
 
     // Defines where login authentication is checked against. For now this is a placeholder.
