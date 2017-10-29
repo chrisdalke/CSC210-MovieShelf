@@ -18,7 +18,7 @@ public class Title implements Comparable<Title>, Serializable {
 
     @Id
     @Column(name = "tconst", unique = true, updatable = false)
-    private Integer titleId;
+    private String titleId;
 
     @NotNull
     @Column(name = "primaryTitle", unique = false, updatable = false)
