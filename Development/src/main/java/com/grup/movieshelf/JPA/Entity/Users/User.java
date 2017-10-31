@@ -42,12 +42,6 @@ public class User implements Comparable<User>, Serializable, UserDetails {
             joinColumns = { @JoinColumn( referencedColumnName = "userId")})
     private Set<Role> roles = new HashSet< Role >();
 
-    @OneToMany(targetEntity = Title.class, fetch = FetchType.EAGER)
-    @JoinTable(name = "UsersTitles",
-            inverseJoinColumns = { @JoinColumn(referencedColumnName = "tconst")},
-            joinColumns = { @JoinColumn(referencedColumnName = "userId")})
-    private Set<Title> titles = new HashSet<>();
-
     @CreationTimestamp
     @Column(name = "created")
     private Timestamp dateCreated = Timestamp.from(Instant.now());
