@@ -2,8 +2,8 @@ package com.grup.movieshelf.Controller.Web;
 
 import com.grup.movieshelf.JPA.Entity.Users.User;
 import com.grup.movieshelf.JPA.Entity.Users.UserOptions;
-import com.grup.movieshelf.JPA.Repository.RoleRepository;
-import com.grup.movieshelf.JPA.Repository.UserRepository;
+import com.grup.movieshelf.JPA.Repository.User.RoleRepository;
+import com.grup.movieshelf.JPA.Repository.User.UserRepository;
 import com.grup.movieshelf.JPA.Utility.HibernateUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

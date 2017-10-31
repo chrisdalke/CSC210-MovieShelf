@@ -1,6 +1,9 @@
 package com.grup.movieshelf.Controller.Web;
 
+import com.grup.movieshelf.JPA.Entity.Users.User;
 import com.grup.movieshelf.JPA.Entity.Users.UserOptions;
+import com.grup.movieshelf.JPA.Repository.TitleRepository;
+import com.grup.movieshelf.JPA.Repository.User.UserTitlesRepository;
 import com.grup.movieshelf.JPA.Utility.HibernateSecurityService;
 import com.grup.movieshelf.JPA.Utility.HibernateUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +22,12 @@ public class IndexController {
     @Autowired
     HibernateSecurityService hibernateSecurityService;
 
+    @Autowired
+    UserTitlesRepository userTitlesRepository;
+
+    @Autowired
+    TitleRepository titleRepository;
+
     @GetMapping("/")
     public String testWeb(HttpServletRequest request, Model model){
 
@@ -26,8 +35,11 @@ public class IndexController {
         if (request.getUserPrincipal() == null) {
             model.addAttribute("title", "Not Logged In");
         } else {
+            User user = hibernateSecurityService.getLoggedInUser();
             model.addAttribute("title", "Logged In");
-            model.addAttribute("userData", hibernateSecurityService.getLoggedInUser());
+            model.addAttribute("userData", user);
+            model.addAttribute("userTitles", userTitlesRepository.getAllByUserId(user.getUserId()));
+            model.addAttribute("titleRepo", titleRepository);
         }
 
         UserOptions userOptions = hibernateUserDetailsService.getUserOptionsForUser();
