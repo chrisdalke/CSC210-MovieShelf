@@ -18,15 +18,18 @@ public class SearchController {
 
     @PostMapping("/search")
     public String search (Model model, @RequestParam("searchString") String searchString) {
-        System.out.println("User searched \"" + searchString + "\"");
+        System.out.println("User searched \"" + searchString + "\".");
 
+        // TODO: make search bar support not just movie titles (actors, directors, etc.)
         List<Title> titles = titleRepository.getAllByTitleNameContaining(searchString);
 
-        System.out.println("Results:");
+
+        System.out.println("Returned results:");
         for(Title title : titles) {
-            System.out.println(title.getTitleName());
+            System.out.println(title.getTitleName() + " (" + title.getYear() + ")");
         }
 
+        // TODO: return "/search/results"
         return "redirect:/";
     }
 }
