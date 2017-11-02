@@ -73,3 +73,14 @@ html {
 .text-align-right {
     text-align: right;
 }
+
+#particles-js-index {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    mix-blend-mode: lighten;
+    -webkit-mask-image: -webkit-gradient(linear, left bottom, left 0%, from(rgba(0,0,0,1)), to(rgba(0,0,0,0)))
+
+}
