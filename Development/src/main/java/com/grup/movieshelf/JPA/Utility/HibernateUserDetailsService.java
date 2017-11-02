@@ -2,10 +2,11 @@ package com.grup.movieshelf.JPA.Utility;
 
 import com.grup.movieshelf.JPA.Entity.Users.User;
 import com.grup.movieshelf.JPA.Entity.Users.UserOptions;
-import com.grup.movieshelf.JPA.Repository.RoleRepository;
-import com.grup.movieshelf.JPA.Repository.TitleRepository;
-import com.grup.movieshelf.JPA.Repository.UserOptionsRepository;
-import com.grup.movieshelf.JPA.Repository.UserRepository;
+import com.grup.movieshelf.JPA.Entity.Users.UserTitle;
+import com.grup.movieshelf.JPA.Repository.User.RoleRepository;
+import com.grup.movieshelf.JPA.Repository.User.UserOptionsRepository;
+import com.grup.movieshelf.JPA.Repository.User.UserRepository;
+import com.grup.movieshelf.JPA.Repository.User.UserTitlesRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -27,7 +28,7 @@ public class HibernateUserDetailsService implements UserDetailsService {
    private UserOptionsRepository userOptionsRepository;
 
    @Autowired
-   private TitleRepository titleRepository;
+   private UserTitlesRepository userTitleRepository;
 
    @Autowired
    private RoleRepository roleRepository;
@@ -53,18 +54,15 @@ public class HibernateUserDetailsService implements UserDetailsService {
    }
 
    public void addTitleToShelf(String titleId) {
-       User user = hibernateSecurityService.getLoggedInUser();
-       user.getTitles().add(titleRepository.getByTitleId(titleId));
-       System.out.println(user.getTitles());
-       userRepository.save(user);
+       Integer userId = hibernateSecurityService.getLoggedInUser().getUserId();
+       UserTitle userTitle = new UserTitle(userId, titleId);
+       userTitleRepository.save(userTitle);
    }
 
    public void removeTitleFromShelf(String titleId) {
-       User user = hibernateSecurityService.getLoggedInUser();
-       // not sure if this will work yet, still have to test
-       user.getTitles().remove(titleRepository.getByTitleId(titleId));
-      System.out.println(user.getTitles());
-      userRepository.save(user);
+        Integer userId = hibernateSecurityService.getLoggedInUser().getUserId();
+        UserTitle userTitle = userTitleRepository.getByUserIdAndTitleId(userId, titleId);
+        userTitleRepository.delete(userTitle);
    }
 
    /*

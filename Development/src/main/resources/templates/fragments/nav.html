@@ -13,9 +13,9 @@
                 <ul class="uk-navbar-nav" sec:authorize="isAuthenticated()">
                     <!--<li><a href="/logout">Logout</a></li>-->
                     <li>
-                        <form class="uk-search uk-search-default">
+                        <form class="uk-search uk-search-default" th:action="@{/search}" th:object="${String}" method="post">
                             <a href="" class="uk-search-icon-flip" uk-search-icon></a>
-                            <input class="uk-search-input" type="search" placeholder="Search Movies...">
+                            <input class="uk-search-input" type="search" name="searchString" id="searchString" placeholder="Search Movies...">
                         </form>
                     </li>
                 </ul>
