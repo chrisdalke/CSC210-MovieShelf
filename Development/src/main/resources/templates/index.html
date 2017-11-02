@@ -8,13 +8,15 @@
 
         <div class="uk-offcanvas-content uk-light">
             <!-- Include container for ladning page particle effects -->
-            <div id="particles-js-index"></div>
+            <!--<div id="particles-js-index"></div>-->
 
             <!-- Include the nav fragment -->
             <div th:include="fragments/nav :: nav"></div>
 
             <!-- Include the sidebar fragment if the user is logged in -->
-            <div th:include="fragments/sidebar :: sidebar" sec:authorize="isAuthenticated()"></div>
+            <div id="sidebar" class="uk-visible@m" sec:authorize="isAuthenticated()">
+                <div th:include="fragments/sidebar :: sidebar"></div>
+            </div>
 
             <!-- Landing Page for a not-logged-in user -->
             <div class="uk-padding" sec:authorize="isAnonymous()">
@@ -52,6 +54,27 @@
                         </td>
                     </tr>
                 </table>
+
+                <div class="shelf">
+                    <div class="bookend_left"></div>
+                    <div class="bookend_right"></div>
+                    <div class="reflection"></div>
+                </div>
+                <div class="shelf">
+                    <div class="bookend_left"></div>
+                    <div class="bookend_right"></div>
+                    <div class="reflection"></div>
+                </div>
+                <div class="shelf">
+                    <div class="bookend_left"></div>
+                    <div class="bookend_right"></div>
+                    <div class="reflection"></div>
+                </div>
+                <div class="shelf">
+                    <div class="bookend_left"></div>
+                    <div class="bookend_right"></div>
+                    <div class="reflection"></div>
+                </div>
             </div>
 
             <!-- Include the footer fragment -->

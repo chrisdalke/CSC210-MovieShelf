@@ -9,6 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.util.ArrayList;
 
 @Entity
 @Table(name = "Titles")
@@ -36,9 +37,11 @@ public class Title implements Comparable<Title>, Serializable {
     public int compareTo(Title other) {
         return getTitleId().compareTo(other.getTitleId());
     }
-    
-        // should we try to add genres?
+
+    /*
+    // should we try to add genres?
     @NotNull
     @Column(name = "genres", unique = false, updatable = false)
     private ArrayList<String> genres;
+    */
 }
