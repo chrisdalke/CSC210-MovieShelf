@@ -1,32 +1,42 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <div th:fragment="nav">
-    <div id="nav" class="uk-container uk-container-expand">
-        <nav class="uk-navbar-container uk-navbar-transparent" uk-navbar>
-            <div class="uk-navbar-left">
-                <ul class="uk-navbar-nav">
-                    <li><a href="/" id="title-display">MovieShelf</a></li>
-                </ul>
-            </div>
-
-            <div class="uk-navbar-right" >
-
-                <ul class="uk-navbar-nav" sec:authorize="isAuthenticated()">
-                    <!--<li><a href="/logout">Logout</a></li>-->
-                    <li>
-                        <form class="uk-search uk-search-default" th:action="@{/search}" th:object="${String}" method="post">
-                            <a href="" class="uk-search-icon-flip" uk-search-icon></a>
-                            <input class="uk-search-input" type="search" name="searchString" id="searchString" placeholder="Search Movies...">
-                        </form>
-                    </li>
-                </ul>
-                <ul class="uk-navbar-nav" sec:authorize="isAnonymous()">
-                    <li><a href="/login">Login</a></li>
-                </ul>
-                <div class="uk-navbar-item" sec:authorize="isAnonymous()">
-                    <a class="uk-button uk-button-default" href="/user/register">Sign Up</a>
+    <div uk-sticky>
+        <div id="nav" class="uk-container uk-container-expand">
+            <nav class="uk-navbar-container uk-navbar-transparent" uk-navbar>
+                <div class="uk-navbar-left">
+                    <ul class="uk-navbar-nav">
+                        <li><a href="/" id="title-display">MovieShelf</a></li>
+                    </ul>
                 </div>
-            </div>
-        </nav>
+
+                <div class="uk-navbar-right" >
+                    <ul class="uk-navbar-nav uk-visible@m" sec:authorize="isAuthenticated()">
+                        <!--<li><a href="/logout">Logout</a></li>-->
+                        <li>
+                            <form class="uk-search uk-search-default" th:action="@{/search}" th:object="${String}" method="post">
+                                <a href="" class="uk-search-icon-flip" uk-search-icon></a>
+                                <input class="uk-search-input" type="search" name="searchString" id="searchString" placeholder="Search Movies...">
+                            </form>
+                        </li>
+                    </ul>
+                    <ul class="uk-navbar-nav uk-visible@m" sec:authorize="isAnonymous()">
+                        <li><a href="/login">Login</a></li>
+                    </ul>
+                    <div class="uk-navbar-item uk-visible@m" sec:authorize="isAnonymous()">
+                        <a class="uk-button uk-button-default" href="/user/register">Sign Up</a>
+                    </div>
+                    <a uk-toggle href="#side-nav" class="uk-hidden@m uk-navbar-toggle uk-navbar-toggle-icon" uk-icon="icon: menu"></a>
+                </div>
+            </nav>
+        </div>
+    </div>
+
+
+    <div id="side-nav" uk-offcanvas class="uk-hidden@m">
+        <div class="uk-offcanvas-bar uk-light">
+            <button class="uk-offcanvas-close" type="button" uk-close></button>
+            <div th:include="fragments/sidebar :: sidebar" class="sidebar-pad-top"></div>
+        </div>
     </div>
 </div>
 </html>

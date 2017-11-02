@@ -1,3 +1,4 @@
+/*
 particlesJS("particles-js-index", {
     "particles": {
         "number": {
@@ -103,3 +104,4 @@ particlesJS("particles-js-index", {
     },
     "retina_detect": true
 });
+    */

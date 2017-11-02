@@ -4,6 +4,7 @@ import com.grup.movieshelf.JPA.Entity.Users.User;
 import com.grup.movieshelf.JPA.Entity.Users.UserOptions;
 import com.grup.movieshelf.JPA.Repository.User.RoleRepository;
 import com.grup.movieshelf.JPA.Repository.User.UserRepository;
+import com.grup.movieshelf.JPA.Utility.HibernateSecurityService;
 import com.grup.movieshelf.JPA.Utility.HibernateUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,11 +24,19 @@ public class UserController {
     private RoleRepository roleRepository;
 
     @Autowired
+    HibernateSecurityService hibernateSecurityService;
+
+    @Autowired
     private HibernateUserDetailsService hibernateUserDetailsService;
 
     @RequestMapping("/login")
     public String userLoginEndpoint(Model model){
-        return "userLogin";
+        User userObject = hibernateSecurityService.getLoggedInUser();
+        if (userObject == null) {
+            return "userLogin";
+        } else {
+            return "redirect:/";
+        }
     }
 
     /*

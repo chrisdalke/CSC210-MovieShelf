@@ -9,7 +9,9 @@
     <div th:include="fragments/nav :: nav"></div>
 
     <!-- Include the sidebar fragment -->
-    <div th:include="fragments/sidebar :: sidebar"></div>
+    <div id="sidebar" class="uk-visible@m" sec:authorize="isAuthenticated()">
+        <div th:include="fragments/sidebar :: sidebar"></div>
+    </div>
 
     <!-- Landing page for a logged-in user -->
     <div id="main-with-sidebar" class="uk-padding">

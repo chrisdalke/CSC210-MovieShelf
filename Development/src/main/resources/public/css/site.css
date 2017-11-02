@@ -44,8 +44,13 @@ html {
     padding:20px;
 }
 
+@media (min-width: 960px) {
+    #main-with-sidebar {
+        margin-left: 240px;
+    }
+}
+
 #main-with-sidebar {
-    margin-left:240px;
     /*background-image: url("/img/shelving.png");
     background-repeat: repeat-y;
     background-size: contain;*/
@@ -83,4 +88,11 @@ html {
     mix-blend-mode: lighten;
     -webkit-mask-image: -webkit-gradient(linear, left bottom, left 0%, from(rgba(0,0,0,1)), to(rgba(0,0,0,0)))
 
+}
+
+.sidebar-pad-top {
+    border-top-color: rgba(255,255,255,.2);
+    border-top: 1px solid rgba(255,255,255,.2);
+    margin-top: 40px;
+    padding-top: 10px;
 }
