@@ -7,6 +7,8 @@
         <div th:include="fragments/landing-bg :: landing-bg" sec:authorize="isAnonymous()"></div>
 
         <div class="uk-offcanvas-content uk-light">
+            <!-- Include container for ladning page particle effects -->
+            <div id="particles-js-index"></div>
 
             <!-- Include the nav fragment -->
             <div th:include="fragments/nav :: nav"></div>
@@ -54,6 +56,9 @@
 
             <!-- Include the footer fragment -->
             <div th:include="fragments/footer :: footer"></div>
+
+            <script sec:authorize="isAnonymous()" src="/js/particles.min.js"></script>
+            <script sec:authorize="isAnonymous()" src="/js/particles-index.js"></script>
         </div>
     </body>
 </html>
