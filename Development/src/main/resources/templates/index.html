@@ -28,7 +28,7 @@
                 <hr>
                 <h4>My Shelf</h4>
                 <p>Add some movies to your shelf to start finding suggestions.</p>
-                <p>Examples: tt1375666 - Inception<br>tt0816692 - Interstellar<br>tt3659388 - The Martian</p>
+                <p>Examples:<br>tt1375666 - Inception<br>tt0816692 - Interstellar<br>tt3659388 - The Martian</p>
 
                 <form th:action="@{/shelf/addMovie}" th:object="${String}" method="post">
                     <fieldset class="uk-fieldset">
@@ -43,10 +43,10 @@
 
                 <p>Your movie list:</p>
                 <table class="table table-bordered">
-                    <tr th:each="title : ${userData.getTitles()}" th:object="${title}">
+                    <tr th:each="userTitle : ${userTitles}" th:object="${userTitle}">
                         <td>
-                            <span th:text="${title.getTitleName()}"></span>
-                            <a th:href="'/shelf/removeMovie/'+${title.getTitleId()}">(Remove)</a>
+                            <span th:text="${titleRepo.getByTitleId(userTitle.getTitleId()).getTitleName()}"></span>
+                            <a th:href="'/shelf/removeMovie/'+${userTitle.getTitleId()}">(Remove)</a>
                         </td>
                     </tr>
                 </table>
