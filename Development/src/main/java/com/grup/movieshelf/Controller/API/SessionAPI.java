@@ -16,7 +16,7 @@ public class SessionAPI {
     @Autowired
     private SessionRepository sessionRepository;
 
-    @PostMapping("/session")
+    @PostMapping("/api/session")
     public Session createSession(){
         Session newSession = new Session();
 
@@ -31,17 +31,17 @@ public class SessionAPI {
         return newSession;
     }
 
-    @GetMapping("/session/{sessionId}")
+    @GetMapping("/api/session/{sessionId}")
     public void getSession(@PathVariable("sessionId") String sessionId){
 
     }
 
-    @DeleteMapping("/session/{sessionId}")
+    @DeleteMapping("/api/session/{sessionId}")
     public void deleteSession(@PathVariable("sessionId") String sessionId){
 
     }
 
-    @GetMapping("/session/{sessionId}/recommend")
+    @GetMapping("/api/session/{sessionId}/recommend")
     public RecommendationList getSessionRecommendations(@PathVariable("sessionId") String sessionId){
 
         // Based on the users in this session and their movie choices, generate a movie recommendation.
