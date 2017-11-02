@@ -39,4 +39,5 @@ dependencies {
 	compile('org.springframework.boot:spring-boot-starter-websocket')
 	compileOnly 'org.projectlombok:lombok:1.16.18'
 	compile("com.h2database:h2")
+	compile('org.hibernate:hibernate-search-orm:5.8.2.Final')
 }
