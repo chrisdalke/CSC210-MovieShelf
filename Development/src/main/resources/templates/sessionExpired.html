@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head th:include="fragments/header :: header">
+</head>
+<body>
+<!-- Include the landing page background image fragment -->
+<div th:include="fragments/landing-bg :: landing-bg"></div>
+<div class="uk-offcanvas-content uk-light">
+
+    <!-- Include the nav fragment -->
+    <div th:include="fragments/nav :: nav"></div>
+
+    <div class="uk-padding text-align-right">
+        <h1>Session Expired</h1>
+        <p>This session has expired. Redirecting you to the homepage... TODO</p>
+    </div>
+
+    <!-- Include the footer fragment -->
+    <div th:include="fragments/footer :: footer"></div>
+</div>
+</body>
+</html>
