@@ -1,5 +1,6 @@
 package com.grup.movieshelf.JPA.Entity.Users;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -9,6 +10,7 @@ import java.io.Serializable;
 @Entity
 @Table(name = "Roles")
 @Data
+@AllArgsConstructor
 @NoArgsConstructor
 public class Role implements Comparable<Role>, Serializable {
 

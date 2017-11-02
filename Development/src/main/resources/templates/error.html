@@ -11,9 +11,18 @@
     <div th:include="fragments/nav :: nav"></div>
 
     <!-- Display a really simple error page that doesn't even tell you which error happened -->
-    <div class="uk-padding text-align-right">
-        <h1>Error Page</h1>
-        <p>An error has occurred. <a href="javascript:history.back()">Go Back</a></p>
+    <div class="uk-padding">
+        <h1><span th:text="${status}"></span> <span th:text="${error}"></span></h1>
+        <p>An error has occurred!</p>
+
+        <pre>
+Timestamp: <span th:text="${timestamp}"></span>
+Error Path: <span th:text="${path}"></span>
+Error Code: <span th:text="${status}"></span>
+Error Message: <span th:text="${error}"></span>
+Error Description: <span th:text="${message}"></span></pre>
+        <!--<a href="javascript:history.back()">Go Back</a><-->
+        <p>We're sorry this has happened!</p>
     </div>
 
     <!-- Include the footer fragment -->
