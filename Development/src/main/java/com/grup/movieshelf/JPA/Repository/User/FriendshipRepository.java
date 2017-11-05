@@ -1,14 +1,11 @@
-package com.grup.movieshelf.JPA.Repository;
+package com.grup.movieshelf.JPA.Repository.User;
 
 import com.grup.movieshelf.JPA.Entity.Users.Friendship;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-import java.util.List;
-
+@Repository
 public interface FriendshipRepository extends JpaRepository<Friendship, String> {
 
     Friendship findByFriendshipId(String friendshipId);
-
-/*    List<Friendship> getAllByUserIdContaining(String search);
-    List<Friendship> getAllByUserId2Containing(String search); */
 }
