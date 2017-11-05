@@ -16,7 +16,7 @@
             <!-- Include the sidebar fragment if the user is logged in -->
             <div id="sidebar" class="uk-visible@m" sec:authorize="isAuthenticated()">
                 <div th:include="fragments/sidebar :: sidebar">
-                    <form action="#" th:action="@{/user/addFriend}" th:object="${user}" method="post">
+                    <!--<form action="#" th:action="@{/user/addFriend}" th:object="${user}" method="post">
                         <fieldset class="uk-fieldset">
                             <legend class="uk-legend">Add Friend</legend>
 
@@ -48,7 +48,7 @@
                                 <input class="uk-width-1-1 uk-button uk-button-default" type="submit" value="Remove"/>
                             </div>
                         </fieldset>
-                    </form>
+                    </form>-->
                 </div>
             </div>
 

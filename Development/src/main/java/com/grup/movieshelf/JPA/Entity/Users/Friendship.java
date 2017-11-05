@@ -10,12 +10,11 @@ import java.io.Serializable;
 @Table(name = "Friendship")
 @Data
 @NoArgsConstructor
-public class UserTitle implements Comparable<UserTitle>, Serializable {
+public class Friendship implements Comparable<Friendship>, Serializable {
 
-    public UserTitle(Integer userId, Integer userId2) {
+    public Friendship(Integer userId, Integer userId2) {
         this.userId = userId;
         this.userId2 = userId2;
-        this.friendshipId = String.valueOf(userId) + "_" + String.valueOf(userId2);
     }
 
     @Column(name = "userId", unique = true, updatable = false)
@@ -26,7 +25,7 @@ public class UserTitle implements Comparable<UserTitle>, Serializable {
 
     @Id
     @Column(name = "friendshipId", unique = true, updatable = false)
-    private String friendshipId;
+    private String friendshipId = userId + "_" + userId2;
 
     @Override
     public int compareTo(Friendship o) {
