@@ -11,10 +11,11 @@ import com.grup.movieshelf.JPA.Utility.HibernateUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
+/*import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMapping;*/
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class UserController {
@@ -116,13 +117,13 @@ public class UserController {
     }
 
     @PostMapping("/user/addFriend")
-    public String addFriend (Model model, @ModelAttribute User friend) {
-    /*    User userObject = hibernateSecurityService.getLoggedInUser();
-        User friendObject = userRepository.findByUsername(friend.getUsername());
-        String friendship_name = userObject.getUserId() + "_" + friendObject.getUserId();
+    public String addFriend (Model model, @RequestParam("userName") String userName) {
+        User userObject = hibernateSecurityService.getLoggedInUser();
+        User friendObject = userRepository.findByUsername(userName);
+        String friendship_name = userObject.getUserId()+"_"+friendObject.getUserId();
         if (friendshipRepository.findByFriendshipId(friendship_name) == null)
         {
-            Friendship friendship = new Friendship (userObject.getUserId(), friendObject.getUserId());
+            Friendship friendship = new Friendship(userObject.getUserId(), friendObject.getUserId());
             friendshipRepository.save(friendship);
             model.addAttribute("message", "Friend added successfully.");
             model.addAttribute("showForm",false);
@@ -132,28 +133,28 @@ public class UserController {
             model.addAttribute("message", "Friend could not be added. Friendship already exists.");
             model.addAttribute("showForm",true);
         }
-*/
+
         return "index";
     }
 
     @PostMapping("/user/removeFriend")
-    public String removeFriend (Model model, @ModelAttribute User friend) {
-  /*      User userObject = hibernateSecurityService.getLoggedInUser();
+    public String removeFriend (Model model, @RequestParam("friendshipId") String friendshipId) {
+/*        User userObject = hibernateSecurityService.getLoggedInUser();
         User friendObject = userRepository.findByUsername(friend.getUsername());
-        String friendship_name = userObject.getUserId() + "_" + friendObject.getUserId();
-        if (friendshipRepository.findByFriendshipId(friendship_name) == null)
+        String friendship_name = userObject.getUserId() + "_" + friendObject.getUserId();*/
+        if (friendshipRepository.findByFriendshipId(friendshipId) == null)
         {
             model.addAttribute("message", "Friend could not be removed. Friendship does not exists.");
             model.addAttribute("showForm",true);
         }
         else
         {
-            Friendship friendship = friendshipRepository.findByFriendshipID(friendship_name);
+            Friendship friendship = friendshipRepository.findByFriendshipId(friendshipId);
             friendshipRepository.delete(friendship);
             model.addAttribute("message", "Friend deleted successfully.");
             model.addAttribute("showForm",false);
         }
-*/
+
         return "index";
     }
 }
