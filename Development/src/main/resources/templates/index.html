@@ -16,39 +16,6 @@
             <!-- Include the sidebar fragment if the user is logged in -->
             <div id="sidebar" class="uk-visible@m" sec:authorize="isAuthenticated()">
                 <div th:include="fragments/sidebar :: sidebar">
-                    <!--<form action="#" th:action="@{/user/addFriend}" th:object="${user}" method="post">
-                        <fieldset class="uk-fieldset">
-                            <legend class="uk-legend">Add Friend</legend>
-
-                            <div class="uk-margin" th:if="${message}" th:text="${message}">
-                            </div>
-
-                            <div class="uk-margin" th:if="${showForm}">
-                                <input class="uk-input" type="text" th:field="*{username}" placeholder="Username"/>
-                            </div>
-
-                            <div class="uk-margin" th:if="${showForm}">
-                                <input class="uk-width-1-1 uk-button uk-button-default" type="submit" value="Add"/>
-                            </div>
-                        </fieldset>
-                    </form>
-
-                    <form action="#" th:action="@{/user/removeFriend}" th:object="${user}" method="post">
-                        <fieldset class="uk-fieldset">
-                            <legend class="uk-legend">Remove Friend</legend>
-
-                            <div class="uk-margin" th:if="${message}" th:text="${message}">
-                            </div>
-
-                            <div class="uk-margin" th:if="${showForm}">
-                                <input class="uk-input" type="text" th:field="*{username}" placeholder="Username"/>
-                            </div>
-
-                            <div class="uk-margin" th:if="${showForm}">
-                                <input class="uk-width-1-1 uk-button uk-button-default" type="submit" value="Remove"/>
-                            </div>
-                        </fieldset>
-                    </form>-->
                 </div>
             </div>
 
@@ -109,6 +76,29 @@
                     <div class="bookend_right"></div>
                     <div class="reflection"></div>
                 </div>
+
+                <!-- experimental add friend button -->
+                <form th:action="@{/user/addFriend}" th:object="${String}" method="post">
+                    <fieldset class="uk-fieldset">
+                        <div class="uk-margin">
+                            <input class="uk-input" type="text" name="userName" id="userName" placeholder="Username"/>
+                        </div>
+                        <div class="uk-margin">
+                            <input class="uk-width-1-1 uk-button uk-button-default" type="submit" value="Add Friend"/>
+                        </div>
+                    </fieldset>
+                </form>
+
+                <p>Friends</p>
+                <table class="table table-bordered">
+                    <tr th:each="friendship : ${friendships}" th:object="${friendship}">
+                        <td>
+                            <span th:text="${friendshipRepo.getByFriendshipId(friendship.getFriendshipId()).getUserId2()}"></span>
+                            <a th:href="'/user/removeFriend/'+${friendship.getFriendshipId()}">(Remove)</a>
+                        </td>
+                    </tr>
+                </table>
+
             </div>
 
             <!-- Include the footer fragment -->
