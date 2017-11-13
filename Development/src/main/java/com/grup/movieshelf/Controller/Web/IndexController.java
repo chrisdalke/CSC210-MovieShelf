@@ -1,8 +1,11 @@
 package com.grup.movieshelf.Controller.Web;
 
 import com.grup.movieshelf.JPA.Entity.Users.User;
+import com.grup.movieshelf.JPA.Entity.Users.Friendship;
 import com.grup.movieshelf.JPA.Entity.Users.UserOptions;
 import com.grup.movieshelf.JPA.Repository.TitleRepository;
+import com.grup.movieshelf.JPA.Repository.User.UserRepository;
+import com.grup.movieshelf.JPA.Repository.User.FriendshipRepository;
 import com.grup.movieshelf.JPA.Repository.User.UserTitlesRepository;
 import com.grup.movieshelf.JPA.Utility.HibernateSecurityService;
 import com.grup.movieshelf.JPA.Utility.HibernateUserDetailsService;
@@ -26,7 +29,13 @@ public class IndexController {
     UserTitlesRepository userTitlesRepository;
 
     @Autowired
+    UserRepository userRepository;
+
+    @Autowired
     TitleRepository titleRepository;
+
+    @Autowired
+    FriendshipRepository friendshipRepository;
 
     @GetMapping("/")
     public String testWeb(HttpServletRequest request, Model model){
@@ -40,6 +49,9 @@ public class IndexController {
             model.addAttribute("userData", user);
             model.addAttribute("userTitles", userTitlesRepository.getAllByUserId(user.getUserId()));
             model.addAttribute("titleRepo", titleRepository);
+            model.addAttribute("friendRepo", friendshipRepository);
+            model.addAttribute("friendships", friendshipRepository.getAllByUserId(user.getUserId()));
+            model.addAttribute("userRepo", userRepository);
         }
 
         UserOptions userOptions = hibernateUserDetailsService.getUserOptionsForUser();
@@ -62,6 +74,18 @@ public class IndexController {
         System.out.println("Trying to remove titleId "+titleId+" to list for current user.");
         hibernateUserDetailsService.removeTitleFromShelf(titleId);
 
+        return "redirect:/";
+    }
+
+    @PostMapping("/index/addFriend")
+    public String addFriend (Model model, @RequestParam("userName") String userName) {
+        hibernateUserDetailsService.addFriend(userName);
+        return "redirect:/";
+    }
+
+    @RequestMapping("/index/removeFriend/{friendshipId}")
+    public String removeFriend (Model model, @PathVariable("friendshipId") String friendshipId) {
+        hibernateUserDetailsService.removeFriend(friendshipId);
         return "redirect:/";
     }
 }
