@@ -1,9 +1,9 @@
 package com.grup.movieshelf.Controller.Web;
 
 import com.grup.movieshelf.JPA.Entity.Users.User;
-import com.grup.movieshelf.JPA.Entity.Users.Friendship;
+//import com.grup.movieshelf.JPA.Entity.Users.Friendship;
 import com.grup.movieshelf.JPA.Entity.Users.UserOptions;
-import com.grup.movieshelf.JPA.Repository.User.FriendshipRepository;
+//import com.grup.movieshelf.JPA.Repository.User.FriendshipRepository;
 import com.grup.movieshelf.JPA.Repository.User.RoleRepository;
 import com.grup.movieshelf.JPA.Repository.User.UserRepository;
 import com.grup.movieshelf.JPA.Utility.HibernateSecurityService;
@@ -25,9 +25,6 @@ public class UserController {
 
     @Autowired
     private RoleRepository roleRepository;
-
-    @Autowired
-    private FriendshipRepository friendshipRepository;
 
     @Autowired
     HibernateSecurityService hibernateSecurityService;
@@ -114,47 +111,5 @@ public class UserController {
         }
 
         return "userRegister"; //return to a different page? maybe the home page?
-    }
-
-    @PostMapping("/user/addFriend")
-    public String addFriend (Model model, @RequestParam("userName") String userName) {
-        User userObject = hibernateSecurityService.getLoggedInUser();
-        User friendObject = userRepository.findByUsername(userName);
-        String friendship_name = userObject.getUserId()+"_"+friendObject.getUserId();
-        if (friendshipRepository.findByFriendshipId(friendship_name) == null)
-        {
-            Friendship friendship = new Friendship(userObject.getUserId(), friendObject.getUserId());
-            friendshipRepository.save(friendship);
-            model.addAttribute("message", "Friend added successfully.");
-            model.addAttribute("showForm",false);
-        }
-        else
-        {
-            model.addAttribute("message", "Friend could not be added. Friendship already exists.");
-            model.addAttribute("showForm",true);
-        }
-
-        return "index";
-    }
-
-    @PostMapping("/user/removeFriend")
-    public String removeFriend (Model model, @RequestParam("friendshipId") String friendshipId) {
-/*        User userObject = hibernateSecurityService.getLoggedInUser();
-        User friendObject = userRepository.findByUsername(friend.getUsername());
-        String friendship_name = userObject.getUserId() + "_" + friendObject.getUserId();*/
-        if (friendshipRepository.findByFriendshipId(friendshipId) == null)
-        {
-            model.addAttribute("message", "Friend could not be removed. Friendship does not exists.");
-            model.addAttribute("showForm",true);
-        }
-        else
-        {
-            Friendship friendship = friendshipRepository.findByFriendshipId(friendshipId);
-            friendshipRepository.delete(friendship);
-            model.addAttribute("message", "Friend deleted successfully.");
-            model.addAttribute("showForm",false);
-        }
-
-        return "index";
     }
 }
