@@ -1,5 +1,7 @@
 .card {
+    /*
                 background-image: url("../inception.jpg");
+    */
                 background-size:     cover;                    
                 background-position: center;
                 }
@@ -15,7 +17,12 @@
 
             }
 .grid {
-                background-image: url("../shelving.png");
+                background-image: url("../Images/shelving.png");
                 background-size:     cover;                    
                 background-position: center;
+}
+
+.description{
+            display: none;
+    
 }
