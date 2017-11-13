@@ -22,7 +22,13 @@
                 background-position: center;
 }
 
-.description{
+.preview{
             display: none;
     
+}
+
+.image {        
+                background-image: url('../Images/inception.jpg');
+                background-size:     cover;                    
+                background-position: center;
 }
