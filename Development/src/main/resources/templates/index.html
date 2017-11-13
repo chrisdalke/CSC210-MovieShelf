@@ -78,7 +78,7 @@
                 </div>
 
                 <!-- experimental add friend button -->
-                <form th:action="@{/user/addFriend}" th:object="${String}" method="post">
+                <form th:action="@{/index/addFriend}" th:object="${String}" method="post">
                     <fieldset class="uk-fieldset">
                         <div class="uk-margin">
                             <input class="uk-input" type="text" name="userName" id="userName" placeholder="Username"/>
@@ -93,12 +93,11 @@
                 <table class="table table-bordered">
                     <tr th:each="friendship : ${friendships}" th:object="${friendship}">
                         <td>
-                            <span th:text="${friendshipRepo.getByFriendshipId(friendship.getFriendshipId()).getUserId2()}"></span>
-                            <a th:href="'/user/removeFriend/'+${friendship.getFriendshipId()}">(Remove)</a>
+                            <span th:text="${userRepo.findByUserId(friendship.getUserId2()).getUsername()}"></span>
+                            <a th:href="'/index/removeFriend/'+${friendship.getFriendshipId()}">(Remove)</a>
                         </td>
                     </tr>
                 </table>
-
             </div>
 
             <!-- Include the footer fragment -->
