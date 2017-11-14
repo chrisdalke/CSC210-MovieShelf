@@ -61,16 +61,4 @@ public class IndexController {
     }
 
 
-
-    @PostMapping("/index/addFriend")
-    public String addFriend (Model model, @RequestParam("userName") String userName) {
-        hibernateUserDetailsService.addFriend(userName);
-        return "redirect:/";
-    }
-
-    @RequestMapping("/index/removeFriend/{friendshipId}")
-    public String removeFriend (Model model, @PathVariable("friendshipId") String friendshipId) {
-        hibernateUserDetailsService.removeFriend(friendshipId);
-        return "redirect:/";
-    }
 }
