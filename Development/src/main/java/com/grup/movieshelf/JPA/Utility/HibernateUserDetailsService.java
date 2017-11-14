@@ -58,35 +58,6 @@ public class HibernateUserDetailsService implements UserDetailsService {
       userRepository.save(user);
    }
 
-   public void addTitleToShelf(String titleId) {
-       Integer userId = hibernateSecurityService.getLoggedInUser().getUserId();
-       UserTitle userTitle = new UserTitle(userId, titleId);
-       userTitleRepository.save(userTitle);
-   }
-
-   public void removeTitleFromShelf(String titleId) {
-        Integer userId = hibernateSecurityService.getLoggedInUser().getUserId();
-        UserTitle userTitle = userTitleRepository.getByUserIdAndTitleId(userId, titleId);
-        userTitleRepository.delete(userTitle);
-   }
-
-   public void addFriend (String userName){
-      Integer userId = hibernateSecurityService.getLoggedInUser().getUserId();
-      Integer friendId = userRepository.findByUsername(userName).getUserId();
-      String friendship_name = userId+"_"+friendId;
-      if (friendshipRepository.getByFriendshipId(friendship_name) == null) {
-         Friendship friendship = new Friendship(userId, friendId);
-         friendshipRepository.save(friendship);
-      }
-   }
-
-   public void removeFriend (String friendshipId){
-      if (friendshipRepository.getByFriendshipId(friendshipId) != null) {
-         Friendship friendship = friendshipRepository.getByFriendshipId(friendshipId);
-         friendshipRepository.delete(friendship);
-      }
-   }
-
    /*
    Gets the options for the current user.
     */
