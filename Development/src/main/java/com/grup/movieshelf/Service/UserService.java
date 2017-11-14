@@ -10,8 +10,10 @@ package com.grup.movieshelf.Service;
 // Module Imports
 /////////////////////////////////////////////////////////////
 
+import com.grup.movieshelf.JPA.Entity.Users.Friendship;
 import com.grup.movieshelf.JPA.Entity.Users.User;
 import com.grup.movieshelf.JPA.Entity.Users.UserOptions;
+import com.grup.movieshelf.JPA.Repository.FriendshipRepository;
 import com.grup.movieshelf.JPA.Repository.SessionRepository;
 import com.grup.movieshelf.JPA.Repository.UserOptionsRepository;
 import com.grup.movieshelf.JPA.Repository.UserRepository;
@@ -26,7 +28,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-
 import java.util.ArrayList;
 
 /////////////////////////////////////////////////////////////
@@ -43,6 +44,9 @@ public class UserService implements UserDetailsService {
 
     @Autowired
     private UserOptionsRepository userOptionsRepository;
+
+    @Autowired
+    private FriendshipRepository friendshipRepository;
 
     @Autowired
     private AuthenticationManager authenticationManager;
@@ -100,12 +104,22 @@ public class UserService implements UserDetailsService {
     // Friends List
     //------------------------------------------------
 
-    public void addFriend(User friendUser){
+    public void addFriend(String friendUser){
 
+        Integer userId = getLoggedInUser().getUserId();
+        Integer friendId = userRepository.findByUsername(friendUser).getUserId();
+        String friendship_name = userId+"_"+friendId;
+        if (friendshipRepository.getByFriendshipId(friendship_name) == null) {
+            Friendship friendship = new Friendship(userId, friendId);
+            friendshipRepository.save(friendship);
+        }
     }
 
-    public void removeFriend(User friendUser){
-
+    public void removeFriend(String friendUser){
+        if (friendshipRepository.getByFriendshipId(friendUser) != null) {
+            Friendship friendship = friendshipRepository.getByFriendshipId(friendUser);
+            friendshipRepository.delete(friendship);
+        }
     }
 
     public ArrayList<User> getFriends(){
@@ -173,3 +187,7 @@ public class UserService implements UserDetailsService {
         }
     }
 }
+
+/////////////////////////////////////////////////////////////
+// End of File
+/////////////////////////////////////////////////////////////

@@ -10,48 +10,36 @@ package com.grup.movieshelf.Controller.API;
 // Module Imports
 /////////////////////////////////////////////////////////////
 
-import com.grup.movieshelf.Controller.API.Entity.ResponseStatus;
-import com.grup.movieshelf.JPA.Repository.UserTitlesRepository;
-import com.grup.movieshelf.Service.*;
+import com.grup.movieshelf.JPA.Entity.Movies.Title;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+import com.grup.movieshelf.Service.*;
+import java.util.List;
 
 /////////////////////////////////////////////////////////////
-// Shelf API
-// REST API functionality for interaction with user's shelf.
+// Search API
+// REST Controller handling search functionality
 /////////////////////////////////////////////////////////////
 
 @RestController
-public class ShelfAPI {
+public class SearchAPI {
 
     //------------------------------------------------
     // Dependencies
     //------------------------------------------------
 
     @Autowired
-    private UserService userService;
-
-    @Autowired
-    private ShelfService shelfService;
-
-    @Autowired
-    private UserTitlesRepository userTitlesRepository;
+    SearchService searchService;
 
     //------------------------------------------------
     // Request Mappings
     //------------------------------------------------
 
-    @PostMapping("/api/shelf")
-    public ResponseStatus addTitle (Model model, @RequestParam("titleId") String titleId) {
-        shelfService.addTitleToShelf(titleId);
-        return new ResponseStatus();
-    }
-
-    @DeleteMapping("/api/shelf/{titleId}")
-    public ResponseStatus removeTitle (Model model, @PathVariable("titleId") String titleId) {
-        shelfService.removeTitleFromShelf(titleId);
-        return new ResponseStatus();
+    @PostMapping("/search")
+    public List<Title> search (@RequestParam("searchString") String searchString) {
+        return searchService.doSimpleSearch(searchString);
     }
 }
 

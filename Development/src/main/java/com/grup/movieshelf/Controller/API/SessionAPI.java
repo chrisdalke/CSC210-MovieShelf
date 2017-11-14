@@ -1,4 +1,14 @@
+///////////////////////////////////////////////////////////////
+// MOVIESHELF
+// CSC 210 Final Project, Fall 2017
+// Chris Dalke, Nate Conroy, Andrew Gutierrez, Daniel Stegink
+///////////////////////////////////////////////////////////////
+
 package com.grup.movieshelf.Controller.API;
+
+/////////////////////////////////////////////////////////////
+// Module Imports
+/////////////////////////////////////////////////////////////
 
 import com.grup.movieshelf.Controller.API.Entity.RecommendationList;
 import com.grup.movieshelf.JPA.Entity.Session;
@@ -6,9 +16,19 @@ import com.grup.movieshelf.JPA.Repository.SessionRepository;
 import com.grup.movieshelf.JPA.Repository.TitleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import com.grup.movieshelf.Service.*;
+
+/////////////////////////////////////////////////////////////
+// Session API
+// Handles movie-watching sessions
+/////////////////////////////////////////////////////////////
 
 @RestController
 public class SessionAPI {
+
+    //------------------------------------------------
+    // Dependencies
+    //------------------------------------------------
 
     @Autowired
     private TitleRepository titleRepository;
@@ -16,19 +36,16 @@ public class SessionAPI {
     @Autowired
     private SessionRepository sessionRepository;
 
+    @Autowired
+    private SessionService sessionService;
+
+    //------------------------------------------------
+    // Request Mappings
+    //------------------------------------------------
+
     @PostMapping("/api/session")
     public Session createSession(){
-        Session newSession = new Session();
-
-        String sessionCode;
-        do {
-            sessionCode = Session.generateSessionCode();
-        } while (sessionRepository.existsBySessionCode(sessionCode));
-
-        newSession.setSessionCode(sessionCode);
-        sessionRepository.save(newSession);
-
-        return newSession;
+        return sessionService.createSession();
     }
 
     @GetMapping("/api/session/{sessionId}")
@@ -38,25 +55,16 @@ public class SessionAPI {
 
     @DeleteMapping("/api/session/{sessionId}")
     public void deleteSession(@PathVariable("sessionId") String sessionId){
-
+        //TODO
     }
 
     @GetMapping("/api/session/{sessionId}/recommend")
     public RecommendationList getSessionRecommendations(@PathVariable("sessionId") String sessionId){
-
-        // Based on the users in this session and their movie choices, generate a movie recommendation.
-        // Return it as a RecommendationList object containing movie titles encoded as JSON.
-        // This should probably only be called a single time, because it takes a long time and returns random results.
-        // TODO
-
-        RecommendationList recommendationResults = new RecommendationList();
-
-        // For now, let's just add some movies we know everyone likes...
-        recommendationResults.addRecommendation(titleRepository.getByTitleId("tt1375666")); // Inception
-        recommendationResults.addRecommendation(titleRepository.getByTitleId("tt0816692")); // Interstellar
-        recommendationResults.addRecommendation(titleRepository.getByTitleId("tt3659388")); // The Martian
-
-        return recommendationResults;
+        return sessionService.getSessionRecommendations(sessionId);
     }
 
 }
+
+/////////////////////////////////////////////////////////////
+// End of File
+/////////////////////////////////////////////////////////////

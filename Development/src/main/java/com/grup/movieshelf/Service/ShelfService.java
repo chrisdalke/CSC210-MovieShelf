@@ -4,54 +4,53 @@
 // Chris Dalke, Nate Conroy, Andrew Gutierrez, Daniel Stegink
 ///////////////////////////////////////////////////////////////
 
-package com.grup.movieshelf.Controller.API;
+package com.grup.movieshelf.Service;
 
 /////////////////////////////////////////////////////////////
 // Module Imports
 /////////////////////////////////////////////////////////////
 
-import com.grup.movieshelf.Controller.API.Entity.ResponseStatus;
+import com.grup.movieshelf.JPA.Entity.Users.UserTitle;
+import com.grup.movieshelf.JPA.Repository.TitleRepository;
 import com.grup.movieshelf.JPA.Repository.UserTitlesRepository;
-import com.grup.movieshelf.Service.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.stereotype.Service;
 
 /////////////////////////////////////////////////////////////
-// Shelf API
-// REST API functionality for interaction with user's shelf.
+// Shelf Service
+// Functionality for interaction with shelves.
 /////////////////////////////////////////////////////////////
 
-@RestController
-public class ShelfAPI {
+@Service
+public class ShelfService {
 
     //------------------------------------------------
     // Dependencies
     //------------------------------------------------
 
     @Autowired
-    private UserService userService;
+    private TitleRepository titleRepository;
 
     @Autowired
-    private ShelfService shelfService;
+    private UserService userService;
 
     @Autowired
     private UserTitlesRepository userTitlesRepository;
 
     //------------------------------------------------
-    // Request Mappings
+    // Add & Remove Shelf Titles
     //------------------------------------------------
 
-    @PostMapping("/api/shelf")
-    public ResponseStatus addTitle (Model model, @RequestParam("titleId") String titleId) {
-        shelfService.addTitleToShelf(titleId);
-        return new ResponseStatus();
+    public void addTitleToShelf(String titleId) {
+        Integer userId = userService.getLoggedInUser().getUserId();
+        UserTitle userTitle = new UserTitle(userId, titleId);
+        userTitlesRepository.save(userTitle);
     }
 
-    @DeleteMapping("/api/shelf/{titleId}")
-    public ResponseStatus removeTitle (Model model, @PathVariable("titleId") String titleId) {
-        shelfService.removeTitleFromShelf(titleId);
-        return new ResponseStatus();
+    public void removeTitleFromShelf(String titleId) {
+        Integer userId = userService.getLoggedInUser().getUserId();
+        UserTitle userTitle = userTitlesRepository.getByUserIdAndTitleId(userId, titleId);
+        userTitlesRepository.delete(userTitle);
     }
 }
 
