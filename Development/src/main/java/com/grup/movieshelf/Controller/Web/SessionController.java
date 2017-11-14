@@ -35,6 +35,9 @@ public class SessionController {
     @Autowired
     UserService userService;
 
+    //------------------------------------------------
+    // Request Mappings
+    //------------------------------------------------
 
     // Page showing history of all the sessions a user has been a part of.
     @RequestMapping("/sessions/history")
