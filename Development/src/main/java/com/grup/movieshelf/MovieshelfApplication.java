@@ -1,18 +1,38 @@
+///////////////////////////////////////////////////////////////
+// MOVIESHELF
+// CSC 210 Final Project, Fall 2017
+// Chris Dalke, Nate Conroy, Andrew Gutierrez, Daniel Stegink
+///////////////////////////////////////////////////////////////
+
 package com.grup.movieshelf;
 
-import com.grup.movieshelf.JPA.Utility.HibernateUserDetailsService;
-import org.springframework.beans.factory.annotation.Autowired;
+/////////////////////////////////////////////////////////////
+// Module Imports
+/////////////////////////////////////////////////////////////
+
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Bean;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-import org.springframework.security.core.userdetails.UserDetailsService;
+
+/////////////////////////////////////////////////////////////
+// MovieShelfApplication
+// The main entry point for the backend application.
+/////////////////////////////////////////////////////////////
 
 @SpringBootApplication
 @EnableJpaRepositories
 public class MovieshelfApplication {
 
+	//------------------------------------------------
+	// Main Method
+	// Runs the project.
+	//------------------------------------------------
+
 	public static void main(String[] args) {
 		SpringApplication.run(MovieshelfApplication.class, args);
 	}
 }
+
+/////////////////////////////////////////////////////////////
+// End of File
+/////////////////////////////////////////////////////////////
