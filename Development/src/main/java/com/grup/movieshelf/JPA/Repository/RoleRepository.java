@@ -10,20 +10,15 @@ package com.grup.movieshelf.JPA.Repository;
 // Module Imports
 /////////////////////////////////////////////////////////////
 
-import com.grup.movieshelf.JPA.Entity.Movies.Title;
+import com.grup.movieshelf.JPA.Entity.Users.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.util.List;
-
 /////////////////////////////////////////////////////////////
-// Title Repository
+// Role Repository
 /////////////////////////////////////////////////////////////
 
-public interface TitleRepository extends JpaRepository<Title, String> {
+public interface RoleRepository extends JpaRepository<Role, String> {
 
-    Title getByTitleId(String titleId);
-
-    List<Title> getAllByTitleNameContaining(String search);
 }
 
 /////////////////////////////////////////////////////////////
