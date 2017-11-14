@@ -25,5 +25,10 @@ public class UserAPI {
 
     }
 
+    @GetMapping("/api/user_active")
+    public void getActiveUser(){
+
+    }
+
 
 }

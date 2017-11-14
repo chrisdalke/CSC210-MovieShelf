@@ -61,21 +61,6 @@ public class IndexController {
     }
 
 
-    @PostMapping("/shelf/addMovie")
-    public String addTitle (Model model, @RequestParam("titleId") String titleId) {
-        System.out.println("Trying to add titleId "+titleId+" to list for current user.");
-        hibernateUserDetailsService.addTitleToShelf(titleId);
-
-        return "redirect:/";
-    }
-
-    @RequestMapping("/shelf/removeMovie/{titleId}")
-    public String removeTitle (Model model, @PathVariable("titleId") String titleId) {
-        System.out.println("Trying to remove titleId "+titleId+" to list for current user.");
-        hibernateUserDetailsService.removeTitleFromShelf(titleId);
-
-        return "redirect:/";
-    }
 
     @PostMapping("/index/addFriend")
     public String addFriend (Model model, @RequestParam("userName") String userName) {
