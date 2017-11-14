@@ -31,7 +31,7 @@ public class SearchAPI {
     //------------------------------------------------
 
     @Autowired
-    SearchService searchService;
+    private SearchService searchService;
 
     //------------------------------------------------
     // Request Mappings
@@ -39,7 +39,7 @@ public class SearchAPI {
 
     @PostMapping("/search")
     public List<Title> search (@RequestParam("searchString") String searchString) {
-        return searchService.doSimpleSearch(searchString);
+        return searchService.search(searchString);
     }
 }
 

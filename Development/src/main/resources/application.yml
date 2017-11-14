@@ -18,5 +18,5 @@ spring:
           search:
             default:
               directory_provider: filesystem
-              indexBase: /var/netgloo_blog/lucene/indexes/
+              indexBase: /var/lucene/indexes
 
