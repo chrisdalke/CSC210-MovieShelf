@@ -12,6 +12,8 @@ package com.grup.movieshelf.JPA.Entity.Movies;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.search.annotations.*;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -25,6 +27,7 @@ import java.io.Serializable;
 /////////////////////////////////////////////////////////////
 
 @Entity
+@Indexed
 @Table(name = "Titles")
 @Data
 @NoArgsConstructor
@@ -36,6 +39,7 @@ public class Title implements Comparable<Title>, Serializable {
 
     @NotNull
     @Column(name = "primaryTitle", unique = false, updatable = false)
+    @Field(index= Index.YES, analyze= Analyze.YES, store= Store.NO)
     private String titleName;
 
     @NotNull
@@ -50,13 +54,6 @@ public class Title implements Comparable<Title>, Serializable {
     public int compareTo(Title other) {
         return getTitleId().compareTo(other.getTitleId());
     }
-
-    /*
-    // should we try to add genres?
-    @NotNull
-    @Column(name = "genres", unique = false, updatable = false)
-    private ArrayList<String> genres;
-    */
 }
 
 /////////////////////////////////////////////////////////////

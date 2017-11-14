@@ -11,9 +11,16 @@ package com.grup.movieshelf.Service;
 /////////////////////////////////////////////////////////////
 
 import com.grup.movieshelf.JPA.Entity.Movies.Title;
-import com.grup.movieshelf.JPA.Repository.TitleRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.apache.lucene.search.Query;
+import org.hibernate.search.jpa.FullTextEntityManager;
+import org.hibernate.search.jpa.FullTextQuery;
+import org.hibernate.search.query.dsl.QueryBuilder;
+import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.List;
 
 /////////////////////////////////////////////////////////////
@@ -21,23 +28,33 @@ import java.util.List;
 // Performs searches.
 /////////////////////////////////////////////////////////////
 
+@Repository
+@Transactional
 @Service
 public class SearchService {
 
-    @Autowired
-    private TitleRepository titleRepository;
+    @PersistenceContext
+    private EntityManager entityManager;
 
-    public List<Title> doSimpleSearch(String searchString){
+    public List<Title> search(String text) {
+        // get the full text entity manager
+        FullTextEntityManager fullTextEntityManager = org.hibernate.search.jpa.Search.getFullTextEntityManager(entityManager);
 
-        System.out.println("User searched \"" + searchString + "\".");
+        // create the query using Hibernate Search query DSL
+        QueryBuilder queryBuilder = fullTextEntityManager.getSearchFactory()
+                .buildQueryBuilder().forEntity(Title.class).get();
 
-        // TODO: make search bar support not just movie titles (actors, directors, etc.)
-        List<Title> titles = titleRepository.getAllByTitleNameContaining(searchString);
+        Query query = queryBuilder.keyword()
+                .fuzzy()
+                .onFields("titleName")
+                .matching(text)
+                .createQuery();
 
-        System.out.println("Returned results:");
-        for(Title title : titles) {
-            System.out.println(title.getTitleName() + " (" + title.getYear() + ")");
-        }
+        FullTextQuery jpaQuery = fullTextEntityManager.createFullTextQuery(query, Title.class);
+        jpaQuery.setMaxResults(30);
+
+        @SuppressWarnings("unchecked")
+        List<Title> titles = jpaQuery.getResultList();
 
         return titles;
     }
