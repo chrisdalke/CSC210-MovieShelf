@@ -16,26 +16,6 @@ var fullListing=[["Inception","woof",2010,"Action","description"],
                  ["The Prestige","image",2015,"genre","description"],
                  ["Sinister","image",2015,"genre","description"],
                 ];
-//******end*******
-
-/*
-var movieListing=new Map();
-
-var Movie= class{
-    constructor(title,thumbnail,year,genre,description){
-        this.title=title;
-        this.thumbnail=thumbnail;
-        this.year=year;
-        this.genre=genre;
-        this.description=description;
-    }
-}
-
-function mapMovie(entry,lastIndex){
-    movieListing.put(lastIndex+1,
-                     new Movie(entry[0],entry[1],entry[2],entry[3],entry[4]));
-}
-*/
 
 $(document).ready(function(){
     initializeShelf(list);
