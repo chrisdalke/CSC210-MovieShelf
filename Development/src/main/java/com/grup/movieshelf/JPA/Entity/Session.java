@@ -1,13 +1,25 @@
+///////////////////////////////////////////////////////////////
+// MOVIESHELF
+// CSC 210 Final Project, Fall 2017
+// Chris Dalke, Nate Conroy, Andrew Gutierrez, Daniel Stegink
+///////////////////////////////////////////////////////////////
+
 package com.grup.movieshelf.JPA.Entity;
+
+/////////////////////////////////////////////////////////////
+// Module Imports
+/////////////////////////////////////////////////////////////
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.util.ArrayList;
-import java.util.concurrent.ThreadLocalRandom;
+
+/////////////////////////////////////////////////////////////
+// Session
+// data object for storing a session.
+/////////////////////////////////////////////////////////////
 
 @Entity
 @Table(name = "Sessions")
@@ -19,7 +31,7 @@ public class Session {
     @Id
     @GeneratedValue
     @Column(name = "sessionId", unique = true, updatable = false)
-    private String titleId;
+    private String sessionId;
 
     @NotNull
     @Column(name = "isExpired", unique = false, updatable = true)
@@ -28,13 +40,8 @@ public class Session {
     @NotNull
     @Column(name = "sessionCode", unique = true, updatable = true)
     private String sessionCode;
-
-    public static String generateSessionCode(){
-        String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-        String sessionCode = "";
-        for (int i = 0; i < 6; i++){
-            sessionCode += alphabet.charAt(ThreadLocalRandom.current().nextInt(0, alphabet.length()));
-        }
-        return sessionCode;
-    }
 }
+
+/////////////////////////////////////////////////////////////
+// End of File
+/////////////////////////////////////////////////////////////
