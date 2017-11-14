@@ -10,20 +10,19 @@ package com.grup.movieshelf.JPA.Repository;
 // Module Imports
 /////////////////////////////////////////////////////////////
 
-import com.grup.movieshelf.JPA.Entity.Movies.Title;
+import com.grup.movieshelf.JPA.Entity.Users.Friendship;
 import org.springframework.data.jpa.repository.JpaRepository;
-
 import java.util.List;
 
 /////////////////////////////////////////////////////////////
-// Title Repository
+// Friendship Repository
 /////////////////////////////////////////////////////////////
 
-public interface TitleRepository extends JpaRepository<Title, String> {
+public interface FriendshipRepository extends JpaRepository<Friendship, String> {
 
-    Title getByTitleId(String titleId);
+    Friendship getByFriendshipId(String friendshipId);
 
-    List<Title> getAllByTitleNameContaining(String search);
+    List<Friendship> getAllByUserId(Integer userId);
 }
 
 /////////////////////////////////////////////////////////////
