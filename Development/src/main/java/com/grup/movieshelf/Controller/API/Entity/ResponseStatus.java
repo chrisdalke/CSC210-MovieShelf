@@ -1,13 +1,38 @@
+///////////////////////////////////////////////////////////////
+// MOVIESHELF
+// CSC 210 Final Project, Fall 2017
+// Chris Dalke, Nate Conroy, Andrew Gutierrez, Daniel Stegink
+///////////////////////////////////////////////////////////////
+
 package com.grup.movieshelf.Controller.API.Entity;
+
+/////////////////////////////////////////////////////////////
+// Module Imports
+/////////////////////////////////////////////////////////////
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/////////////////////////////////////////////////////////////
+// ResponseStatus
+// Lightweight object used to return a status code
+// from a REST api request that doesn't normally return data.
+/////////////////////////////////////////////////////////////
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class ResponseStatus {
-    private int status = 0;
-    private String message = "The operation succeeded.";
+
+    //------------------------------------------------
+    // Instance Variables
+    //------------------------------------------------
+
+    private int status = 0; // 0=success, non-zero=failure
+    private String message = "The operation succeeded."; // Default to success
 }
+
+/////////////////////////////////////////////////////////////
+// End of File
+/////////////////////////////////////////////////////////////
