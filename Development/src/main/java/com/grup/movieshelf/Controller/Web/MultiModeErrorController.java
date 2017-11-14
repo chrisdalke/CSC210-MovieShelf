@@ -1,4 +1,15 @@
+///////////////////////////////////////////////////////////////
+// MOVIESHELF
+// CSC 210 Final Project, Fall 2017
+// Chris Dalke, Nate Conroy, Andrew Gutierrez, Daniel Stegink
+///////////////////////////////////////////////////////////////
+
 package com.grup.movieshelf.Controller.Web;
+
+/////////////////////////////////////////////////////////////
+//  Module Imports
+/////////////////////////////////////////////////////////////
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,29 +18,40 @@ import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.context.request.RequestAttributes;
-import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.context.request.ServletWebRequest;
-import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.View;
 import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.Map;
+
+/////////////////////////////////////////////////////////////
+// Multi-Mode Error Controller
+// Displays custom error pages for HTML requests & REST API
+// requests.
+/////////////////////////////////////////////////////////////
 
 @Controller
-public class MultiModeErrorController implements ErrorController
-{
+public class MultiModeErrorController implements ErrorController {
+
+    //------------------------------------------------
+    // Dependencies
+    //------------------------------------------------
+
+    @Autowired
+    ErrorAttributes errorAttributes;
+
+    //------------------------------------------------
+    // Instance Variables
+    //------------------------------------------------
+
     private Logger log = LoggerFactory.getLogger( MultiModeErrorController.class );
 
     private static final String PATH = "/error";
 
-    @Autowired
-    ErrorAttributes errorAttributes;
+    //------------------------------------------------
+    // Request Mappings
+    //------------------------------------------------
 
     // If this was a text/html request, return an html page
     @RequestMapping(value = PATH)
@@ -64,3 +86,7 @@ public class MultiModeErrorController implements ErrorController
         return PATH;
     }
 }
+
+/////////////////////////////////////////////////////////////
+// End of File
+/////////////////////////////////////////////////////////////

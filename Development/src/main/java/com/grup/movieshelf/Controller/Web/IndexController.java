@@ -1,29 +1,42 @@
+///////////////////////////////////////////////////////////////
+// MOVIESHELF
+// CSC 210 Final Project, Fall 2017
+// Chris Dalke, Nate Conroy, Andrew Gutierrez, Daniel Stegink
+///////////////////////////////////////////////////////////////
+
 package com.grup.movieshelf.Controller.Web;
 
+/////////////////////////////////////////////////////////////
+// Module Imports
+/////////////////////////////////////////////////////////////
+
 import com.grup.movieshelf.JPA.Entity.Users.User;
-import com.grup.movieshelf.JPA.Entity.Users.Friendship;
 import com.grup.movieshelf.JPA.Entity.Users.UserOptions;
 import com.grup.movieshelf.JPA.Repository.TitleRepository;
-import com.grup.movieshelf.JPA.Repository.User.UserRepository;
-import com.grup.movieshelf.JPA.Repository.User.FriendshipRepository;
-import com.grup.movieshelf.JPA.Repository.User.UserTitlesRepository;
-import com.grup.movieshelf.JPA.Utility.HibernateSecurityService;
-import com.grup.movieshelf.JPA.Utility.HibernateUserDetailsService;
+import com.grup.movieshelf.JPA.Repository.UserRepository;
+import com.grup.movieshelf.JPA.Repository.FriendshipRepository;
+import com.grup.movieshelf.JPA.Repository.UserTitlesRepository;
+import com.grup.movieshelf.Service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
 import javax.servlet.http.HttpServletRequest;
+
+/////////////////////////////////////////////////////////////
+// Index Controller
+// Displays the index / landing page.
+/////////////////////////////////////////////////////////////
 
 @Controller
 public class IndexController {
 
-    @Autowired
-    private HibernateUserDetailsService hibernateUserDetailsService;
+    //------------------------------------------------
+    // Dependencies
+    //------------------------------------------------
 
     @Autowired
-    HibernateSecurityService hibernateSecurityService;
+    private UserService userService;
 
     @Autowired
     UserTitlesRepository userTitlesRepository;
@@ -37,14 +50,17 @@ public class IndexController {
     @Autowired
     FriendshipRepository friendshipRepository;
 
+    //------------------------------------------------
+    // Request Mappings
+    //------------------------------------------------
+
+    // Index page, customized based on whether the user is looged in or not.
     @GetMapping("/")
-    public String testWeb(HttpServletRequest request, Model model){
-
-
+    public String indexPage(HttpServletRequest request, Model model){
         if (request.getUserPrincipal() == null) {
             model.addAttribute("title", "Not Logged In");
         } else {
-            User user = hibernateSecurityService.getLoggedInUser();
+            User user = userService.getLoggedInUser();
             model.addAttribute("title", "Logged In");
             model.addAttribute("userData", user);
             model.addAttribute("userTitles", userTitlesRepository.getAllByUserId(user.getUserId()));
@@ -54,11 +70,13 @@ public class IndexController {
             model.addAttribute("userRepo", userRepository);
         }
 
-        UserOptions userOptions = hibernateUserDetailsService.getUserOptionsForUser();
+        UserOptions userOptions = userService.getUserOptions();
         model.addAttribute("userProfile", userOptions);
 
         return "index";
     }
-
-
 }
+
+/////////////////////////////////////////////////////////////
+// End of File
+/////////////////////////////////////////////////////////////
