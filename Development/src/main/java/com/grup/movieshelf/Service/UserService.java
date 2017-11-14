@@ -13,8 +13,8 @@ package com.grup.movieshelf.Service;
 import com.grup.movieshelf.JPA.Entity.Users.User;
 import com.grup.movieshelf.JPA.Entity.Users.UserOptions;
 import com.grup.movieshelf.JPA.Repository.SessionRepository;
-import com.grup.movieshelf.JPA.Repository.User.UserOptionsRepository;
-import com.grup.movieshelf.JPA.Repository.User.UserRepository;
+import com.grup.movieshelf.JPA.Repository.UserOptionsRepository;
+import com.grup.movieshelf.JPA.Repository.UserRepository;
 import com.grup.movieshelf.Utility.RandomStringUtility;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
@@ -28,7 +28,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.concurrent.ThreadLocalRandom;
 
 /////////////////////////////////////////////////////////////
 // UserService
