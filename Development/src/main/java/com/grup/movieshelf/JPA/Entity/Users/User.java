@@ -1,19 +1,32 @@
+///////////////////////////////////////////////////////////////
+// MOVIESHELF
+// CSC 210 Final Project, Fall 2017
+// Chris Dalke, Nate Conroy, Andrew Gutierrez, Daniel Stegink
+///////////////////////////////////////////////////////////////
+
 package com.grup.movieshelf.JPA.Entity.Users;
 
-import com.grup.movieshelf.JPA.Entity.Movies.Title;
+/////////////////////////////////////////////////////////////
+// Module Imports
+/////////////////////////////////////////////////////////////
+
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.sql.Timestamp;
 import java.time.Instant;
 import java.util.*;
+
+/////////////////////////////////////////////////////////////
+// User Model Object
+// Represents a user account.
+/////////////////////////////////////////////////////////////
 
 @Entity
 @Table(name = "Users")
@@ -81,4 +94,6 @@ public class User implements Comparable<User>, Serializable, UserDetails {
     }
 }
 
-
+/////////////////////////////////////////////////////////////
+// End of File
+/////////////////////////////////////////////////////////////
