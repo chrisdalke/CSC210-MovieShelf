@@ -39,7 +39,7 @@ function getFriends(){
 // Search API
 //------------------------------------------------
 
-function doSearch(searchText, callback){
+function doSearch(searchText, success, failure){
     doAjax(
         "/api/search",
         "GET",
@@ -47,10 +47,11 @@ function doSearch(searchText, callback){
             searchString: searchText
         },
         function(result){
-            console.log(result);
-            callback(result);
+            success(result);
         },
-        null);
+        function(){
+            failure();
+        });
 }
 
 //------------------------------------------------
