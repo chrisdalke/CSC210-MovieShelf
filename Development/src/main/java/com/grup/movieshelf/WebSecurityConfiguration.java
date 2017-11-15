@@ -14,6 +14,8 @@ import com.grup.movieshelf.Service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.Ordered;
+import org.springframework.core.annotation.Order;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -23,6 +25,9 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.thymeleaf.extras.springsecurity4.dialect.SpringSecurityDialect;
 
 /////////////////////////////////////////////////////////////
@@ -33,6 +38,7 @@ import org.thymeleaf.extras.springsecurity4.dialect.SpringSecurityDialect;
 
 @Configuration
 @EnableWebSecurity
+@Order(0)
 public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     //------------------------------------------------
@@ -101,15 +107,29 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
                 .logoutSuccessUrl("/")
                 .and()
-                .rememberMe();
+                .rememberMe()
+                .and()
+                .csrf().disable();
     }
 
     // Configure the filter to ignore static files
     private static final String[] STATIC_FILES = {"/css/**", "/img/**", "/js/**", "/fonts/**"};
+
     @Override
     public void configure(WebSecurity web) throws Exception {
         web.ignoring()
                 .antMatchers(STATIC_FILES); // Ignore any paths matching our list of static file directories
+    }
+
+    // Allow cross-origin requests for the REST api
+    @Bean
+    public WebMvcConfigurer corsConfigurer() {
+        return new WebMvcConfigurerAdapter() {
+            @Override
+            public void addCorsMappings(CorsRegistry registry) {
+                registry.addMapping("/**").allowedOrigins("*").allowedMethods("GET", "POST","PUT", "OPTIONS" ,"PATCH", "DELETE");
+            }
+        };
     }
 
     //------------------------------------------------
