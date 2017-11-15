@@ -10,6 +10,7 @@ package com.grup.movieshelf.Controller.API;
 // Module Imports
 /////////////////////////////////////////////////////////////
 
+import com.grup.movieshelf.Controller.API.Entity.FriendList;
 import com.grup.movieshelf.Controller.API.Entity.ResponseStatus;
 import com.grup.movieshelf.JPA.Entity.Users.Friendship;
 import com.grup.movieshelf.JPA.Repository.FriendshipRepository;
@@ -43,6 +44,7 @@ public class FriendAPI {
     // Request Mappings
     //------------------------------------------------
 
+    // Add a friendship with a user
     @PostMapping("/api/friends")
     public ResponseStatus addFriend (@RequestParam("userName") String friendUserName) {
 
@@ -51,13 +53,21 @@ public class FriendAPI {
         return new ResponseStatus();
     }
 
-    @RequestMapping("/api/friends")
-    public ResponseStatus removeFriend (@RequestParam("friendshipId") String friendId) {
+    // Delete a friendship with a user
+    @DeleteMapping("/api/friends")
+    public ResponseStatus removeFriend (@RequestParam("userName") String friendUserName) {
 
-        userService.removeFriend(friendId);
+        userService.removeFriend(friendUserName);
 
         return new ResponseStatus();
     }
+
+    // Get the list of users you are friends with
+    @GetMapping("/api/friends")
+    public FriendList getFriends(){
+        return new FriendList();
+    }
+
 }
 
 /////////////////////////////////////////////////////////////
