@@ -4,43 +4,46 @@
 // Chris Dalke, Nate Conroy, Andrew Gutierrez, Daniel Stegink
 ///////////////////////////////////////////////////////////////
 
-package com.grup.movieshelf.Controller.API;
+package com.grup.movieshelf.Controller.API.Entity;
 
 /////////////////////////////////////////////////////////////
 // Module Imports
 /////////////////////////////////////////////////////////////
 
 import com.grup.movieshelf.JPA.Entity.Movies.Title;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-import com.grup.movieshelf.Service.*;
-import java.util.List;
+import com.grup.movieshelf.JPA.Entity.Users.User;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.util.ArrayList;
 
 /////////////////////////////////////////////////////////////
-// Search API
-// REST Controller handling search functionality
+// FriendList
+// Lightweight object used to return a user's friend list.
 /////////////////////////////////////////////////////////////
 
-@RestController
-public class SearchAPI {
+@Data
+@NoArgsConstructor
+public class FriendList {
 
     //------------------------------------------------
-    // Dependencies
+    // Instance Variables
     //------------------------------------------------
 
-    @Autowired
-    private SearchService searchService;
+    private ArrayList<User> friends = new ArrayList<>();
 
     //------------------------------------------------
-    // Request Mappings
+    // Methods
     //------------------------------------------------
 
-    @GetMapping("/api/search")
-    public List<Title> search (@RequestParam("searchString") String searchString) {
-        return searchService.search(searchString);
+    // Add a title to this friend list
+    public void addFriend(User user){
+        friends.add(user);
+    }
+
+    // Remove a title from this friend list
+    public void removeRecommendation(User user){
+        friends.remove(user);
     }
 }
 

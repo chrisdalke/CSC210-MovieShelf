@@ -4,44 +4,42 @@
 // Chris Dalke, Nate Conroy, Andrew Gutierrez, Daniel Stegink
 ///////////////////////////////////////////////////////////////
 
-package com.grup.movieshelf.Controller.API;
+package com.grup.movieshelf.Controller.Web;
 
 /////////////////////////////////////////////////////////////
 // Module Imports
 /////////////////////////////////////////////////////////////
 
-import com.grup.movieshelf.JPA.Entity.Movies.Title;
+import com.grup.movieshelf.Service.SessionService;
+import com.grup.movieshelf.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-import com.grup.movieshelf.Service.*;
-import java.util.List;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 /////////////////////////////////////////////////////////////
-// Search API
-// REST Controller handling search functionality
+// Friends Controller
+// Manages pages that display the friends list functionality.
 /////////////////////////////////////////////////////////////
 
-@RestController
-public class SearchAPI {
+@Controller
+public class FriendsController {
 
     //------------------------------------------------
     // Dependencies
     //------------------------------------------------
 
     @Autowired
-    private SearchService searchService;
+    UserService userService;
 
     //------------------------------------------------
     // Request Mappings
     //------------------------------------------------
 
-    @GetMapping("/api/search")
-    public List<Title> search (@RequestParam("searchString") String searchString) {
-        return searchService.search(searchString);
+    @RequestMapping("/friends")
+    public String friendsList(){
+        return "friends";
     }
+
 }
 
 /////////////////////////////////////////////////////////////
