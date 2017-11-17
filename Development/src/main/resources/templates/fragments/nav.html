@@ -4,16 +4,17 @@
         <div id="nav" class="uk-container uk-container-expand">
             <nav class="uk-navbar-container uk-navbar-transparent" uk-navbar>
                 <div class="uk-navbar-left">
-                    <ul class="uk-navbar-nav">
+                    <ul class="uk-navbar-nav uk-visible@m">
                         <li><a href="/" id="title-display">MovieShelf</a></li>
                     </ul>
+                    <a uk-toggle href="#side-nav" class="uk-hidden@m uk-navbar-toggle uk-navbar-toggle-icon" uk-icon="icon: menu"></a>
                 </div>
 
                 <div class="uk-navbar-right" >
-                    <ul class="uk-navbar-nav uk-visible@m" sec:authorize="isAuthenticated()">
+                    <ul class="uk-navbar-nav" sec:authorize="isAuthenticated()">
                         <!--<li><a href="/logout">Logout</a></li>-->
                         <li>
-                            <form class="uk-search uk-search-default" th:action="@{/search}" th:object="${String}" method="post">
+                            <form id="search-form" class="uk-search uk-search-default" th:action="@{/api/search}" th:object="${String}" method="post">
                                 <a href="" class="uk-search-icon-flip" uk-search-icon></a>
                                 <input class="uk-search-input" type="search" name="searchString" id="searchString" placeholder="Search Movies...">
                             </form>
@@ -25,17 +26,22 @@
                     <div class="uk-navbar-item uk-visible@m" sec:authorize="isAnonymous()">
                         <a class="uk-button uk-button-default" href="/user/register">Sign Up</a>
                     </div>
-                    <a uk-toggle href="#side-nav" class="uk-hidden@m uk-navbar-toggle uk-navbar-toggle-icon" uk-icon="icon: menu"></a>
                 </div>
             </nav>
         </div>
     </div>
 
-
     <div id="side-nav" uk-offcanvas class="uk-hidden@m">
         <div class="uk-offcanvas-bar uk-light">
             <button class="uk-offcanvas-close" type="button" uk-close></button>
             <div th:include="fragments/sidebar :: sidebar" class="sidebar-pad-top"></div>
+        </div>
+    </div>
+
+    <div id="search-pane" class="uk-padding">
+        <h2>Search Results</h2><hr>
+        <div id="search-results">
+
         </div>
     </div>
 </div>
