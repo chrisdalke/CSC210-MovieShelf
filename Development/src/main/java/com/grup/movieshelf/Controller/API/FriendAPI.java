@@ -18,6 +18,7 @@ import com.grup.movieshelf.JPA.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import com.grup.movieshelf.Service.*;
+import org.springframework.ui.Model;
 
 /////////////////////////////////////////////////////////////
 // Friend API
@@ -44,37 +45,22 @@ public class FriendAPI {
     // Request Mappings
     //------------------------------------------------
 
-<<<<<<< HEAD
-    @PostMapping("/api/friends/add")
-=======
     // Add a friendship with a user
     @PostMapping("/api/friends")
->>>>>>> a69e0de831c99161dfff168712165b42c500f911
     public ResponseStatus addFriend (@RequestParam("userName") String friendUserName) {
-
         userService.addFriend(friendUserName);
-
         return new ResponseStatus();
     }
 
-<<<<<<< HEAD
-    @RequestMapping("/api/friends/remove")
-    public ResponseStatus removeFriend (@RequestParam("friendshipId") String friendshipId) {
-
-        userService.removeFriend(friendshipId);
-=======
     // Delete a friendship with a user
-    @DeleteMapping("/api/friends")
-    public ResponseStatus removeFriend (@RequestParam("userName") String friendUserName) {
-
+    @DeleteMapping("/api/friends/{userName}")
+    public ResponseStatus removeFriend (Model model, @PathVariable("userName") String friendUserName) {
         userService.removeFriend(friendUserName);
->>>>>>> a69e0de831c99161dfff168712165b42c500f911
-
         return new ResponseStatus();
     }
 
     // Get the list of users you are friends with
-    @GetMapping("/api/friends")
+    @GetMapping("/api/friends/")
     public FriendList getFriends(){
         return new FriendList();
     }

@@ -78,7 +78,7 @@
                 </div>
 
                 <!-- experimental add friend button -->
-                <form th:action="@{/api/friends/add}" th:object="${String}" method="post">
+                <form th:action="@{/api/friends}" th:object="${String}" method="post">
                     <fieldset class="uk-fieldset">
                         <div class="uk-margin">
                             <input class="uk-input" type="text" name="userName" id="userName" placeholder="Username"/>
@@ -94,7 +94,7 @@
                     <tr th:each="friendship : ${friendships}" th:object="${friendship}">
                         <td>
                             <span th:text="${userRepo.findByUserId(friendship.getUserId2()).getUsername()}"></span>
-                            <a th:href="'/appi/friends/remove'+${friendship.getFriendshipId()}">(Remove)</a>
+                            <a th:href="'/api/friends/'+${friendship.getFriendshipId()}">(Remove)</a>
                         </td>
                     </tr>
                 </table>
