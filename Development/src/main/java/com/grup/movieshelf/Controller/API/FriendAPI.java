@@ -43,7 +43,7 @@ public class FriendAPI {
     // Request Mappings
     //------------------------------------------------
 
-    @PostMapping("/api/friends")
+    @PostMapping("/api/friends/add")
     public ResponseStatus addFriend (@RequestParam("userName") String friendUserName) {
 
         userService.addFriend(friendUserName);
@@ -51,10 +51,10 @@ public class FriendAPI {
         return new ResponseStatus();
     }
 
-    @RequestMapping("/api/friends")
-    public ResponseStatus removeFriend (@RequestParam("friendshipId") String friendId) {
+    @RequestMapping("/api/friends/remove")
+    public ResponseStatus removeFriend (@RequestParam("friendshipId") String friendshipId) {
 
-        userService.removeFriend(friendId);
+        userService.removeFriend(friendshipId);
 
         return new ResponseStatus();
     }
