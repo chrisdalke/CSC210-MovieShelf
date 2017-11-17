@@ -105,7 +105,6 @@ public class UserService implements UserDetailsService {
     //------------------------------------------------
 
     public void addFriend(String friendUser){
-
         Integer userId = getLoggedInUser().getUserId();
         Integer friendId = userRepository.findByUsername(friendUser).getUserId();
         String friendship_name = userId+"_"+friendId;
@@ -115,9 +114,9 @@ public class UserService implements UserDetailsService {
         }
     }
 
-    public void removeFriend(String friendUser){
-        if (friendshipRepository.getByFriendshipId(friendUser) != null) {
-            Friendship friendship = friendshipRepository.getByFriendshipId(friendUser);
+    public void removeFriend(String friendId){
+        if (friendshipRepository.getByFriendshipId(friendId) != null) {
+            Friendship friendship = friendshipRepository.getByFriendshipId(friendId);
             friendshipRepository.delete(friendship);
         }
     }
