@@ -20,7 +20,7 @@
             </div>
 
             <!-- Landing Page for a not-logged-in user -->
-            <div class="uk-padding" sec:authorize="isAnonymous()">
+            <div class="main-div uk-padding" sec:authorize="isAnonymous()">
                 <h1>Index Page</h1>
 
                 <h2>Not Logged In</h2>
@@ -28,7 +28,8 @@
             </div>
 
             <!-- Landing page for a logged-in user -->
-            <div id="main-with-sidebar" class="uk-padding" sec:authorize="isAuthenticated()">
+            <div id="main-with-sidebar" sec:authorize="isAuthenticated()">
+                <!--
                 <h2>Hello, <span th:text="${userProfile.getDisplayName()}">null</span>!</h2>
                 <hr>
                 <h4>My Shelf</h4>
@@ -54,30 +55,10 @@
                             <a th:href="'/shelf/removeMovie/'+${userTitle.getTitleId()}">(Remove)</a>
                         </td>
                     </tr>
-                </table>
-
-                <div class="shelf">
-                    <div class="bookend_left"></div>
-                    <div class="bookend_right"></div>
-                    <div class="reflection"></div>
-                </div>
-                <div class="shelf">
-                    <div class="bookend_left"></div>
-                    <div class="bookend_right"></div>
-                    <div class="reflection"></div>
-                </div>
-                <div class="shelf">
-                    <div class="bookend_left"></div>
-                    <div class="bookend_right"></div>
-                    <div class="reflection"></div>
-                </div>
-                <div class="shelf">
-                    <div class="bookend_left"></div>
-                    <div class="bookend_right"></div>
-                    <div class="reflection"></div>
-                </div>
+                </table>-->
 
                 <!-- experimental add friend button -->
+                <!--
                 <form th:action="@{/api/friends}" th:object="${String}" method="post">
                     <fieldset class="uk-fieldset">
                         <div class="uk-margin">
@@ -97,7 +78,16 @@
                             <a th:href="'/api/friends/'+${friendship.getFriendshipId()}">(Remove)</a>
                         </td>
                     </tr>
-                </table>
+                </table>-->
+
+                <div class="shelf">
+                </div>
+                <div class="shelf">
+                </div>
+                <div class="shelf">
+                </div>
+                <div class="shelf">
+                </div>
             </div>
 
             <!-- Include the footer fragment -->
