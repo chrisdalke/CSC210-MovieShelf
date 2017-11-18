@@ -24,6 +24,8 @@ public interface TitleRepository extends JpaRepository<Title, String> {
     Title getByTitleId(String titleId);
 
     List<Title> getAllByTitleNameContaining(String search);
+
+    boolean existsByTitleId(String titleId);
 }
 
 /////////////////////////////////////////////////////////////

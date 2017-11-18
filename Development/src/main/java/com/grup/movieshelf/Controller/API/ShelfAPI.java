@@ -11,11 +11,14 @@ package com.grup.movieshelf.Controller.API;
 /////////////////////////////////////////////////////////////
 
 import com.grup.movieshelf.Controller.API.Entity.ResponseStatus;
+import com.grup.movieshelf.JPA.Entity.Movies.Title;
 import com.grup.movieshelf.JPA.Repository.UserTitlesRepository;
 import com.grup.movieshelf.Service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /////////////////////////////////////////////////////////////
 // Shelf API
@@ -52,6 +55,11 @@ public class ShelfAPI {
     public ResponseStatus removeTitle (Model model, @PathVariable("titleId") String titleId) {
         shelfService.removeTitleFromShelf(titleId);
         return new ResponseStatus();
+    }
+
+    @GetMapping("/api/shelf")
+    public List<Title> getShelf(){
+        return shelfService.getShelfForUser();
     }
 }
 
