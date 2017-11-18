@@ -13,7 +13,6 @@ package com.grup.movieshelf.Controller.API;
 import com.grup.movieshelf.JPA.Entity.Movies.Title;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.grup.movieshelf.Service.*;
@@ -21,7 +20,7 @@ import java.util.List;
 
 /////////////////////////////////////////////////////////////
 // Search API
-// REST Controller handling search functionality
+// REST Controller handling searchTitles functionality
 /////////////////////////////////////////////////////////////
 
 @RestController
@@ -40,7 +39,7 @@ public class SearchAPI {
 
     @GetMapping("/api/search")
     public List<Title> search (@RequestParam("searchString") String searchString) {
-        return searchService.search(searchString);
+        return searchService.searchTitles(searchString);
     }
 }
 
