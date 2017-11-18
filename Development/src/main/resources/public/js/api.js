@@ -63,11 +63,12 @@ function doSearch(searchText, success, failure){
 // Shelf API
 //------------------------------------------------
 
-function addFavorite(){
-
+function addFavorite(title){
+    doAjax("/api/shelf","POST",{ titleId: title});
 }
 
-function removeFavorite(){
+function removeFavorite(title){
+    doAjax("/api/shelf/"+title,"DELETE",{});
 
 }
 
@@ -94,6 +95,7 @@ function doAjax(url, method, data, success, failure){
             }
         },
         error: function(result){
+            console.log(result);
             if (failure){
                 failure(result);
             }
