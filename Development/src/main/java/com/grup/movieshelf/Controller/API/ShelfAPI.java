@@ -45,9 +45,13 @@ public class ShelfAPI {
     // Request Mappings
     //------------------------------------------------
 
+    private class FriendIdObject {
+        public String titleId;
+    }
+
     @PostMapping("/api/shelf")
-    public ResponseStatus addTitle (Model model, @RequestParam("titleId") String titleId) {
-        shelfService.addTitleToShelf(titleId);
+    public ResponseStatus addTitle (Model model, @RequestBody FriendIdObject friendIdObject) {
+        shelfService.addTitleToShelf(friendIdObject.titleId);
         return new ResponseStatus();
     }
 
