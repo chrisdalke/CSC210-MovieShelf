@@ -72,7 +72,9 @@ function addToGrid(grid,movie){
     card.attr("data-index",movieIndex);
     outerDiv.append(card);
     grid.append(outerDiv);
-    insertPreview(grid,movieDescription);
+    //insertPreview(grid,movieDescription);
+    generatePreview(grid,movie);
+    
 }
 
 /*
@@ -81,17 +83,53 @@ function addToGrid(grid,movie){
 function addNewGrid(master,movie){
     var newGrid=$("<div uk-grid></div>");
     newGrid.attr("data-value","1");
-    newGrid.addClass("uk-grid-match uk-child-width-1-4 uk-grid-small uk-text-center uk-padding-large grid");
+    newGrid.addClass("uk-grid-match uk-child-width-1-4 uk-grid-small uk-padding-large grid");
     addToGrid(newGrid,movie,movieIndex);
     master.append(newGrid);
-    insertPreview(newGrid,movieDescription);
+    //insertPreview(newGrid,movieDescription);
+    generatePreview(newGrid,movie);
 }
 
 function insertPreview(grid,element){
     var outerDiv=$("<div></div>");
     var text =$("<p>"+movieDescription+"</p>");
     outerDiv.addClass("uk-section uk-container-large uk-section-secondary preview");
-    outerDiv.attr("id",'d'+String(movieIndex))
+    outerDiv.attr("id",'d'+String(movieIndex));
     outerDiv.append(text);
     outerDiv.insertAfter(grid);
+}
+
+function generatePreview(grid,element){
+    var gridDiv=$("<div uk-grid></div>");
+    gridDiv.addClass("uk-child-width-1-2@s uk-section-secondary uk-grid-match preview");
+    gridDiv.attr("id",'d'+String(movieIndex))
+    //Image Side
+    var thumbCard=$("<div></div>");
+    thumbCard.addClass("uk-card-large uk-width-1-3 uk-section-secondary");
+    var imgTag = $("<img>");
+    imgTag.attr("src","Images/inception.jpg");
+    imgTag.addClass("uk-align-medium-left uk-padding-large");
+    
+    //Text Side
+    var pannel=$("<div></div>");
+    pannel.addClass("uk-panel uk-section-secondary uk-float-left");
+    var vertGrid=$("<div uk-grid></div>");
+    vertGrid.addClass("uk-child-width-1-1@s uk-section-secondary");
+    var title=$("<div>"+element[0]+"</div>");
+    title.addClass("uk-float-left uk-text-bold uk-padding-large uk-padding-remove-bottom uk-padding-remove-left uk-text-lead");
+    var subTitle=$("<div>"+element[3]+" | "+element[2]+"</div>")
+    subTitle.addClass("uk-float-left uk-margin-remove-top uk-padding-remove-left");
+    var description = $("<div>Overview:<br></br>"+movieDescription+"</div>");
+    description.addClass("uk-float-left uk-padding-remove-left uk-padding-large uk-text-meta uk-padding-remove-top");
+    
+    //appending
+    gridDiv.insertAfter(grid);
+    gridDiv.append(thumbCard);
+    gridDiv.append(pannel);
+    pannel.append(vertGrid);
+    thumbCard.append(imgTag)
+    vertGrid.append(title);
+    vertGrid.append(subTitle);
+    vertGrid.append(description);
+    
 }

@@ -40,6 +40,9 @@ function parseSearchResults(searchObject){
     console.log(searchObject);
     $("#search-results").html("");
     for (var i = 0; i < searchObject.length; i++) {
+        if(i>10){
+            break;
+        }
         $("#search-results").append("<b>"+searchObject[i].titleName+" ("+searchObject[i].year+") </b><br>");
     }
 }
