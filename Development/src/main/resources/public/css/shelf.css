@@ -1,94 +1,28 @@
+.shelf-container {
+
+    box-sizing: border-box;
+    width: 100%;
+    padding-bottom: 29%;
+    border: 5px solid #ff0007;
+}
+
+.shelf-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url("/img/shelving.png");
+    background-repeat: repeat-y;
+    background-size: contain;
+}
+
 .shelf {
-    display: block;
     position: relative;
-    width: 60%;
-    height: 20px;
-    margin: 100px auto 0;
-    background-image: -moz-linear-gradient(90deg, #d1d8de 0%, #eff1f3 100%);
-    /*FF3.6+ */
-    background-image: -webkit-gradient(90deg, left top, right bottom, color-stop(0%, #d1d8de), color-stop(100%, #eff1f3));
-    /*Chrome,Safari4+ */
-    background-image: -webkit-linear-gradient(90deg, #d1d8de 0%, #eff1f3 100%);
-    /*Chrome10+,Safari5.1+ */
-    background-image: -o-linear-gradient(90deg, #d1d8de 0%, #eff1f3 100%);
-    /* Opera 11.10+ */
-    background-image: -ms-linear-gradient(90deg, #d1d8de 0%, #eff1f3 100%);
-    /*IE10+ */
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eff1f3', endColorstr='#d1d8de', GradientType='0' );
-    /* IE6-9 */
-    -webkit-box-shadow: 0 2px 2px #708698, 0 4px 0 #abb8c3, 0 20px 30px -8px #000000, transparent 0 0 0, transparent 0 0 0, transparent 0 0 0;
-    -moz-box-shadow: 0 2px 2px #708698, 0 4px 0 #abb8c3, 0 20px 30px -8px #000000, transparent 0 0 0, transparent 0 0 0, transparent 0 0 0;
-    box-shadow: 0 2px 2px #708698, 0 4px 0 #abb8c3, 0 20px 30px -8px #000000, transparent 0 0 0, transparent 0 0 0, transparent 0 0 0;
-}
-.bookend_left {
-    display: block;
-    position: absolute;
-    left: -25px;
-    top: -18px;
-    width: 36px;
-    height: 36px;
-    background-color: #ffffff;
-    -webkit-transform: rotate(35deg);
-    -moz-transform: rotate(35deg);
-    -ms-transform: rotate(35deg);
-    -o-transform: rotate(35deg);
-}
-.bookend_left:before {
-    position: absolute;
-    top: 31px;
-    left: 17px;
-    width: 20px;
-    height: 10px;
-    background-color: #ffffff;
-    content: "";
-    -webkit-transform: rotate(-35deg);
-    -moz-transform: rotate(-35deg);
-    -ms-transform: rotate(-35deg);
-    -o-transform: rotate(-35deg);
-}
-.bookend_right {
-    display: block;
-    position: absolute;
-    right: -25px;
-    top: -18px;
-    width: 36px;
-    height: 36px;
-    background-color: #ffffff;
-    -webkit-transform: rotate(-35deg);
-    -moz-transform: rotate(-35deg);
-    -ms-transform: rotate(-35deg);
-    -o-transform: rotate(-35deg);
-}
-.bookend_right:before {
-    position: absolute;
-    top: 31px;
-    right: 17px;
-    width: 20px;
-    height: 10px;
-    background-color: #ffffff;
-    content: "";
-    -webkit-transform: rotate(35deg);
-    -moz-transform: rotate(35deg);
-    -ms-transform: rotate(35deg);
-    -o-transform: rotate(35deg);
-}
-.shelf .reflection {
-    display: block;
-    position: absolute;
-    top: 20px;
-    left: 1px;
-    width: 99.8%;
-    height: 1px;
-    background-image: -moz-linear-gradient(0deg, #ffffff 0%, rgba(255, 255, 255, 0.5) 35%, #ffffff 65%, rgba(255, 255, 255, 0.7) 100%);
-    /*FF3.6+ */
-    background-image: -webkit-gradient(linear, left top, right top, color-stop(0%, #ffffff), color-stop(35%, rgba(255, 255, 255, 0.5)), color-stop(65%, #ffffff), color-stop(100%, rgba(255, 255, 255, 0.7)));
-    /*Chrome,Safari4+ */
-    background-image: -webkit-linear-gradient(0deg, #ffffff 0%, rgba(255, 255, 255, 0.5) 35%, #ffffff 65%, rgba(255, 255, 255, 0.7) 100%);
-    /* Chrome10+,Safari5.1+ */
-    background-image: -o-linear-gradient(0deg, #ffffff 0%, rgba(255, 255, 255, 0.5) 35%, #ffffff 65%, rgba(255, 255, 255, 0.7) 100%);
-    /* Opera 11.10+ */
-    background-image: -ms-linear-gradient(0deg, #ffffff 0%, rgba(255, 255, 255, 0.5) 35%, #ffffff 65%, rgba(255, 255, 255, 0.7) 100%);
-    /*IE10+ */
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='rgba(255, 255, 255, 0.7)', endColorstr='#ffffff', GradientType='0' );
-    /* IE6-9 */
+    box-sizing: border-box;
+    width: 100%;
+    padding-bottom: 29%;
+    background-image: url("/img/shelving.png");
+    background-repeat: repeat-y;
+    background-size: contain;
 }
