@@ -11,6 +11,7 @@ package com.grup.movieshelf.Service;
 /////////////////////////////////////////////////////////////
 
 import com.grup.movieshelf.JPA.Entity.Movies.Title;
+import com.grup.movieshelf.JPA.Entity.Users.User;
 import org.apache.lucene.search.Query;
 import org.hibernate.search.jpa.FullTextEntityManager;
 import org.hibernate.search.jpa.FullTextQuery;
@@ -36,17 +37,17 @@ public class SearchService {
     @PersistenceContext
     private EntityManager entityManager;
 
-    public List<Title> search(String text) {
+    public List<Title> searchTitles(String text) {
         // get the full text entity manager
         FullTextEntityManager fullTextEntityManager = org.hibernate.search.jpa.Search.getFullTextEntityManager(entityManager);
-
+ 
         // create the query using Hibernate Search query DSL
         QueryBuilder queryBuilder = fullTextEntityManager.getSearchFactory()
                 .buildQueryBuilder().forEntity(Title.class).get();
 
         Query query = queryBuilder.keyword()
                 .fuzzy()
-                .onFields("titleName")
+                .onFields("titleName", "associatedPeople.name")
                 .matching(text)
                 .createQuery();
 
@@ -57,6 +58,29 @@ public class SearchService {
         List<Title> titles = jpaQuery.getResultList();
 
         return titles;
+    }
+
+    public List<User> searchUsers(String text) {
+        // get the full text entity manager
+        FullTextEntityManager fullTextEntityManager = org.hibernate.search.jpa.Search.getFullTextEntityManager(entityManager);
+
+        // create the query using Hibernate Search query DSL
+        QueryBuilder queryBuilder = fullTextEntityManager.getSearchFactory()
+                .buildQueryBuilder().forEntity(User.class).get();
+
+        Query query = queryBuilder.keyword()
+                .fuzzy()
+                .onFields("username")
+                .matching(text)
+                .createQuery();
+
+        FullTextQuery jpaQuery = fullTextEntityManager.createFullTextQuery(query, User.class);
+        jpaQuery.setMaxResults(30);
+
+        @SuppressWarnings("unchecked")
+        List<User> users = jpaQuery.getResultList();
+
+        return users;
     }
 }
 
