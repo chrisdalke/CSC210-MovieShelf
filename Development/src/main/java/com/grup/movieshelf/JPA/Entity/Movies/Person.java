@@ -12,52 +12,42 @@ package com.grup.movieshelf.JPA.Entity.Movies;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.search.annotations.*;
+import org.hibernate.search.annotations.Analyze;
+import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Index;
+import org.hibernate.search.annotations.Store;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
 
 /////////////////////////////////////////////////////////////
-// Title Model Object
-// Stores data about a movie title.
+// Person Model Object
+// Stores data about a movie actor, director, producer, etc.
 /////////////////////////////////////////////////////////////
 
 @Entity
-@Indexed
-@Table(name = "Titles")
+@Table(name = "people")
 @Data
 @NoArgsConstructor
-public class Title implements Comparable<Title>, Serializable {
+public class Person implements Comparable<Person>, Serializable {
 
     @Id
     @NotNull
-    @Column(name = "tconst", unique = true, updatable = false)
-    private String titleId;
+    @Column(name = "nconst", unique = true, updatable = false)
+    private String personId;
 
     @NotNull
-    @Column(name = "primaryTitle", unique = false, updatable = false)
+    @Column(name = "primaryName", unique = false, updatable = true)
     @Field(index= Index.YES, analyze= Analyze.YES, store= Store.NO)
-    private String titleName;
-
-    @NotNull
-    @Column(name = "startYear", unique = false, updatable = false)
-    private Integer year;
-
-    @NotNull
-    @Column(name = "runtimeMinutes", unique = false, updatable = false)
-    private Integer runtimeMinutes;
-
-    @IndexedEmbedded
-    @ManyToMany
-    private Set<Person> associatedPeople = new HashSet<>();
+    private String name;
 
     @Override
-    public int compareTo(Title other) {
-        return getTitleId().compareTo(other.getTitleId());
+    public int compareTo(Person o) {
+        return getPersonId().compareTo(o.getPersonId());
     }
 }
 

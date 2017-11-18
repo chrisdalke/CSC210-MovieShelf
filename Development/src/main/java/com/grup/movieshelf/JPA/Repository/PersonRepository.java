@@ -10,19 +10,16 @@ package com.grup.movieshelf.JPA.Repository;
 // Module Imports
 /////////////////////////////////////////////////////////////
 
-import com.grup.movieshelf.JPA.Entity.Movies.Title;
+import com.grup.movieshelf.JPA.Entity.Movies.Person;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.util.List;
-
 /////////////////////////////////////////////////////////////
-// Title Repository
+// Person Repository
 /////////////////////////////////////////////////////////////
 
-public interface TitleRepository extends JpaRepository<Title, String> {
+public interface PersonRepository extends JpaRepository<Person, String> {
 
-    Title getByTitleId(String titleId);
-
+    Person getByPersonId(String personId);
 }
 
 /////////////////////////////////////////////////////////////
