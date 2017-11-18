@@ -35,7 +35,7 @@
                 <p>Add some movies to your shelf to start finding suggestions.</p>
                 <p>Examples:<br>tt1375666 - Inception<br>tt0816692 - Interstellar<br>tt3659388 - The Martian</p>
 
-                <form th:action="@{/shelf/addMovie}" th:object="${String}" method="post">
+                <form action="/api/shelf" object="${String}" method="post">
                     <fieldset class="uk-fieldset">
                         <div class="uk-margin">
                             <input class="uk-input" type="text" name="titleId" id="titleId" placeholder="Title ID"/>
