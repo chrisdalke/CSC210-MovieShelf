@@ -1277,7 +1277,7 @@ button.uk-icon:not(:disabled) {
  * 1. Define consistent box sizing.
  *    Default is `content-box` with following exceptions set to `border-box`
  *    `select`, `input[type="checkbox"]` and `input[type="radio"]`
- *    `input[type="search"]` in Chrome, Safari and Opera
+ *    `input[type="searchTitles"]` in Chrome, Safari and Opera
  *    `input[type="color"]` in Firefox
  * 2. Address margins set differently in Firefox/IE and Chrome/Safari/Opera.
  * 3. Remove `border-radius` in iOS.
@@ -1371,7 +1371,7 @@ button.uk-icon:not(:disabled) {
 }
 /* Input, select and textarea
  * Allowed: `text`, `password`, `datetime`, `datetime-local`, `date`,  `month`,
-            `time`, `week`, `number`, `email`, `url`, `search`, `tel`, `color`
+            `time`, `week`, `number`, `email`, `url`, `searchTitles`, `tel`, `color`
  * Disallowed: `range`, `radio`, `checkbox`, `file`, `submit`, `reset` and `image`
  ========================================================================== */
 /*

@@ -13,6 +13,8 @@ package com.grup.movieshelf.JPA.Entity.Users;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.search.annotations.*;
+import org.hibernate.search.annotations.Index;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -29,6 +31,7 @@ import java.util.*;
 /////////////////////////////////////////////////////////////
 
 @Entity
+@Indexed
 @Table(name = "Users")
 @Data
 @NoArgsConstructor
@@ -41,6 +44,7 @@ public class User implements Comparable<User>, Serializable, UserDetails {
 
     @NotNull
     @Column(name = "username", unique = true, updatable = true)
+    @Field(index=Index.YES, analyze= Analyze.YES, store= Store.NO)
     private String username;
 
     // Hashed password using bcrypt2
