@@ -24,8 +24,8 @@
                     <td>
                         <span th:text="${friend.getUsername()}"></span>
                         <!-- THESE DON'T LINK CORRECTLY AS THEY ARE -->
-                        <a th:href="'api/friends/'+${friend.getUsername()}">(Confirm)</a>
-                        <a th:href="'api/friends/'+${friend.getUsername()}">(Delete)</a>
+                        <a th:href="/api/friends/confirm">(Confirm)</a>
+                        <a th:href="'api/friends/delete/'+${friend.getUsername()}">(Delete)</a>
                     </td>
                 </tr>
             </table>
@@ -39,7 +39,7 @@
                     <td>
                         <span th:text="${friend.getUsername()}"></span>
                         <!-- THESE DON'T LINK CORRECTLY AS THEY ARE -->
-                        <a th:href="'api/friends/'+${friend.getUsername()}">(Cancel)</a>
+                        <a th:href="'api/friends/cancel/'+${friend.getUsername()}">(Cancel)</a>
                     </td>
                 </tr>
             </table>
@@ -53,7 +53,7 @@
                     <td>
                         <span th:text="${friend.getUsername()}"></span>
                         <!-- THESE DON'T LINK CORRECTLY AS THEY ARE -->
-                        <a th:href="'api/friends/'+${friend.getUsername()}">(Remove)</a>
+                        <a th:href="'api/friends/remove/'+${friend.getUsername()}">(Remove)</a>
                     </td>
                 </tr>
             </table>
