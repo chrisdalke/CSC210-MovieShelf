@@ -64,7 +64,7 @@ function doSearch(searchText, success, failure){
 //------------------------------------------------
 
 function addFavorite(title){
-    doAjax("/api/shelf","POST",{ titleId: title});
+    doAjax("/api/shelf","POST",{ "titleId": title});
 }
 
 function removeFavorite(title){

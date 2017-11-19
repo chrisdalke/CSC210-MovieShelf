@@ -141,7 +141,14 @@ html {
     height: 50px;
 }
 
+.signs{
+    width: initial !important;
+}
+
 .removeButton{
+    background-color: rgb(226, 68, 78);
+    width: 50px;
+    height: 50px;
 }
 
 ::-webkit-scrollbar {
