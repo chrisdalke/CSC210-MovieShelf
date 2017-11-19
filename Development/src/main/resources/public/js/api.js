@@ -54,6 +54,23 @@ function doSearch(searchText, success, failure){
         });
 }
 
+/*
+function getLibrary(){
+    doAjax(
+        "/api/search",
+        "GET",
+        {
+            ****Stuff****
+        },
+        function(result){
+            success(result);
+        },
+        function(){
+            failure();
+        });
+}
+*/
+
 //------------------------------------------------
 // Session API
 //------------------------------------------------

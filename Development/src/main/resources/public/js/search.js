@@ -49,7 +49,7 @@ function parseSearchResults(searchObject){
         var cardText=$("<a class=\"uk-position-center\" href=\"/titles/"+searchObject[i].titleId+"\">"+searchObject[i].titleName+" ("+searchObject[i].year+")</a>");
         var titleObject=Object.freeze(searchObject[i]); 
 
-        if(containsTitle(searchObject[i].titleId)){
+        if(!containsTitle(searchObject[i].titleId)){
             buttonCard =$("<div class=\"uk-card addButton uk-width-auto@m\"><span class=\"uk-position-center signs\" uk-icon=\"icon: plus\"></span></div>");
             buttonCard.click(function(){
                 addFavorite(titleObject.titleId);
@@ -71,5 +71,6 @@ function parseSearchResults(searchObject){
 }
 
 function containsTitle(titleId){
-    return true;
+    //Use getLibrary in api.js
+    return Math.random() >= 0.5;
 }
