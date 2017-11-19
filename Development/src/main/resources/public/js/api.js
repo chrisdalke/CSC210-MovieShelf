@@ -24,12 +24,12 @@ function getUserFromSessionCode(sessionCode, callback){
 // Friend API
 //------------------------------------------------
 
-function addFriend(){
-
+function addFriend(friend){
+    doAjax("/api/friends","POST",{"friend": friend});
 }
 
-function removeFriend(){
-
+function removeFriend(friendship){
+    doAjax("/api/shelf/"+friendship,"DELETE",{});
 }
 
 function getFriends(){

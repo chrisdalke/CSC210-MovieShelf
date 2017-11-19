@@ -19,7 +19,28 @@
         <!-- Display a list of all the user's friends here, filled in via JS -->
         <div id="friends-list">
 
+            <!-- experimental add friend button -->
+            <!--
+            <form th:action="@{/api/friends}" th:object="${String}" method="post">
+                <fieldset class="uk-fieldset">
+                    <div class="uk-margin">
+                        <input class="uk-input" type="text" name="userName" id="userName" placeholder="Username"/>
+                    </div>
+                    <div class="uk-margin">
+                        <input class="uk-width-1-1 uk-button uk-button-default" type="submit" value="Add Friend"/>
+                    </div>
+                </fieldset>
+            </form>
 
+            <p>Friends</p>
+            <table class="table table-bordered">
+                <tr th:each="friendship : ${friendships}" th:object="${friendship}">
+                    <td>
+                        <span th:text="${userRepo.findByUserId(friendship.getUserId2()).getUsername()}"></span>
+                        <a th:href="'/api/friends/'+${friendship.getFriendshipId()}">(Remove)</a>
+                    </td>
+                </tr>
+            </table>-->
 
         </div>
     </div>

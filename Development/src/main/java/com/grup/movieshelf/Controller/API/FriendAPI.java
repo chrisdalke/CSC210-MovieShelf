@@ -45,10 +45,15 @@ public class FriendAPI {
     // Request Mappings
     //------------------------------------------------
 
+    @Data
+    private class FriendIdObject {
+        public String friendUserName;
+    }
+
     // Add a friendship with a user
     @PostMapping("/api/friends")
-    public ResponseStatus addFriend (@RequestParam("userName") String friendUserName) {
-        userService.addFriend(friendUserName);
+    public ResponseStatus addFriend (Model model, @RequestBody FriendIdObject friend) {
+        userService.addFriend(friend.friendUserName);
         return new ResponseStatus();
     }
 
