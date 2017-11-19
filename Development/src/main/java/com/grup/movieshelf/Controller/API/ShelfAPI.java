@@ -14,6 +14,7 @@ import com.grup.movieshelf.Controller.API.Entity.ResponseStatus;
 import com.grup.movieshelf.JPA.Entity.Movies.Title;
 import com.grup.movieshelf.JPA.Repository.UserTitlesRepository;
 import com.grup.movieshelf.Service.*;
+import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -44,7 +45,7 @@ public class ShelfAPI {
     //------------------------------------------------
     // Request Mappings
     //------------------------------------------------
-
+    @Data
     private class FriendIdObject {
         public String titleId;
     }

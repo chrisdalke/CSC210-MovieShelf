@@ -44,25 +44,32 @@ function parseSearchResults(searchObject){
             break;
         }
         var entry = $("<div class=\"uk-grid-match uk-grid-collapse \" uk-grid></div><br>");
-        var titleCard=$("<div class=\"uk-card uk-width-expand@m\">"+searchObject[i].titleName+" ("+searchObject[i].year+")</div>");
-        var buttonCard =$("<div class=\"uk-card addButton uk-width-auto@m\"><a icon: \"plus\"></a></div>");
-        var titleObject=Object.freeze(searchObject[i]);
-        buttonCard.click(function(){
-            addFavorite(titleObject.titleId);
-            console.log("added");
-        });
+        var titleCard=$("<div class=\"uk-card uk-width-expand@m\"></div>");
+        var buttonCard;
+        var cardText=$("<a class=\"uk-position-center\" href=\"/titles/"+searchObject[i].titleId+"\">"+searchObject[i].titleName+" ("+searchObject[i].year+")</a>");
+        var titleObject=Object.freeze(searchObject[i]); 
+
+        if(containsTitle(searchObject[i].titleId)){
+            buttonCard =$("<div class=\"uk-card addButton uk-width-auto@m\"><span class=\"uk-position-center signs\" uk-icon=\"icon: plus\"></span></div>");
+            buttonCard.click(function(){
+                addFavorite(titleObject.titleId);
+                console.log("added");
+            });
+        }else{
+          buttonCard =$("<div class=\"uk-card removeButton uk-width-auto@m\"><span class=\"uk-position-center signs\" uk-icon=\"icon: minus\"></span></div>");
+            buttonCard.click(function(){
+                removeFavorite(titleObject.titleId);
+                console.log("removed");
+            });  
+        }
+        
+        titleCard.append(cardText);
         entry.append(titleCard);
         entry.append(buttonCard);
         $("#search-results").append(entry);
-        /*
-        var entry = $("<div class=\"uk-card \"></div><br>");
-        var body= $("<div class=\"uk-card-body \">"+searchObject[i].titleName+" ("+searchObject[i].year+")</div>")
-        var right=$("<div class=\"uk-card-media-right\"></div>");
-        var button=$("<a class=\"uk-button uk-button-default\" href=\"/titles/"+searchObject[i].titleId+"\"> View</a>");
-        right.append(button);
-        entry.append(body);
-        entry.append(right);
-        $("#search-results").append(entry);
-        */
     }
+}
+
+function containsTitle(titleId){
+    return true;
 }
