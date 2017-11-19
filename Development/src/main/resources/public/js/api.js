@@ -57,7 +57,7 @@ function doSearch(searchText, success, failure){
 /*
 function getLibrary(){
     doAjax(
-        "/api/search",
+        "/api/shelf",
         "GET",
         {
             ****Stuff****
