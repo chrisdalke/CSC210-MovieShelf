@@ -14,35 +14,62 @@
     </div>
 
     <div id="main-with-sidebar" class="uk-padding">
-        <h2>Friends List</h2>
+
+        <h2>Friends</h2>
         <hr>
-        <!-- Display a list of all the user's friends here, filled in via JS -->
-        <div id="friends-list">
-
-            <!-- experimental add friend button -->
-            <!--
-            <form th:action="@{/api/friends}" th:object="${String}" method="post">
-                <fieldset class="uk-fieldset">
-                    <div class="uk-margin">
-                        <input class="uk-input" type="text" name="userName" id="userName" placeholder="Username"/>
-                    </div>
-                    <div class="uk-margin">
-                        <input class="uk-width-1-1 uk-button uk-button-default" type="submit" value="Add Friend"/>
-                    </div>
-                </fieldset>
-            </form>
-
-            <p>Friends</p>
+        <div id="incoming-friends-requests">
+            <p>Incoming Friend Requests</p>
             <table class="table table-bordered">
-                <tr th:each="friendship : ${friendships}" th:object="${friendship}">
+                <tr th:each="friend : ${incoming_requests}" th:object="${user}">
                     <td>
-                        <span th:text="${userRepo.findByUserId(friendship.getUserId2()).getUsername()}"></span>
-                        <a th:href="'/api/friends/'+${friendship.getFriendshipId()}">(Remove)</a>
+                        <span th:text="${friend.getUsername()}"></span>
+                        <!-- THESE DON'T LINK CORRECTLY AS THEY ARE -->
+                        <a th:href="'api/friends/'+${friend.getUsername()}">(Confirm)</a>
+                        <a th:href="'api/friends/'+${friend.getUsername()}">(Delete)</a>
                     </td>
                 </tr>
-            </table>-->
-
+            </table>
         </div>
+
+        <hr>
+        <div id="outgoing-friends-requests">
+            <p>Outgoing Friend Requests</p>
+            <table class="table table-bordered">
+                <tr th:each="friend : ${outgoing_requests}" th:object="${user}">
+                    <td>
+                        <span th:text="${friend.getUsername()}"></span>
+                        <!-- THESE DON'T LINK CORRECTLY AS THEY ARE -->
+                        <a th:href="'api/friends/'+${friend.getUsername()}">(Cancel)</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <hr>
+        <div id="friends-list">
+            <p>Friends List</p>
+            <table class="table table-bordered">
+                <tr th:each="friend : ${friends}" th:object="${user}">
+                    <td>
+                        <span th:text="${friend.getUsername()}"></span>
+                        <!-- THESE DON'T LINK CORRECTLY AS THEY ARE -->
+                        <a th:href="'api/friends/'+${friend.getUsername()}">(Remove)</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <form th:action="@{/api/friends}" th:object="${String}" method="post">
+            <fieldset class="uk-fieldset">
+                <div class="uk-margin">
+                    <input class="uk-input" type="text" name="userName" id="userName" placeholder="Username"/>
+                </div>
+                <div class="uk-margin">
+                    <input class="uk-width-1-1 uk-button uk-button-default" type="submit" value="Add Friend"/>
+                </div>
+            </fieldset>
+        </form>
+
     </div>
 
     <!-- Include the footer fragment -->

@@ -22,7 +22,9 @@ public interface FriendshipRepository extends JpaRepository<Friendship, String> 
 
     Friendship getByFriendshipId(String friendshipId);
 
-    List<Friendship> getAllByUserId(Integer userId);
+    List<Friendship> getAllByUserId1(Integer userId);
+
+    List<Friendship> getAllByUserId2(Integer userId);
 }
 
 /////////////////////////////////////////////////////////////

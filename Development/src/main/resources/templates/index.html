@@ -52,7 +52,7 @@
                     <tr th:each="userTitle : ${userTitles}" th:object="${userTitle}">
                         <td>
                             <span th:text="${titleRepo.getByTitleId(userTitle.getTitleId()).getTitleName()}"></span>
-                            <a th:href="'/shelf/removeMovie/'+${userTitle.getTitleId()}">(Remove)</a>
+                            <a th:href="'api/shelf/'+${userTitle.getTitleId()}">(Remove)</a>
                         </td>
                     </tr>
                 </table>-->

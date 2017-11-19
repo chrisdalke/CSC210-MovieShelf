@@ -66,7 +66,6 @@ public class IndexController {
             model.addAttribute("userTitles", userTitlesRepository.getAllByUserId(user.getUserId()));
             model.addAttribute("titleRepo", titleRepository);
             model.addAttribute("friendRepo", friendshipRepository);
-            model.addAttribute("friendships", friendshipRepository.getAllByUserId(user.getUserId()));
             model.addAttribute("userRepo", userRepository);
         }
 
