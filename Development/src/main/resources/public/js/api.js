@@ -29,7 +29,7 @@ function addFriend(friend){
 }
 
 function removeFriend(friendship){
-    doAjax("/api/shelf/"+friendship,"DELETE",{});
+    doAjax("/api/friends/remove/"+friendship,"DELETE",{});
 }
 
 function getFriends(){

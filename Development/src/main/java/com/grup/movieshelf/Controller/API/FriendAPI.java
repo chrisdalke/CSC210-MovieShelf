@@ -53,8 +53,17 @@ public class FriendAPI {
         return new ResponseStatus();
     }
 
+    // Confirm a friendship with a user
+    @PostMapping("/api/friends/confirm")
+    public ResponseStatus confirmFriend (@RequestParam("userName") String friendUserName) {
+        // isFriend just checks that both have added each other as friends
+        // both considered friends when both have added the other; so just add the other
+        userService.addFriend(friendUserName);
+        return new ResponseStatus();
+    }
+
     // Delete a friendship with a user
-    @DeleteMapping("/api/friends/{username}")
+    @DeleteMapping("/api/friends/remove/{username}")
     public ResponseStatus removeFriend (Model model, @PathVariable("username") String username) {
         userService.removeFriend(username);
         return new ResponseStatus();
@@ -66,6 +75,19 @@ public class FriendAPI {
         return userService.getFriends();
     }
 
+    // Delete a friendship request from a user
+    @DeleteMapping("/api/friends/delete/{username}")
+    public ResponseStatus deleteFriendRequest (Model model, @PathVariable("username") String username) {
+        userService.deleteFriendRequest(username);
+        return new ResponseStatus();
+    }
+
+    // Cancel a friendship request to a user
+    @DeleteMapping("/api/friends/cancel/{username}")
+    public ResponseStatus cancelFriendRequest (Model model, @PathVariable("username") String username) {
+        userService.deleteFriendRequest(username); //deleting the same friendships, so same thing as deleteFriend
+        return new ResponseStatus();
+    }
 }
 
 /////////////////////////////////////////////////////////////
