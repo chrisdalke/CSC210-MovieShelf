@@ -10,11 +10,12 @@ package com.grup.movieshelf.Controller.Web;
 // Module Imports
 /////////////////////////////////////////////////////////////
 
-import com.grup.movieshelf.Service.SessionService;
+import com.grup.movieshelf.JPA.Repository.FriendshipRepository;
 import com.grup.movieshelf.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 
 /////////////////////////////////////////////////////////////
 // Friends Controller
@@ -35,8 +36,11 @@ public class FriendsController {
     // Request Mappings
     //------------------------------------------------
 
-    @RequestMapping("/friends")
-    public String friendsList(){
+    @GetMapping("/friends")
+    public String friendsPage(Model model){
+        model.addAttribute("incoming_requests", userService.getIncomingFriendRequestUsers());
+        model.addAttribute("outgoing_requests", userService.getOutgoingFriendRequestUsers());
+        model.addAttribute("friends", userService.getFriends());
         return "friends";
     }
 

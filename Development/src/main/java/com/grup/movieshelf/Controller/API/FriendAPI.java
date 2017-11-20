@@ -10,9 +10,8 @@ package com.grup.movieshelf.Controller.API;
 // Module Imports
 /////////////////////////////////////////////////////////////
 
-import com.grup.movieshelf.Controller.API.Entity.FriendList;
 import com.grup.movieshelf.Controller.API.Entity.ResponseStatus;
-import com.grup.movieshelf.JPA.Entity.Users.Friendship;
+import com.grup.movieshelf.JPA.Entity.Users.User;
 import com.grup.movieshelf.JPA.Repository.FriendshipRepository;
 import com.grup.movieshelf.JPA.Repository.UserRepository;
 import lombok.Data;
@@ -20,6 +19,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import com.grup.movieshelf.Service.*;
 import org.springframework.ui.Model;
+
+import java.util.List;
 
 /////////////////////////////////////////////////////////////
 // Friend API
@@ -46,31 +47,48 @@ public class FriendAPI {
     // Request Mappings
     //------------------------------------------------
 
-    @Data
-    private class FriendIdObject {
-        public String friendUserName;
-    }
-
     // Add a friendship with a user
     @PostMapping("/api/friends")
-    public ResponseStatus addFriend (Model model, @RequestBody FriendIdObject friend) {
-        userService.addFriend(friend.friendUserName);
+    public ResponseStatus addFriend (@RequestParam("userName") String friendUserName) {
+        userService.addFriend(friendUserName);
+        return new ResponseStatus();
+    }
+
+    // Confirm a friendship with a user
+    @PostMapping("/api/friends/confirm")
+    public ResponseStatus confirmFriend (@RequestParam("userName") String friendUserName) {
+        // isFriend just checks that both have added each other as friends
+        // both considered friends when both have added the other; so just add the other
+        userService.addFriend(friendUserName);
         return new ResponseStatus();
     }
 
     // Delete a friendship with a user
-    @DeleteMapping("/api/friends/{userName}")
-    public ResponseStatus removeFriend (Model model, @PathVariable("userName") String friendUserName) {
-        userService.removeFriend(friendUserName);
+    @DeleteMapping("/api/friends/remove/{username}")
+    public ResponseStatus removeFriend (Model model, @PathVariable("username") String username) {
+        userService.removeFriend(username);
         return new ResponseStatus();
     }
 
     // Get the list of users you are friends with
     @GetMapping("/api/friends/")
-    public FriendList getFriends(){
-        return new FriendList();
+    public List<User> getFriends(){
+        return userService.getFriends();
     }
 
+    // Delete a friendship request from a user
+    @DeleteMapping("/api/friends/delete/{username}")
+    public ResponseStatus deleteFriendRequest (Model model, @PathVariable("username") String username) {
+        userService.deleteFriendRequest(username);
+        return new ResponseStatus();
+    }
+
+    // Cancel a friendship request to a user
+    @DeleteMapping("/api/friends/cancel/{username}")
+    public ResponseStatus cancelFriendRequest (Model model, @PathVariable("username") String username) {
+        userService.deleteFriendRequest(username); //deleting the same friendships, so same thing as deleteFriend
+        return new ResponseStatus();
+    }
 }
 
 /////////////////////////////////////////////////////////////
