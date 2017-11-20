@@ -80,12 +80,12 @@ function getLibrary(){
 // Shelf API
 //------------------------------------------------
 
-function addFavorite(title){
-    doAjax("/api/shelf","POST",{ "titleId": title});
+function addFavorite(title,success){
+    doAjax("/api/shelf/"+title,"POST",{ },success,null);
 }
 
-function removeFavorite(title){
-    doAjax("/api/shelf/"+title,"DELETE",{});
+function removeFavorite(title,success){
+    doAjax("/api/shelf/"+title,"DELETE",{},success,null);
 
 }
 

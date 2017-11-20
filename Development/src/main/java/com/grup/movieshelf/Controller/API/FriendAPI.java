@@ -15,6 +15,7 @@ import com.grup.movieshelf.Controller.API.Entity.ResponseStatus;
 import com.grup.movieshelf.JPA.Entity.Users.Friendship;
 import com.grup.movieshelf.JPA.Repository.FriendshipRepository;
 import com.grup.movieshelf.JPA.Repository.UserRepository;
+import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import com.grup.movieshelf.Service.*;
