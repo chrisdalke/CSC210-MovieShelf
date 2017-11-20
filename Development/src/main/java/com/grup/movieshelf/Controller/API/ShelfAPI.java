@@ -50,9 +50,9 @@ public class ShelfAPI {
         public String titleId;
     }
 
-    @PostMapping("/api/shelf")
-    public ResponseStatus addTitle (Model model, @RequestBody FriendIdObject friendIdObject) {
-        shelfService.addTitleToShelf(friendIdObject.titleId);
+    @PostMapping("/api/shelf/{titleId}")
+    public ResponseStatus addTitle (Model model, @PathVariable("titleId") String titleId) {
+        shelfService.addTitleToShelf(titleId);
         return new ResponseStatus();
     }
 
