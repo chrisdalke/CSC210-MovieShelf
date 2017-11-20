@@ -29,6 +29,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
+import java.util.List;
 
 /////////////////////////////////////////////////////////////
 // UserService
@@ -104,25 +105,113 @@ public class UserService implements UserDetailsService {
     // Friends List
     //------------------------------------------------
 
-    public void addFriend(String friendUser){
+    // helper method that returns a boolean corresponding to whether the users are friends or not
+    public boolean isFriend(Integer userId1, Integer userId2) {
+
+        String friendshipId = String.format("%d_%d", userId1, userId2);
+        String friendshipId2 = String.format("%d_%d", userId2, userId1);
+
+        // check if user 1 has added user 2, and vice versa
+        return !(friendshipRepository.getByFriendshipId(friendshipId) == null
+                || friendshipRepository.getByFriendshipId(friendshipId2) == null);
+    }
+
+    public void addFriend(String username){
         Integer userId = getLoggedInUser().getUserId();
-        Integer friendId = userRepository.findByUsername(friendUser).getUserId();
-        String friendship_name = userId+"_"+friendId;
-        if (friendshipRepository.getByFriendshipId(friendship_name) == null) {
-            Friendship friendship = new Friendship(userId, friendId);
-            friendshipRepository.save(friendship);
+        User requestedFriend = userRepository.findByUsername(username);
+
+        if (requestedFriend != null) {
+            //if the users are not already friends
+            if(!isFriend(userId, requestedFriend.getUserId())) {
+                friendshipRepository.save(new Friendship(userId, requestedFriend.getUserId()));
+            }
         }
     }
 
-    public void removeFriend(String friendId){
-        if (friendshipRepository.getByFriendshipId(friendId) != null) {
-            Friendship friendship = friendshipRepository.getByFriendshipId(friendId);
-            friendshipRepository.delete(friendship);
+    public void removeFriend(String username){
+        Integer userId = getLoggedInUser().getUserId();
+        User friend = userRepository.findByUsername(username);
+
+        if(friend != null) {
+            //if the users are friends
+            if(isFriend(userId, friend.getUserId())) {
+                String friendshipId1 = String.format("%d_%d", userId, friend.getUserId());
+                String friendshipId2 = String.format("%d_%d", friend.getUserId(), userId);
+
+                // remove both instances of friendship from repository
+                friendshipRepository.delete(friendshipRepository.getByFriendshipId(friendshipId1));
+                friendshipRepository.delete(friendshipRepository.getByFriendshipId(friendshipId2));
+            }
         }
     }
 
-    public ArrayList<User> getFriends(){
-        return null;
+    public void deleteFriendRequest(String username) {
+        Integer userId = getLoggedInUser().getUserId();
+        User friend = userRepository.findByUsername(username);
+
+        if(friend != null) {
+            String friendshipId1 = String.format("%d_%d", userId, friend.getUserId());
+            String friendshipId2 = String.format("%d_%d", friend.getUserId(), userId);
+
+            Friendship friendship1 = friendshipRepository.getByFriendshipId(friendshipId1);
+            Friendship friendship2 = friendshipRepository.getByFriendshipId(friendshipId2);
+
+            if(friendship1 != null) {
+                friendshipRepository.delete(friendship1);
+            }
+
+            if(friendship2 != null) {
+                friendshipRepository.delete(friendship2);
+            }
+        }
+    }
+
+    public List<User> getFriends(){
+        Integer userId = getLoggedInUser().getUserId();
+
+        List<User> friends = new ArrayList<>();
+
+        // get reciprocated friend requests
+        List<Friendship> requestedFriends = friendshipRepository.getAllByUserId1(userId);
+        for(Friendship friendship : requestedFriends) {
+            if(isFriend(userId, friendship.getUserId2())) {
+                friends.add(userRepository.findByUserId(friendship.getUserId2()));
+            }
+        }
+
+        return friends;
+    }
+
+    public List<User> getIncomingFriendRequestUsers() {
+        Integer userId = getLoggedInUser().getUserId();
+
+        List<User> requestingUsers = new ArrayList<>();
+
+        // get users who have requested you, but you have not yet responded
+        List<Friendship> requestedFriends = friendshipRepository.getAllByUserId2(userId);
+        for(Friendship friendship : requestedFriends) {
+            if(!isFriend(userId, friendship.getUserId1())) {
+                requestingUsers.add(userRepository.findByUserId(friendship.getUserId1()));
+            }
+        }
+
+        return requestingUsers;
+    }
+
+    public List<User> getOutgoingFriendRequestUsers() {
+        Integer userId = getLoggedInUser().getUserId();
+
+        List<User> requestedUsers = new ArrayList<>();
+
+        // get users who you have requested, but they have not yet responded
+        List<Friendship> requestedFriends = friendshipRepository.getAllByUserId1(userId);
+        for(Friendship friendship : requestedFriends) {
+            if(!isFriend(userId, friendship.getUserId2())) {
+                requestedUsers.add(userRepository.findByUserId(friendship.getUserId2()));
+            }
+        }
+
+        return requestedUsers;
     }
 
     //------------------------------------------------
