@@ -26,31 +26,21 @@ import java.io.Serializable;
 @NoArgsConstructor
 public class Friendship implements Comparable<Friendship>, Serializable {
 
-    public Friendship(Integer userId, Integer userId2) {
-        this.userId = userId;
+    public Friendship(Integer userId1, Integer userId2) {
+        this.userId1 = userId1;
         this.userId2 = userId2;
-        this.friendshipId = String.valueOf(userId) + "_" + String.valueOf(userId2);
+        this.friendshipId = String.valueOf(userId1) + "_" + String.valueOf(userId2);
     }
-
-    @Column(name = "userId", unique = true, updatable = false)
-    private Integer userId;
-
-    @Column(name = "userId2", unique = true, updatable = false)
-    private Integer userId2;
 
     @Id
     @Column(name = "friendshipId", unique = true, updatable = false)
     private String friendshipId;
 
-    public void setUserId(int n) {
-        userId = n;
-        friendshipId = String.valueOf(userId) + "_" + String.valueOf(userId2);
-    }
+    @Column(name = "userId", unique = false, updatable = false)
+    private Integer userId1;
 
-    public void setUserId2(int n) {
-        userId2 = n;
-        friendshipId = String.valueOf(userId) + "_" + String.valueOf(userId2);
-    }
+    @Column(name = "userId2", unique = false, updatable = false)
+    private Integer userId2;
 
     @Override
     public int compareTo(Friendship o) {

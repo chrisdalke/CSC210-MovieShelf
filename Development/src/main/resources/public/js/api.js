@@ -29,7 +29,7 @@ function addFriend(friend){
 }
 
 function removeFriend(friendship){
-    doAjax("/api/shelf/"+friendship,"DELETE",{});
+    doAjax("/api/friends/remove/"+friendship,"DELETE",{});
 }
 
 function getFriends(){
@@ -54,13 +54,12 @@ function doSearch(searchText, success, failure){
         });
 }
 
-/*
+
 function getLibrary(){
     doAjax(
-        "/api/search",
+        "/api/shelf",
         "GET",
         {
-            ****Stuff****
         },
         function(result){
             success(result);
@@ -69,7 +68,6 @@ function getLibrary(){
             failure();
         });
 }
-*/
 
 //------------------------------------------------
 // Session API
