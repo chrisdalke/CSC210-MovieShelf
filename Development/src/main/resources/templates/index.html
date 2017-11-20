@@ -28,7 +28,24 @@
             </div>
 
             <!-- Landing page for a logged-in user -->
-            <div id="main-with-sidebar" sec:authorize="isAuthenticated()">
+            <div id="main-with-sidebar" class="shelf-bg" sec:authorize="isAuthenticated()">
+
+                <div id="shelf-load-overlay">
+
+                    <div uk-spinner></div> Loading Shelf...
+                </div>
+
+
+                <!--
+                <tr th:each="userTitle : ${userTitles}" th:object="${userTitle}">
+                    <td>
+                        <span th:text="${titleRepo.getByTitleId(userTitle.getTitleId()).getTitleName()}"></span>
+                        <a th:href="'/shelf/removeMovie/'+${userTitle.getTitleId()}">(Remove)</a>
+                    </td>
+                </tr>
+                -->
+
+
                 <!--
                 <h2>Hello, <span th:text="${userProfile.getDisplayName()}">null</span>!</h2>
                 <hr>
@@ -57,14 +74,6 @@
                     </tr>
                 </table>-->
 
-                <div class="shelf">
-                </div>
-                <div class="shelf">
-                </div>
-                <div class="shelf">
-                </div>
-                <div class="shelf">
-                </div>
             </div>
 
             <!-- Include the footer fragment -->
@@ -72,6 +81,7 @@
 
             <script sec:authorize="isAnonymous()" src="/js/particles.min.js"></script>
             <script sec:authorize="isAnonymous()" src="/js/particles-index.js"></script>
+            <script sec:authorize="isAuthenticated()" src="/js/shelf.js"></script>
         </div>
     </body>
 </html>

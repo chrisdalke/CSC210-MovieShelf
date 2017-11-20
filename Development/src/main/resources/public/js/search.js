@@ -52,13 +52,17 @@ function parseSearchResults(searchObject){
         if(!containsTitle(searchObject[i].titleId)){
             buttonCard =$("<div class=\"uk-card addButton uk-width-auto@m\"><span class=\"uk-position-center signs\" uk-icon=\"icon: plus\"></span></div>");
             buttonCard.click(function(){
-                addFavorite(titleObject.titleId);
+                addFavorite(titleObject.titleId,function(){
+                    refreshShelf();
+                });
                 console.log("added");
             });
         }else{
           buttonCard =$("<div class=\"uk-card removeButton uk-width-auto@m\"><span class=\"uk-position-center signs\" uk-icon=\"icon: minus\"></span></div>");
             buttonCard.click(function(){
-                removeFavorite(titleObject.titleId);
+                removeFavorite(titleObject.titleId,function(){
+                    refreshShelf();
+                });
                 console.log("removed");
             });  
         }
@@ -72,5 +76,5 @@ function parseSearchResults(searchObject){
 
 function containsTitle(titleId){
     //Use getLibrary in api.js
-    return Math.random() >= 0.5;
+    return false; //Math.random() >= 0.5;
 }

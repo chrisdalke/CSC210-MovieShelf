@@ -7,11 +7,7 @@
 }
 
 .shelf-bg {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
+    background-attachment:local;
     background-image: url("/img/shelving.png");
     background-repeat: repeat-y;
     background-size: contain;
@@ -25,4 +21,63 @@
     background-image: url("/img/shelving.png");
     background-repeat: repeat-y;
     background-size: contain;
+
+}
+
+.shelf-item-box {
+    box-sizing: border-box;
+    width: 55%;
+    padding-bottom: 67%;
+    padding-top: 7%;
+    margin: 0 auto;
+    position: relative;
+}
+
+.movie {
+    box-sizing: border-box;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    padding: 5%;
+    color: white;
+    background-color: rgba(41, 40, 41, 0.71);
+    -webkit-box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.75);
+    box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.75);
+    transition: all .2s ease-in-out;
+}
+
+.movie:hover {
+    transform: scale(1.05);
+    cursor: pointer;
+}
+
+.shelf-grid {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+.shelf-item-holder {
+    position: relative;
+}
+
+#shelf-load-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,0.4);
+    color: white;
+
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    -webkit-box-align: center;
+    align-items: center;
 }
