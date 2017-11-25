@@ -48,7 +48,7 @@ function parseSearchResults(searchObject){
         var buttonCard;
         var cardText=$("<a class=\"uk-position-center\" href=\"/titles/"+searchObject[i].titleId+"\">"+searchObject[i].titleName+" ("+searchObject[i].year+")</a>");
         var titleObject=Object.freeze(searchObject[i]); 
-
+        
         if(!containsTitle(searchObject[i].titleId)){
             buttonCard =$("<div class=\"uk-card addButton uk-width-auto@m\"><span class=\"uk-position-center signs\" uk-icon=\"icon: plus\"></span></div>");
             buttonCard.click(function(){
@@ -75,6 +75,15 @@ function parseSearchResults(searchObject){
 }
 
 function containsTitle(titleId){
-    //Use getLibrary in api.js
-    return false; //Math.random() >= 0.5;
+    var bool;
+    bool=false;
+    getLibrary(function(library){
+        for (var i = 0; i < library.length; i++) {
+            if(titleId===library[i].titleId){
+               bool=true;
+            }
+        }
+    });
+    console.log(bool);
+    return bool;
 }
