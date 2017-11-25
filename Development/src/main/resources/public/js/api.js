@@ -55,7 +55,7 @@ function doSearch(searchText, success, failure){
 }
 
 
-function getLibrary(){
+function getLibrary(success){
     doAjax(
         "/api/shelf",
         "GET",
@@ -64,9 +64,7 @@ function getLibrary(){
         function(result){
             success(result);
         },
-        function(){
-            failure();
-        });
+        function(){});
 }
 
 //------------------------------------------------
