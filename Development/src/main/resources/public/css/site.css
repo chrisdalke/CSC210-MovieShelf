@@ -151,6 +151,16 @@ html {
     height: 50px;
 }
 
+.removeButton:active{
+    background-color: rgb(226, 68, 78);
+    border-style: solid;
+}
+
+.addButton:active{
+    background-color: rgb(66, 244, 131);
+    border-style: solid;
+}
+
 ::-webkit-scrollbar {
     width: 16px;
     height: 14px;
