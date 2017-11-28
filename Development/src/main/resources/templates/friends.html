@@ -53,7 +53,8 @@
                     <td>
                         <span th:text="${friend.getUsername()}"></span>
                         <!-- THESE DON'T LINK CORRECTLY AS THEY ARE -->
-                        <a th:href="'api/friends/'+${friend.getUsername()}">(Remove)</a>
+                        <!--<a th:href="'api/friends/'+${friend.getUsername()}">(Remove)</a>-->
+                        <span id="remove">(Remove)</span>
                     </td>
                 </tr>
             </table>
