@@ -98,7 +98,9 @@ function addMetadata(titleId,success){
         userAgent.visit(url);
         String img_url = userAgent.doc.findFirst("<div class=\"poster\">").findFirst("<img>").getAt("src");
         String description = userAgent.doc.findFirst("<div class=\"summary_text\">").getText();
-        doAjax("/api/meta/"+titleId+"/"+img_url+"/"+description, "POST", { }, success,null);
+        // make call to api to add img_url and description to database
+        // doAjax("/api/../"+titleId+"/"+img_url+"/"+description, "POST", { }, success,null);
+        // instead of dealing with multiple functions, make one that takes both? is this possible?
     }
     catch(JauntException e){
         System.err.println(e);

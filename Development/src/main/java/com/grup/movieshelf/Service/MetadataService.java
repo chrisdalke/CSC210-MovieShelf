@@ -12,8 +12,6 @@ package com.grup.movieshelf.Service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.grup.movieshelf.JPA.Entity.Movies.Metadata;
-import com.grup.movieshelf.JPA.Repository.MetadataRepository;
 
 /////////////////////////////////////////////////////////////
 // Metadata Service
@@ -27,26 +25,21 @@ public class MetadataService {
     // Dependencies
     //------------------------------------------------
 
-    @Autowired
-    private MetadataRepository metadataRepository;
-
     //------------------------------------------------
     // Add Metadata and Get Movie Image
     //------------------------------------------------
 
     public String getImage (String titleId){
-        return metadataRepository.getByTitleId(titleId).getImage();
+        // returns image url from database
     }
 
     public boolean contains(String titleId){
-        return metadataRepository.existsByTitleId(titleId);
+        // check if database contains titleId
     }
 
-    public void addMetadata(String titleId, String img_url, String description) {
-        if (metadataRepository.existsByTitleId(titleId)) {
-            Metadata metadata = new Metadata (titleId, img_url, description);
-            metadataRepository.save(metadata);
-        }
+    public void addMetadata(String img_url, String description) {
+        // add img_url to database
+        // add description to database
     }
 }
 

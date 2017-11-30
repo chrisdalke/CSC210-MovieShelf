@@ -39,15 +39,14 @@ public class MetadataAPI {
     @GetMapping("/api/meta")
     public String getMovieImage(String titleId) {
         if (metadataService.contains(titleId)) { return metadataService.getImage(titleId); }
-        else {
-            // if not, call api.js addMetadata
+        else { // if not, call api.js addMetadata
             return metadataService.getImage(titleId);
         }
     }
 
-    @PostMapping("/api/meta/{titleId}/{image}/{descrip}")
-    public void addMetadata(@PathVariable("titleId") String titleId, @PathVariable("image") String img_url, @PathVariable("descrip") String description){
-        metadataService.addMetadata(titleId, img_url, description);
+    @PostMapping("/api/meta/...")
+    public void addMetadata(String img_url, String description){
+        // calls service - tells it to add the params to databasse
     }
 }
 
