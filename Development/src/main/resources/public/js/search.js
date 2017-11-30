@@ -1,6 +1,3 @@
-/**
- * Created by chrisdalke on 11/14/17.
- */
 $(function(){
 
     $( "#search-form" ).submit(function( event ) {

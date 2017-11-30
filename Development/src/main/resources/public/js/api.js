@@ -24,17 +24,31 @@ function getUserFromSessionCode(sessionCode, callback){
 // Friend API
 //------------------------------------------------
 
-function addFriend(friend){
-    doAjax("/api/friends","POST",{"friend": friend});
+function addFriend(username, success) {
+    doAjax(
+        "/api/friends",
+        "POST",
+        {
+            username: username
+        },
+        function(result) {
+            success(result, username);
+        }
+    );
+
 }
 
-function removeFriend(friendship){
-    doAjax("/api/shelf/"+friendship,"DELETE",{});
+function deleteFriend(username, success) {
+    doAjax(
+        "/api/friends/" + username,
+        "DELETE",
+        {},
+        function () {
+            success(username);
+        }
+    );
 }
 
-function getFriends(){
-
-}
 //------------------------------------------------
 // Search API
 //------------------------------------------------

@@ -10,6 +10,7 @@ package com.grup.movieshelf.Service;
 // Module Imports
 /////////////////////////////////////////////////////////////
 
+import com.grup.movieshelf.Controller.API.Entity.ResponseStatus;
 import com.grup.movieshelf.JPA.Entity.Users.Friendship;
 import com.grup.movieshelf.JPA.Entity.Users.User;
 import com.grup.movieshelf.JPA.Entity.Users.UserOptions;
@@ -116,36 +117,25 @@ public class UserService implements UserDetailsService {
                 || friendshipRepository.getByFriendshipId(friendshipId2) == null);
     }
 
-    public void addFriend(String username){
+    public boolean addFriend(String username){
         Integer userId = getLoggedInUser().getUserId();
         User requestedFriend = userRepository.findByUsername(username);
 
         if (requestedFriend != null) {
-            //if the users are not already friends
-            if(!isFriend(userId, requestedFriend.getUserId())) {
+            String friendshipId = String.format("%d_%d", userId, requestedFriend.getUserId());
+            Friendship friendship = friendshipRepository.getByFriendshipId(friendshipId);
+
+            //if the requester -> requestee friendship object does not already exist
+            if(friendship == null) {
                 friendshipRepository.save(new Friendship(userId, requestedFriend.getUserId()));
+                return true;
             }
         }
+
+        return false;
     }
 
-    public void removeFriend(String username){
-        Integer userId = getLoggedInUser().getUserId();
-        User friend = userRepository.findByUsername(username);
-
-        if(friend != null) {
-            //if the users are friends
-            if(isFriend(userId, friend.getUserId())) {
-                String friendshipId1 = String.format("%d_%d", userId, friend.getUserId());
-                String friendshipId2 = String.format("%d_%d", friend.getUserId(), userId);
-
-                // remove both instances of friendship from repository
-                friendshipRepository.delete(friendshipRepository.getByFriendshipId(friendshipId1));
-                friendshipRepository.delete(friendshipRepository.getByFriendshipId(friendshipId2));
-            }
-        }
-    }
-
-    public void deleteFriendRequest(String username) {
+    public void removeFriend(String username) {
         Integer userId = getLoggedInUser().getUserId();
         User friend = userRepository.findByUsername(username);
 
@@ -166,7 +156,7 @@ public class UserService implements UserDetailsService {
         }
     }
 
-    public List<User> getFriends(){
+    public List<User> getFriends() {
         Integer userId = getLoggedInUser().getUserId();
 
         List<User> friends = new ArrayList<>();
