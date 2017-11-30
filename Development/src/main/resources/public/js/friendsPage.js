@@ -37,10 +37,10 @@ $(function () {
         event.preventDefault();
         var username = $("#add-friend-input-field").val();
         addFriend(username, function (result) {
-            if(result.status != 1) {
+            if(result.status == 0) {
                 addToOutgoingFriendRequests(username);
             }
-        })
+        });
     });
 });
 
