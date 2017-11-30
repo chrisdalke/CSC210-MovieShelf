@@ -26,15 +26,14 @@ public class MetadataService {
     //------------------------------------------------
 
     //------------------------------------------------
-    // Add Metadata and Get Movie Image
+    // Add Metadata and Get Move Image
     //------------------------------------------------
 
-    public String getImage (String titleId){
-        // returns image url from database
-    }
-
-    public boolean contains(String titleId){
-        // check if database contains titleId
+    public String getMovieImage(String titleId) {
+        // check if titleId in database
+        // if so, return image url
+        // if not, call api.js addMetadata
+            //  then, return the url
     }
 
     public void addMetadata(String img_url, String description) {
