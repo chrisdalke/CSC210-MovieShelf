@@ -90,26 +90,6 @@ function getFavorites(){
 }
 
 //------------------------------------------------
-<<<<<<< HEAD
-=======
-// Metadata API
-//------------------------------------------------
-function addMetadata(titleId,success){
-    try{
-        UserAgent userAgent = new UserAgent();
-        String url = "http://imdb.com/title/" + titleId;
-        userAgent.visit(url);
-        String img_url = userAgent.doc.findFirst("<div class=\"poster\">").findFirst("<img>").getAt("src");
-        String description = userAgent.doc.findFirst("<div class=\"summary_text\">").getText();
-        doAjax("/api/meta/"+titleId+"/"+img_url+"/"+description, "POST", { }, success,null);
-    }
-    catch(JauntException e){
-        System.err.println(e);
-    }
-}
-
-//------------------------------------------------
->>>>>>> parent of ee203b2... Revert "First Draft of Metadata Complete!"
 // Helper Methods
 //------------------------------------------------
 
