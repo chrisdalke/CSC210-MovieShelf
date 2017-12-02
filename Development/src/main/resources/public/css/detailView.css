@@ -1,0 +1,15 @@
+.thumbnail{
+  width: 275px;
+  height: 400px;
+  /*
+  Use Scraped move poster
+  background-image: url();
+  */
+  background-color: rgb(227,68,77);
+  float: left;
+  margin: 10px;
+}
+
+.summary{
+  float: right;
+}
