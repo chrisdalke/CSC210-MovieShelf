@@ -27,7 +27,6 @@ import java.util.Set;
 /////////////////////////////////////////////////////////////
 
 @Entity
-@Indexed
 @Table(name = "MovieDetails")
 @Data
 @NoArgsConstructor
