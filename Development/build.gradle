@@ -24,6 +24,9 @@ repositories {
 	mavenCentral()
 	maven { url "https://repo.spring.io/snapshot" }
 	maven { url "https://repo.spring.io/milestone" }
+	flatDir {
+		dirs 'libs'
+	}
 }
 
 
@@ -40,4 +43,5 @@ dependencies {
 	compileOnly 'org.projectlombok:lombok:1.16.18'
 	compile("com.h2database:h2")
 	compile('org.hibernate:hibernate-search-orm:5.8.2.Final')
+	compile name: 'jaunt1.3.6'
 }
