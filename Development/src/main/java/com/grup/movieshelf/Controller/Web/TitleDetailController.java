@@ -12,6 +12,7 @@ package com.grup.movieshelf.Controller.Web;
 
 import com.grup.movieshelf.JPA.Entity.Movies.Title;
 import com.grup.movieshelf.JPA.Repository.TitleRepository;
+import com.grup.movieshelf.Service.MetadataService;
 import com.grup.movieshelf.Service.SessionService;
 import com.grup.movieshelf.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +40,9 @@ public class TitleDetailController {
     @Autowired
     TitleRepository titleRepository;
 
+    @Autowired
+    MetadataService metadataService;
+
     //------------------------------------------------
     // Request Mappings
     //------------------------------------------------
@@ -52,10 +56,10 @@ public class TitleDetailController {
         }
 
         model.addAttribute("title",title);
+        model.addAttribute("metadataService",metadataService);
 
         return "movieDetailView";
     }
-
 }
 
 /////////////////////////////////////////////////////////////
