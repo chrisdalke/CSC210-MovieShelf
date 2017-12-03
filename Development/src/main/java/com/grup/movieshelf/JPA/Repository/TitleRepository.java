@@ -10,6 +10,7 @@ package com.grup.movieshelf.JPA.Repository;
 // Module Imports
 /////////////////////////////////////////////////////////////
 
+import com.grup.movieshelf.JPA.Entity.Movies.Person;
 import com.grup.movieshelf.JPA.Entity.Movies.Title;
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -22,8 +23,6 @@ import java.util.List;
 public interface TitleRepository extends JpaRepository<Title, String> {
 
     Title getByTitleId(String titleId);
-
-    List<Title> getAllByTitleNameContaining(String search);
 
     boolean existsByTitleId(String titleId);
 }

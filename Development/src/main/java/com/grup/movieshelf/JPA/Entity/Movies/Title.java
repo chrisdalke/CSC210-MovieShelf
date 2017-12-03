@@ -53,6 +53,9 @@ public class Title implements Comparable<Title>, Serializable {
 
     @IndexedEmbedded
     @ManyToMany
+    @JoinTable(name = "known_for",
+            joinColumns = @JoinColumn(name = "tconst", referencedColumnName = "tconst"),
+            inverseJoinColumns = @JoinColumn(name = "nconst", referencedColumnName = "nconst"))
     private Set<Person> associatedPeople = new HashSet<>();
 
     @Override
