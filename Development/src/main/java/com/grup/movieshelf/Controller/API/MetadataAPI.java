@@ -41,13 +41,8 @@ public class MetadataAPI {
     //------------------------------------------------
 
     @GetMapping("/api/meta/{titleId}")
-    public String getMovieImage(@PathVariable("titleId") String titleId) {
-        if (metadataService.contains(titleId)) {
-            return metadataService.getImage(titleId);
-        }
-        else {
-            return null;
-        }
+    public String getImage(@PathVariable("titleId") String titleId) {
+        return metadataService.getImage(titleId);
     }
 
     @PostMapping("/api/meta/{titleId}/{image}/{descrip}")
