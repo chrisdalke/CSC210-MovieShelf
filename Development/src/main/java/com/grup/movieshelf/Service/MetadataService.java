@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import com.grup.movieshelf.JPA.Entity.Movies.Metadata;
 import com.grup.movieshelf.JPA.Repository.MetadataRepository;
 import com.jaunt.*;
+import java.lang.String;
 /////////////////////////////////////////////////////////////
 // Metadata Service
 // Functionality for Movie Meta Data
@@ -42,6 +43,7 @@ public class MetadataService {
                 userAgent.visit(url);
                 String img_url = userAgent.doc.findFirst("<div class=\"poster\">").findFirst("<img>").getAt("src");
                 String description = userAgent.doc.findFirst("<div class=\"summary_text\">").getText();
+                description = description.replace("&quot;", "\" \"");
                 addMetadata(titleId, img_url, description);
             }
             catch(JauntException e){
@@ -59,6 +61,7 @@ public class MetadataService {
                 userAgent.visit(url);
                 String img_url = userAgent.doc.findFirst("<div class=\"poster\">").findFirst("<img>").getAt("src");
                 String description = userAgent.doc.findFirst("<div class=\"summary_text\">").getText();
+                description = description.replace("&quot;", "\"");
                 addMetadata(titleId, img_url, description);
             }
             catch(JauntException e){
