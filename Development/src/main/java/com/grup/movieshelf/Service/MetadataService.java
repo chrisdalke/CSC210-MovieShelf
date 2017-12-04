@@ -43,7 +43,7 @@ public class MetadataService {
                 userAgent.visit(url);
                 String img_url = userAgent.doc.findFirst("<div class=\"poster\">").findFirst("<img>").getAt("src");
                 String description = userAgent.doc.findFirst("<div class=\"summary_text\">").getText();
-                description = description.replace("&quot;", "\" \"");
+                description = description.replace("&quot;", "\"");
                 addMetadata(titleId, img_url, description);
             }
             catch(JauntException e){
