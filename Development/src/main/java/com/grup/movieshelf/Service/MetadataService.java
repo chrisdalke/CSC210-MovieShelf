@@ -14,8 +14,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.grup.movieshelf.JPA.Entity.Movies.Metadata;
 import com.grup.movieshelf.JPA.Repository.MetadataRepository;
+import com.grup.movieshelf.JPA.Entity.Movies.Person;
 import com.jaunt.*;
 import java.lang.String;
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
+
 /////////////////////////////////////////////////////////////
 // Metadata Service
 // Functionality for Movie Meta Data
@@ -80,6 +87,16 @@ public class MetadataService {
             Metadata metadata = new Metadata (titleId, img_url, description);
             metadataRepository.save(metadata);
         }
+    }
+
+    public String getPersonnel(Set<Person> associatedPeople) {
+        String personnel = "";
+        for (Person p : associatedPeople) {
+            personnel += p.getName();
+            personnel += ", ";
+        }
+
+        return personnel.substring(0, personnel.length()-2);
     }
 }
 
