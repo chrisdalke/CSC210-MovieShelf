@@ -42,7 +42,7 @@ public class Person implements Comparable<Person>, Serializable {
 
     @NotNull
     @Column(name = "primary_name", unique = false, updatable = true)
-    @Field(index= Index.YES, analyze= Analyze.YES, store= Store.NO)
+    @Field
     private String name;
 
     @Override

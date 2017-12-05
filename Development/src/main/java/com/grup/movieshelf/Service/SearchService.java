@@ -12,7 +12,18 @@ package com.grup.movieshelf.Service;
 
 import com.grup.movieshelf.JPA.Entity.Movies.Title;
 import com.grup.movieshelf.JPA.Entity.Users.User;
+import org.apache.lucene.analysis.standard.StandardAnalyzer;
+import org.apache.lucene.index.Term;
+import org.apache.lucene.queryparser.classic.MultiFieldQueryParser;
+import org.apache.lucene.queryparser.classic.ParseException;
+import org.apache.lucene.queryparser.classic.QueryParser;
+import org.apache.lucene.search.FuzzyQuery;
+import org.apache.lucene.search.MultiPhraseQuery;
 import org.apache.lucene.search.Query;
+import org.apache.lucene.search.TermRangeQuery;
+import org.apache.lucene.search.spans.SpanMultiTermQueryWrapper;
+import org.apache.lucene.search.spans.SpanNearQuery;
+import org.apache.lucene.search.spans.SpanQuery;
 import org.hibernate.search.jpa.FullTextEntityManager;
 import org.hibernate.search.jpa.FullTextQuery;
 import org.hibernate.search.query.dsl.QueryBuilder;
@@ -45,11 +56,15 @@ public class SearchService {
         QueryBuilder queryBuilder = fullTextEntityManager.getSearchFactory()
                 .buildQueryBuilder().forEntity(Title.class).get();
 
-        Query query = queryBuilder.keyword()
-                .fuzzy()
-                .onFields("titleName", "associatedPeople.name")
-                .matching(text)
+        Query query = queryBuilder.phrase()
+                .withSlop(2)
+                .onField("titleName")
+                .andField("associatedPeople.name")
+                .sentence(text)
                 .createQuery();
+
+        // used to help debug
+        System.out.println(query.toString());
 
         FullTextQuery jpaQuery = fullTextEntityManager.createFullTextQuery(query, Title.class);
         jpaQuery.setMaxResults(30);
