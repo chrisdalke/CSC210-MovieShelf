@@ -11,7 +11,7 @@ package com.grup.movieshelf.Controller.API;
 /////////////////////////////////////////////////////////////
 
 import com.grup.movieshelf.Controller.API.Entity.RecommendationList;
-import com.grup.movieshelf.JPA.Entity.Session;
+import com.grup.movieshelf.JPA.Entity.Sessions.Session;
 import com.grup.movieshelf.JPA.Repository.SessionRepository;
 import com.grup.movieshelf.JPA.Repository.TitleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.*;
 import com.grup.movieshelf.Service.*;
 
 /////////////////////////////////////////////////////////////
-// Session API
+// Sessions API
 // Handles movie-watching sessions
 /////////////////////////////////////////////////////////////
 

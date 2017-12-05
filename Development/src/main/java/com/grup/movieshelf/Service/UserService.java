@@ -232,7 +232,7 @@ public class UserService implements UserDetailsService {
     }
 
     //------------------------------------------------
-    // Login & Session Management
+    // Login & Sessions Management
     //------------------------------------------------
 
     // Loads a user by username. Used for user login.

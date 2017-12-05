@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.grup.movieshelf.Service.*;
 
 /////////////////////////////////////////////////////////////
-// Session Controller
+// Sessions Controller
 // Displays pages related to the session functionality.
 /////////////////////////////////////////////////////////////
 
@@ -45,11 +45,11 @@ public class SessionController {
         return "sessionHistory";
     }
 
-    // Page saying that a session has expired
-    // If this is a full user, just tell them the session has expired
-    // If this is a guest user, show an account upgrade page.
-    @RequestMapping("/sessions/expired")
-    public String sessionExpired() {
+    // Page to display a session
+    // If the session is live, displays template for a current session
+    // Otherwise, displays template for an archived session
+    @RequestMapping("/sessions/{sessionId}")
+    public String sessionPage() {
 
         User userObject = userService.getLoggedInUser();
 
