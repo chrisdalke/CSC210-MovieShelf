@@ -96,11 +96,21 @@ function addFavorite(title,success){
 
 function removeFavorite(title,success){
     doAjax("/api/shelf/"+title,"DELETE",{},success,null);
-
 }
 
 function getFavorites(){
 
+}
+
+//------------------------------------------------
+// Metadata API
+//------------------------------------------------
+function addMetadata(titleId,success){
+    doAjax("/api/meta/"+titleId+"/"+img_url+"/"+description, "POST", {}, success, null);
+}
+
+function getImage(titleId,success){
+    doAjax("/api/meta/"+title,"GET",{ },success,null);
 }
 
 //------------------------------------------------
