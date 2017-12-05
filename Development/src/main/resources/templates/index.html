@@ -35,44 +35,19 @@
                     <div uk-spinner></div> Loading Shelf...
                 </div>
 
+                <div th:each="userTitleRow : ${userTitleRows}" th:object="${userTitleRow}">
+                    <div class="shelf">
+                        <div class="shelf-grid uk-grid-collapse uk-child-width-expand@s" uk-grid>
+                            <div th:each="userTitle : ${userTitleRow}" th:object="${userTitle}">
+                                <div class="shelf-item-holder"><div class="shelf-item-box"><a th:href="'/titles/'+${userTitle.getTitleId()}">
+                                    <div class="movie" th:text="${userTitle.getTitleName()}+' ('+${userTitle.getYear()}+')'">
 
-                <!--
-                <tr th:each="userTitle : ${userTitles}" th:object="${userTitle}">
-                    <td>
-                        <span th:text="${titleRepo.getByTitleId(userTitle.getTitleId()).getTitleName()}"></span>
-                        <a th:href="'/shelf/removeMovie/'+${userTitle.getTitleId()}">(Remove)</a>
-                    </td>
-                </tr>
-                -->
-
-
-                <!--
-                <h2>Hello, <span th:text="${userProfile.getDisplayName()}">null</span>!</h2>
-                <hr>
-                <h4>My Shelf</h4>
-                <p>Add some movies to your shelf to start finding suggestions.</p>
-                <p>Examples:<br>tt1375666 - Inception<br>tt0816692 - Interstellar<br>tt3659388 - The Martian</p>
-
-                <form action="/api/shelf" object="${String}" method="post">
-                    <fieldset class="uk-fieldset">
-                        <div class="uk-margin">
-                            <input class="uk-input" type="text" name="titleId" id="titleId" placeholder="Title ID"/>
+                                    </div>
+                                </a></div></div>
+                            </div>
                         </div>
-                        <div class="uk-margin">
-                            <input class="uk-width-1-1 uk-button uk-button-default" type="submit" value="Add Movie"/>
-                        </div>
-                    </fieldset>
-                </form>
-
-                <p>Your movie list:</p>
-                <table class="table table-bordered">
-                    <tr th:each="userTitle : ${userTitles}" th:object="${userTitle}">
-                        <td>
-                            <span th:text="${titleRepo.getByTitleId(userTitle.getTitleId()).getTitleName()}"></span>
-                            <a th:href="'api/shelf/'+${userTitle.getTitleId()}">(Remove)</a>
-                        </td>
-                    </tr>
-                </table>-->
+                    </div>
+                </div>
 
             </div>
 
