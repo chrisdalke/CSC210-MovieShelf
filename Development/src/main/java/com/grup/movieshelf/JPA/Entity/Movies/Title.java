@@ -12,8 +12,13 @@ package com.grup.movieshelf.JPA.Entity.Movies;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.apache.lucene.analysis.core.LowerCaseFilterFactory;
+import org.apache.lucene.analysis.core.WhitespaceTokenizerFactory;
+import org.apache.lucene.analysis.ngram.EdgeNGramFilterFactory;
+import org.apache.lucene.analysis.snowball.SnowballPorterFilterFactory;
+import org.apache.lucene.analysis.standard.StandardTokenizerFactory;
 import org.hibernate.search.annotations.*;
-import org.hibernate.search.annotations.Index;
+import org.hibernate.search.annotations.Parameter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -40,7 +45,7 @@ public class Title implements Comparable<Title>, Serializable {
 
     @NotNull
     @Column(name = "primaryTitle", unique = false, updatable = false)
-    @Field(index= Index.YES, analyze= Analyze.YES, store= Store.NO)
+    @Field
     private String titleName;
 
     @NotNull
