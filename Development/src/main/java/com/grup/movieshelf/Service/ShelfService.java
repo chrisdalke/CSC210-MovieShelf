@@ -63,8 +63,12 @@ public class ShelfService {
     // Get Shelf Titles
     //------------------------------------------------
 
-    public List<Title> getShelfForUser(){
+    public List<Title> getShelfForUser() {
         Integer userId = userService.getLoggedInUser().getUserId();
+        return getShelfForUser(userId);
+    }
+
+    public List<Title> getShelfForUser(Integer userId){
         List<UserTitle> titles = userTitlesRepository.getAllByUserId(userId);
 
         ArrayList<Title> titlesToReturn = new ArrayList<>();
