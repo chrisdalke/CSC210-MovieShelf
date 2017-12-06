@@ -12,13 +12,7 @@ package com.grup.movieshelf.JPA.Entity.Movies;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.apache.lucene.analysis.core.LowerCaseFilterFactory;
-import org.apache.lucene.analysis.core.WhitespaceTokenizerFactory;
-import org.apache.lucene.analysis.ngram.EdgeNGramFilterFactory;
-import org.apache.lucene.analysis.snowball.SnowballPorterFilterFactory;
-import org.apache.lucene.analysis.standard.StandardTokenizerFactory;
 import org.hibernate.search.annotations.*;
-import org.hibernate.search.annotations.Parameter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -55,7 +49,7 @@ public class Title implements Comparable<Title>, Serializable {
     @NotNull
     @Column(name = "runtimeMinutes", unique = false, updatable = false)
     private Integer runtimeMinutes;
-
+    
     @IndexedEmbedded
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(name = "known_for",
