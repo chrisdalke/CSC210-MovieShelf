@@ -11,6 +11,7 @@ package com.grup.movieshelf.Service;
 /////////////////////////////////////////////////////////////
 
 import com.grup.movieshelf.Controller.API.Entity.ResponseStatus;
+import com.grup.movieshelf.JPA.Entity.Movies.Title;
 import com.grup.movieshelf.JPA.Entity.Users.Friendship;
 import com.grup.movieshelf.JPA.Entity.Users.Role;
 import com.grup.movieshelf.JPA.Entity.Users.User;
@@ -62,6 +63,9 @@ public class UserService implements UserDetailsService {
     @Autowired
     private SessionRepository sessionRepository;
 
+    @Autowired
+    private ShelfService shelfService;
+
     @Lazy
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
@@ -77,6 +81,18 @@ public class UserService implements UserDetailsService {
 
     public void deleteUser() {
         User user = getLoggedInUser();
+
+        // remove all friendships before deleting user
+        for(User friend : getFriends()) {
+            removeFriend(friend.getUsername());
+        }
+
+        // remove all movies from shelf
+        for(Title title : shelfService.getShelfForUser()) {
+            shelfService.removeTitleFromShelf(title.getTitleId());
+        }
+
+        // TODO: delete options, roles, sessions
 
         userRepository.delete(user);
     }
@@ -117,6 +133,10 @@ public class UserService implements UserDetailsService {
     // Friends List
     //------------------------------------------------
 
+    public boolean isFriend(Integer userId) {
+        return isFriend(getLoggedInUser().getUserId(), userId);
+    }
+
     // helper method that returns a boolean corresponding to whether the users are friends or not
     public boolean isFriend(Integer userId1, Integer userId2) {
 
@@ -126,6 +146,11 @@ public class UserService implements UserDetailsService {
         // check if user 1 has added user 2, and vice versa
         return !(friendshipRepository.getByFriendshipId(friendshipId) == null
                 || friendshipRepository.getByFriendshipId(friendshipId2) == null);
+    }
+
+    public boolean hasAdded(Integer userId) {
+        String friendshipId = String.format("%d_%d", getLoggedInUser().getUserId(), userId);
+        return friendshipRepository.getByFriendshipId(friendshipId) != null;
     }
 
     public boolean addFriend(String username){
