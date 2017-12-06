@@ -5,22 +5,47 @@ html {
     background-color: rgb(52, 73, 94);
 }
 
+/*
+  Session Results Classes
+*/
 .topHit{
-  width: 275px;
-  height: 400px;
-  /*
-  Use Scraped move poster
-  background-image: url();
-  */
-  background-color: rgb(227,68,77);
-  float: left;
-  margin: 10px;
+  margin: auto;
+  display: inline-block;
+  margin-bottom: 20px
 }
 
 .resultText{
   color: rgb(236, 240, 241);
 }
 
+.description{
+  margin: auto;
+  style=float:right
+}
+
+.thumb{
+  width: 205px;
+  height: 300px;
+  background-color: rgb(227,68,77);
+  float: left;
+  margin: 10px;
+}
+
+.remainingResult{
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    overflow-y: auto;
+    margin: 10px;
+}
+
+.card{
+  flex: 0 0 auto;
+}
+
+/*
+  End Session Results Classes
+*/
 @font-face {
     font-family: titleFont;
     src: url("/fonts/titleFont.ttf");
