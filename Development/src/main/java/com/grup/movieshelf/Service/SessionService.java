@@ -11,15 +11,22 @@ package com.grup.movieshelf.Service;
 /////////////////////////////////////////////////////////////
 
 import com.grup.movieshelf.Controller.API.Entity.RecommendationList;
-import com.grup.movieshelf.JPA.Entity.Session;
+import com.grup.movieshelf.JPA.Entity.Sessions.Session;
+import com.grup.movieshelf.JPA.Entity.Sessions.UserSession;
+import com.grup.movieshelf.JPA.Entity.Users.User;
 import com.grup.movieshelf.JPA.Repository.SessionRepository;
 import com.grup.movieshelf.JPA.Repository.TitleRepository;
+import com.grup.movieshelf.JPA.Repository.UserRepository;
+import com.grup.movieshelf.JPA.Repository.UserSessionRepository;
 import com.grup.movieshelf.Utility.RandomStringUtility;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /////////////////////////////////////////////////////////////
-// Session Service
+// Sessions Service
 // Handles data tasks associated with a session.
 /////////////////////////////////////////////////////////////
 
@@ -32,12 +39,21 @@ public class SessionService {
 
     @Autowired
     private SessionRepository sessionRepository;
+    @Autowired
+    private UserSessionRepository userSessionRepository;
+
+    @Autowired
+    private UserRepository userRepository;
 
     @Autowired
     private TitleRepository titleRepository;
 
+    @Autowired
+    private UserService userService;
+
+
     //------------------------------------------------
-    // Session Creation / Deletion
+    // Sessions Creation / Deletion
     //------------------------------------------------
 
     public Session createSession(){
@@ -63,7 +79,41 @@ public class SessionService {
     }
 
     //------------------------------------------------
-    // Session Recommendations
+    // Session / User Relation
+    //------------------------------------------------
+
+    public List<Session> getSessionsForUser(Integer userId){
+        ArrayList<Session> sessions = new ArrayList<>();
+        if (userRepository.existsById(userId)){
+            for (UserSession userSession : userSessionRepository.getAllByUserId(userId)){
+                sessions.add(sessionRepository.getOne(userSession.getSessionId()));
+            }
+        }
+        return sessions;
+    }
+
+    public List<User> getUsersForSession(Integer sessionId){
+        ArrayList<User> sessions = new ArrayList<>();
+        if (sessionRepository.existsById(sessionId)){
+            for (UserSession userSession : userSessionRepository.getAllBySessionId(sessionId)){
+                sessions.add(userRepository.findByUserId(userSession.getUserId()));
+            }
+        }
+        return sessions;
+    }
+
+    public List<Session> getSessionsForUser(User user) {
+        return getSessionsForUser(user.getUserId());
+    }
+
+
+    public List<User> getUsersForSession(Session session){
+        return getUsersForSession(session.getSessionId());
+    }
+
+
+    //------------------------------------------------
+    // Sessions Recommendations
     //------------------------------------------------
 
     public RecommendationList getSessionRecommendations(String sessionId){

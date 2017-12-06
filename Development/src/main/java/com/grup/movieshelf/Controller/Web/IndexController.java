@@ -10,8 +10,10 @@ package com.grup.movieshelf.Controller.Web;
 // Module Imports
 /////////////////////////////////////////////////////////////
 
+import com.grup.movieshelf.JPA.Entity.Movies.Title;
 import com.grup.movieshelf.JPA.Entity.Users.User;
 import com.grup.movieshelf.JPA.Entity.Users.UserOptions;
+import com.grup.movieshelf.JPA.Entity.Users.UserTitle;
 import com.grup.movieshelf.JPA.Repository.TitleRepository;
 import com.grup.movieshelf.JPA.Repository.UserRepository;
 import com.grup.movieshelf.JPA.Repository.FriendshipRepository;
@@ -22,6 +24,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
+import java.util.List;
 
 /////////////////////////////////////////////////////////////
 // Index Controller
@@ -63,7 +67,26 @@ public class IndexController {
             User user = userService.getLoggedInUser();
             model.addAttribute("title", "Logged In");
             model.addAttribute("userData", user);
-            model.addAttribute("userTitles", userTitlesRepository.getAllByUserId(user.getUserId()));
+
+            ArrayList<ArrayList<Title>> titleRows = new ArrayList<>();
+            // Build titles list into static rows to make the page appear to load faster
+            List<UserTitle> titles = userTitlesRepository.getAllByUserId(user.getUserId());
+
+            for (int i = 0; i < titles.size(); i +=3){
+                ArrayList<Title> singleRow = new ArrayList<>();
+                if (i + 0 < titles.size()){
+                    singleRow.add(titleRepository.getByTitleId(titles.get(i+0).getTitleId()));
+                }
+                if (i + 1 < titles.size()){
+                    singleRow.add(titleRepository.getByTitleId(titles.get(i+1).getTitleId()));
+                }
+                if (i + 2 < titles.size()){
+                    singleRow.add(titleRepository.getByTitleId(titles.get(i+2).getTitleId()));
+                }
+                titleRows.add(singleRow);
+            }
+
+            model.addAttribute("userTitleRows",titleRows);
             model.addAttribute("titleRepo", titleRepository);
             model.addAttribute("friendRepo", friendshipRepository);
             model.addAttribute("userRepo", userRepository);

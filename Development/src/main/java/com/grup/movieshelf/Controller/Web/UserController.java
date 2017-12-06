@@ -11,15 +11,19 @@ package com.grup.movieshelf.Controller.Web;
 /////////////////////////////////////////////////////////////
 
 
+import com.grup.movieshelf.JPA.Entity.Movies.Title;
 import com.grup.movieshelf.JPA.Entity.Users.User;
 import com.grup.movieshelf.JPA.Entity.Users.UserOptions;
 import com.grup.movieshelf.JPA.Repository.RoleRepository;
 import com.grup.movieshelf.JPA.Repository.UserRepository;
 import com.grup.movieshelf.Service.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /////////////////////////////////////////////////////////////
 // User Controller
@@ -42,6 +46,9 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private ShelfService shelfService;
+
     //------------------------------------------------
     // Request Mappings
     //------------------------------------------------
@@ -62,7 +69,26 @@ public class UserController {
     public String displayUserProfile(Model model){
         UserOptions userOptions = userService.getUserOptions();
         model.addAttribute("userProfile", userOptions);
-        return "userProfile";
+        return "myProfile";
+    }
+
+    // Displays another user's profile
+    @RequestMapping("/user/profile/{username}")
+    public String displayAnotherUserProfile(@PathVariable("username") String username, Model model){
+        User user = userRepository.findByUsername(username);
+        if (user != null){
+            UserOptions userOptions = userService.getUserOptions(user);
+            List<User> userFriends = userService.getFriends(user.getUserId());
+            List<Title> userTitles = shelfService.getShelfForUser(user.getUserId());
+            model.addAttribute("user",user);
+            model.addAttribute("userOptions",userOptions);
+            model.addAttribute("userFriends",userFriends);
+            model.addAttribute("userTitles",userTitles);
+            return "userProfile";
+        } else {
+            // User does not exist
+            return "redirect:/";
+        }
     }
 
     // Displays the user options.

@@ -11,16 +11,20 @@ package com.grup.movieshelf.JPA.Repository;
 /////////////////////////////////////////////////////////////
 
 import com.grup.movieshelf.JPA.Entity.Sessions.Session;
+import com.grup.movieshelf.JPA.Entity.Sessions.UserSession;
+import com.grup.movieshelf.JPA.Entity.Users.UserTitle;
 import org.springframework.data.jpa.repository.JpaRepository;
+
+import java.util.List;
 
 /////////////////////////////////////////////////////////////
 // Sessions Repository
 /////////////////////////////////////////////////////////////
 
-public interface SessionRepository extends JpaRepository<Session, Integer> {
+public interface UserSessionRepository extends JpaRepository<UserSession, String> {
 
-    boolean existsBySessionCode(String sessionCode);
-
+    List<UserSession> getAllByUserId(Integer userId);
+    List<UserSession> getAllBySessionId(Integer sessionId);
 }
 
 /////////////////////////////////////////////////////////////
