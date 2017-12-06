@@ -72,6 +72,12 @@ public class UserService implements UserDetailsService {
         userRepository.save(user);
     }
 
+    public void deleteUser() {
+        User user = getLoggedInUser();
+
+        userRepository.delete(user);
+    }
+
     //------------------------------------------------
     // Guest Account Creation / Deletion
     //------------------------------------------------

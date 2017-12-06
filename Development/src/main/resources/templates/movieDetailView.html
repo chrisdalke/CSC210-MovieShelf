@@ -26,7 +26,8 @@
             </p>
               <span>Release Year: <b th:text="${title.getYear()}"></b></span><br>
             <span>Runtime: <b th:text="${title.getRuntimeMinutes()}"></b></span></b><br>
-            <span>Personnel: <b th:text="${metadataService.getPersonnel(title.getAssociatedPeople())}"></b></span></b><br>
+            <span>Personnel: <div style="height:300px;width:50%;border:1px solid;overflow:auto;"
+                                  th:text="${metadataService.getPersonnel(title.getAssociatedPeople())}"></div></span></b><br>
         </div>
     </div>
 </div>
