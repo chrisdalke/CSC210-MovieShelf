@@ -12,6 +12,8 @@ package com.grup.movieshelf.Controller.Web;
 
 import com.grup.movieshelf.JPA.Entity.Sessions.Session;
 import com.grup.movieshelf.JPA.Entity.Sessions.UserSession;
+import com.grup.movieshelf.Controller.API.Entity.RecommendationList;
+import com.grup.movieshelf.JPA.Entity.Movies.Title;
 import com.grup.movieshelf.JPA.Entity.Users.Role;
 import com.grup.movieshelf.JPA.Entity.Users.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +22,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import com.grup.movieshelf.Service.*;
+
+import java.util.List;
 
 /////////////////////////////////////////////////////////////
 // Sessions Controller
@@ -108,8 +112,12 @@ public class SessionController {
 
     @RequestMapping("/sessions/results")
     public String sesh(Model model){
-        model.addAttribute("sessionResults", sessionService.getSessionRecommendations("shitSession"));
-        model.addAttribute("metadataService", metadataService);
+        RecommendationList recommendationList = sessionService.getSessionRecommendations("shitSession");
+        model.addAttribute("first", recommendationList.getRecommendations().remove(0));
+        model.addAttribute("second", recommendationList.getRecommendations().remove(0));
+        model.addAttribute("third", recommendationList.getRecommendations().remove(0));
+        model.addAttribute("sessionResults",recommendationList);
+        model.addAttribute("metaDaniel", metadataService);
         return "sessionResults";
     }
 

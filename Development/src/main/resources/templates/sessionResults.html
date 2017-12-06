@@ -16,8 +16,40 @@
     <div id="main-with-sidebar" class="uk-padding">
         <!-- Main content-->
         <h1 class="resultText">Top Session Results: </h1>
-        <div th:each="title: ${sessionResults.getRecommendations()}" th:object="${title}">
-                <div class="thumbnail"><img th:src="${metadataService.getImage(title.getTitleId())}" width=100% hight=100%></div>
+
+        <div class="topHit">
+          <div class="thumb"><img th:src="${metaDaniel.getImage(first.getTitleId())}" width=100% hight=100%></div>
+          <div class="description">
+            <h1 th:text="${first.getTitleName()}"></h1>
+            <p th:text="${metaDaniel.getDescription(first.getTitleId())}"></p>
+            <p th:text="${first.getYear()}"></p>
+          </div>
+        </div>
+
+        <div class="topHit">
+          <div class="thumb"><img th:src="${metaDaniel.getImage(second.getTitleId())}" width=100% hight=100%></div>
+          <div class="description">
+            <h1 th:text="${second.getTitleName()}"></h1>
+            <p th:text="${metaDaniel.getDescription(second.getTitleId())}"></p>
+            <p th:text="${second.getYear()}"></p>
+          </div>
+        </div>
+
+        <div class="topHit">
+          <div class="thumb"><img th:src="${metaDaniel.getImage(third.getTitleId())}" width=100% hight=100%></div>
+          <div class="description">
+            <h1 th:text="${third.getTitleName()}"></h1>
+            <p th:text="${metaDaniel.getDescription(third.getTitleId())}"></p>
+            <p th:text="${third.getYear()}"></p>
+          </div>
+        </div>
+
+        <!-- Remaing Reasults -->
+        <h1 class="resultText">Additional Results: </h1>
+        <div class="remainingResult">
+          <div th:each="title : ${sessionResults.getRecommendations()}" th:object="${title}">
+              <div class="thumb card"><img th:src="${metaDaniel.getImage(title.getTitleId())}" width=100% hight=100%></div>
+          </div>
         </div>
     </div>
 </div>
@@ -26,6 +58,5 @@
 <div th:include="fragments/footer :: footer"></div>
 
 </div>
-<!-- Include JS  -->
 </body>
 </html>

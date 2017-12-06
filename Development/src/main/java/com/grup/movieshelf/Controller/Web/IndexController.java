@@ -54,6 +54,9 @@ public class IndexController {
     @Autowired
     FriendshipRepository friendshipRepository;
 
+    @Autowired
+    MetadataService metadataService;
+
     //------------------------------------------------
     // Request Mappings
     //------------------------------------------------
@@ -90,6 +93,7 @@ public class IndexController {
             model.addAttribute("titleRepo", titleRepository);
             model.addAttribute("friendRepo", friendshipRepository);
             model.addAttribute("userRepo", userRepository);
+            model.addAttribute("metadataService", metadataService);
         }
 
         UserOptions userOptions = userService.getUserOptions();
