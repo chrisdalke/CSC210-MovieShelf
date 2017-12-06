@@ -13,7 +13,6 @@ package com.grup.movieshelf.Service;
 import com.grup.movieshelf.Controller.API.Entity.ResponseStatus;
 import com.grup.movieshelf.JPA.Entity.Movies.Title;
 import com.grup.movieshelf.JPA.Entity.Users.Friendship;
-import com.grup.movieshelf.JPA.Entity.Users.Role;
 import com.grup.movieshelf.JPA.Entity.Users.User;
 import com.grup.movieshelf.JPA.Entity.Users.UserOptions;
 import com.grup.movieshelf.JPA.Repository.FriendshipRepository;
@@ -119,9 +118,7 @@ public class UserService implements UserDetailsService {
         User newUser = new User();
         newUser.setUsername(username);
         newUser.setPassword(username);
-        Set<Role> roleSet = new HashSet<>();
-        roleSet.add(new Role("GUEST"));
-        newUser.setRoles(roleSet);
+        newUser.setIsGuest(true);
 
         saveNewUser(newUser);
 
