@@ -14,6 +14,7 @@ import com.grup.movieshelf.JPA.Entity.Users.Role;
 import com.grup.movieshelf.JPA.Entity.Users.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import com.grup.movieshelf.Service.*;
 
@@ -61,6 +62,12 @@ public class SessionController {
             return "sessionExpired";
         }
 
+    }
+
+    @RequestMapping("/sessions/results")
+    public String sesh(Model model){
+        model.addAttribute("sessionResults", sessionService.getSessionRecommendations("shitSession"));
+        return "sessionResults";
     }
 
 }
