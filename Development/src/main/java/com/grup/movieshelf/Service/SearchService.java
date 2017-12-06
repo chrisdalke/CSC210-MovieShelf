@@ -67,7 +67,7 @@ public class SearchService {
         System.out.println(query.toString());
 
         FullTextQuery jpaQuery = fullTextEntityManager.createFullTextQuery(query, Title.class);
-        jpaQuery.setMaxResults(30);
+        jpaQuery.setMaxResults(15);
 
         @SuppressWarnings("unchecked")
         List<Title> titles = jpaQuery.getResultList();
@@ -90,7 +90,7 @@ public class SearchService {
                 .createQuery();
 
         FullTextQuery jpaQuery = fullTextEntityManager.createFullTextQuery(query, User.class);
-        jpaQuery.setMaxResults(30);
+        jpaQuery.setMaxResults(15);
 
         @SuppressWarnings("unchecked")
         List<User> users = jpaQuery.getResultList();
