@@ -15,10 +15,10 @@
 
     <div id="main-with-sidebar" class="uk-padding">
         <!-- Main content-->
-        <div th:each="title: ${sessionResults.getRecommendations()}" th:object="${title}" >
-            <p th:text="${title.getTitleName()}"></p>
+        <h1 class="resultText">Top Session Results: </h1>
+        <div th:each="title: ${sessionResults.getRecommendations()}" th:object="${title}">
+                <div class="thumbnail"><img th:src="${metadataService.getImage(title.getTitleId())}" width=100% hight=100%></div>
         </div>
-
     </div>
 </div>
 
