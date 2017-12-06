@@ -12,6 +12,7 @@ package com.grup.movieshelf.Service;
 
 import com.grup.movieshelf.Controller.API.Entity.ResponseStatus;
 import com.grup.movieshelf.JPA.Entity.Users.Friendship;
+import com.grup.movieshelf.JPA.Entity.Users.Role;
 import com.grup.movieshelf.JPA.Entity.Users.User;
 import com.grup.movieshelf.JPA.Entity.Users.UserOptions;
 import com.grup.movieshelf.JPA.Repository.FriendshipRepository;
@@ -30,7 +31,9 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /////////////////////////////////////////////////////////////
 // UserService
@@ -96,11 +99,13 @@ public class UserService implements UserDetailsService {
         while (userRepository.existsByUsername(username)){
             username = RandomStringUtility.generateCredentialString(16);
         }
-        String password = RandomStringUtility.generateCredentialString(16);
 
         User newUser = new User();
         newUser.setUsername(username);
-        newUser.setPassword(password);
+        newUser.setPassword(username);
+        Set<Role> roleSet = new HashSet<>();
+        roleSet.add(new Role("GUEST"));
+        newUser.setRoles(roleSet);
 
         saveNewUser(newUser);
 

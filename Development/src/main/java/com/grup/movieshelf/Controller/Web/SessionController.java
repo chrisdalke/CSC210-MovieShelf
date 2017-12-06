@@ -11,6 +11,7 @@ package com.grup.movieshelf.Controller.Web;
 /////////////////////////////////////////////////////////////
 
 import com.grup.movieshelf.JPA.Entity.Sessions.Session;
+import com.grup.movieshelf.JPA.Entity.Sessions.UserSession;
 import com.grup.movieshelf.JPA.Entity.Users.Role;
 import com.grup.movieshelf.JPA.Entity.Users.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,6 +52,29 @@ public class SessionController {
         return "sessionHistory";
     }
 
+    @RequestMapping("/public/sessions/join/{sessionCode}")
+    public String sessionJoin(@PathVariable("sessionCode") String sessionCode){
+        // Handles session join functionality. What this function does depends on whether
+        // we are a guest user or a "real" user
+        User userObject = userService.getLoggedInUser();
+        if (userObject == null){
+            // Not logged in; create a guest user and log them in
+            // Guest users have a session code appended to their login
+            // and will get auto-redirected to the session
+            User guestUser = userService.createNewGuestUser(sessionCode);
+            userService.autologin(guestUser.getUsername(),guestUser.getUsername());
+            // We should be logged in now, and can redirect to the session page.
+            userObject = userService.getLoggedInUser();
+            // If we are not logged in print an error
+            if (userObject == null){
+                System.out.println("ERROR: USER SHOULD NOT BE NULL");
+            }
+        }
+
+        // We are already logged in. redirect to the session page. This will handle session joining from there.
+        return "redirect:/sessions/"+sessionCode;
+    }
+
     // Page to display a session
     // If the session is live, displays template for a current session
     // Otherwise, displays template for an archived session
@@ -58,7 +82,7 @@ public class SessionController {
     public String sessionPage(@PathVariable("sessionCode") String sessionCode, Model model) {
         // Check that session exists
         Session session = sessionService.getSession(sessionCode);
-        if (session != null){
+        if (session == null){
             return "sessionInvalidCode";
         }
 

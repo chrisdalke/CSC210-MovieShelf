@@ -51,7 +51,7 @@ public class User implements Comparable<User>, Serializable, UserDetails {
     private String password;
 
     @NotNull
-    @OneToMany(targetEntity = Role.class, fetch = FetchType.EAGER)
+    @ManyToMany(targetEntity = Role.class, cascade = {CascadeType.ALL})
     @JoinTable(name = "UsersRoles",
             inverseJoinColumns = { @JoinColumn(referencedColumnName = "roleName")},
             joinColumns = { @JoinColumn( referencedColumnName = "userId")})
