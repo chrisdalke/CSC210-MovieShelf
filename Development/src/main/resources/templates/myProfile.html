@@ -17,16 +17,11 @@
     <div id="main-with-sidebar" class="uk-padding">
 
 
-        <h2 th:text="${userOptions.getDisplayName()}"></h2>
+        <h2 th:text="${userProfile.getDisplayName()}"></h2>
+        <p><a href="/user/options">Edit Profile</a></p>
         <hr>
-<<<<<<< HEAD
         <p><b>Language:</b> <span th:text="${userProfile.getPrimaryLanguage()}"></span></p>
         <p><b>Birthdate:</b> <span th:text="${userProfile.getBirthdate()}"></span></p>
-        <a href="/user/delete">(Delete)</a>
-=======
-        <p><b>Language:</b> <span th:text="${userOptions.getPrimaryLanguage()}"></span></p>
-        <p><b>Birthdate:</b> <span th:text="${userOptions.getBirthdate()}"></span></p>
->>>>>>> c41f06390cc7b8e6e4e442314fda9cf0941b340b
         <hr>
     </div>
 

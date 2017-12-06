@@ -162,8 +162,12 @@ public class UserService implements UserDetailsService {
         }
     }
 
-    public List<User> getFriends() {
+    public List<User> getFriends(){
         Integer userId = getLoggedInUser().getUserId();
+        return getFriends(userId);
+    }
+
+    public List<User> getFriends(Integer userId) {
 
         List<User> friends = new ArrayList<>();
 
@@ -220,6 +224,10 @@ public class UserService implements UserDetailsService {
      */
     public UserOptions getUserOptions(){
         User user = getLoggedInUser();
+        return getUserOptions(user);
+    }
+
+    public UserOptions getUserOptions(User user){
         if (user == null){
             return null;
         }
