@@ -78,9 +78,41 @@ public class SessionService {
         sessionRepository.save(session);
     }
 
+    public Session getSession(String sessionCode){
+        return sessionRepository.getBySessionCode(sessionCode);
+    }
+
+    public void finishSession(Integer sessionId){
+        if (sessionRepository.existsById(sessionId)){
+            Session session = sessionRepository.getOne(sessionId);
+            if (!session.isExpired()){
+                // Step 1: Dispatch messages telling all users to display a loading screen
+
+                // Step 2: Start async task to get recommendations
+
+                // Step 3: After async task ends, dispatch message telling all users to redirect to results page
+
+                session.setExpired(true);
+                sessionRepository.save(session);
+            }
+        }
+    }
+
     //------------------------------------------------
     // Session / User Relation
     //------------------------------------------------
+
+    public void addUserToSession(Integer userId, Integer sessionId){
+        UserSession userSession = new UserSession(userId,sessionId);
+        if (!userSessionRepository.existsById(userSession.getUserSessionId())){
+            userSessionRepository.save(userSession);
+        }
+    }
+
+    public boolean userInSession(Integer userId, Integer sessionId){
+        UserSession userSession = new UserSession(userId,sessionId);
+        return userSessionRepository.existsById(userSession.getUserSessionId());
+    }
 
     public List<Session> getSessionsForUser(Integer userId){
         ArrayList<Session> sessions = new ArrayList<>();

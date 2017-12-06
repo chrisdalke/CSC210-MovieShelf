@@ -71,7 +71,9 @@ public class HttpBasicSecurityConfiguration extends WebSecurityConfigurerAdapter
     //------------------------------------------------
 
     protected void configure(HttpSecurity http) throws Exception {
-        http.requestMatcher(new ApiRequestMatcher()).authorizeRequests().anyRequest().authenticated();
+        http.requestMatcher(new ApiRequestMatcher()).authorizeRequests()
+                .antMatchers("/api/public/**").permitAll()
+                .anyRequest().authenticated();
         http.csrf().disable();
 
         http.exceptionHandling().authenticationEntryPoint(authenticationEntryPoint);

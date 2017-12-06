@@ -20,6 +20,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface SessionRepository extends JpaRepository<Session, Integer> {
 
     boolean existsBySessionCode(String sessionCode);
+    Session getBySessionCode(String sessionCode);
 
 }
 
