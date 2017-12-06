@@ -75,6 +75,11 @@ public class UserService implements UserDetailsService {
     public void deleteUser() {
         User user = getLoggedInUser();
 
+        // remove all friendships before deleting user
+        for(User friend : getFriends()) {
+            removeFriend(friend.getUsername());
+        }
+
         userRepository.delete(user);
     }
 
