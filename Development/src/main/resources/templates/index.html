@@ -40,8 +40,8 @@
                         <div class="shelf-grid uk-grid-collapse uk-child-width-expand@s" uk-grid>
                             <div th:each="userTitle : ${userTitleRow}" th:object="${userTitle}">
                                 <div class="shelf-item-holder"><div class="shelf-item-box"><a th:href="'/titles/'+${userTitle.getTitleId()}">
-                                    <div class="movie" th:text="${userTitle.getTitleName()}+' ('+${userTitle.getYear()}+')'">
-
+                                    <div class="movie"> <!-- th:text="${userTitle.getTitleName()}+' ('+${userTitle.getYear()}+')'">-->
+                                        <img th:src="${metadataService.getImage(userTitle.getTitleId())}" width="100%" height="100%">
                                     </div>
                                 </a></div></div>
                             </div>
