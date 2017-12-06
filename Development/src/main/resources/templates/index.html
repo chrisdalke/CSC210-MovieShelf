@@ -3,8 +3,6 @@
     <head th:include="fragments/header :: header">
     </head>
     <body>
-        <!-- Include the landing page background image fragment for unauthorized user -->
-        <div th:include="fragments/landing-bg :: landing-bg" sec:authorize="isAnonymous()"></div>
 
         <div class="uk-offcanvas-content uk-light">
             <!-- Include container for ladning page particle effects -->
@@ -17,14 +15,6 @@
             <div id="sidebar" class="uk-visible@m" sec:authorize="isAuthenticated()">
                 <div th:include="fragments/sidebar :: sidebar">
                 </div>
-            </div>
-
-            <!-- Landing Page for a not-logged-in user -->
-            <div class="main-div uk-padding" sec:authorize="isAnonymous()">
-                <h1>Index Page</h1>
-
-                <h2>Not Logged In</h2>
-                <h3>Todo: Display a landing page here</h3>
             </div>
 
             <!-- Landing page for a logged-in user -->
