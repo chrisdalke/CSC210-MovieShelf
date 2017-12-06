@@ -31,6 +31,7 @@ import java.util.*;
 /////////////////////////////////////////////////////////////
 
 @Entity
+@Indexed
 @Table(name = "Users")
 @Data
 @NoArgsConstructor
@@ -43,6 +44,7 @@ public class User implements Comparable<User>, Serializable, UserDetails {
 
     @NotNull
     @Column(name = "username", unique = true, updatable = true)
+    @Field
     private String username;
 
     // Hashed password using bcrypt2

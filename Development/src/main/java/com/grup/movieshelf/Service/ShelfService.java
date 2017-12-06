@@ -78,6 +78,10 @@ public class ShelfService {
 
         return titlesToReturn;
     }
+
+    public boolean shelfContains(String titleId) {
+        return userTitlesRepository.getByUserIdAndTitleId(userService.getLoggedInUser().getUserId(), titleId) != null;
+    }
 }
 
 /////////////////////////////////////////////////////////////

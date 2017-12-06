@@ -128,6 +128,10 @@ public class UserService implements UserDetailsService {
     // Friends List
     //------------------------------------------------
 
+    public boolean isFriend(Integer userId) {
+        return isFriend(getLoggedInUser().getUserId(), userId);
+    }
+
     // helper method that returns a boolean corresponding to whether the users are friends or not
     public boolean isFriend(Integer userId1, Integer userId2) {
 
@@ -137,6 +141,11 @@ public class UserService implements UserDetailsService {
         // check if user 1 has added user 2, and vice versa
         return !(friendshipRepository.getByFriendshipId(friendshipId) == null
                 || friendshipRepository.getByFriendshipId(friendshipId2) == null);
+    }
+
+    public boolean hasAdded(Integer userId) {
+        String friendshipId = String.format("%d_%d", getLoggedInUser().getUserId(), userId);
+        return friendshipRepository.getByFriendshipId(friendshipId) != null;
     }
 
     public boolean addFriend(String username){

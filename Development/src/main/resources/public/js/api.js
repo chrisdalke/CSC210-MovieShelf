@@ -68,19 +68,6 @@ function doSearch(searchText, success, failure){
         });
 }
 
-
-function getLibrary(success){
-    doAjax(
-        "/api/shelf",
-        "GET",
-        {
-        },
-        function(result){
-            success(result);
-        },
-        function(){});
-}
-
 //------------------------------------------------
 // Sessions API
 //------------------------------------------------
