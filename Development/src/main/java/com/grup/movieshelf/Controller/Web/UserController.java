@@ -111,7 +111,6 @@ public class UserController {
     // Handles result of registration form
     @PostMapping("/user/register")
     public String registerUser (Model model, @ModelAttribute User user) { //get the user object from before
-
         if (userRepository.findByUsername(user.getUsername()) == null) {
             userService.saveNewUser(user);
             model.addAttribute("message", "Account made successfully.");
@@ -122,6 +121,13 @@ public class UserController {
         }
 
         return "userRegister"; //return to a different page? maybe the home page?
+    }
+
+    //deletes current user
+    @RequestMapping("/user/delete")
+    public String deleteUser () {
+        userService.deleteUser();
+        return "redirect:/logout";
     }
 }
 
