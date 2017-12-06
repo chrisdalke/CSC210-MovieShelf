@@ -23,14 +23,22 @@ function joinSession(sessionCode) {
     doAjax(
         "/api/public/session/"+sessionCode+"/join_check",
         "GET",
+        {},
         function(successMessage){
-            resetSessionModal();
-        },
-        function(failureMessage){
-            setTimeout(function(){
-                resetSessionModal();
-                $("#session-code-label").text(failureMessage.message);
-            }, 1000);
+            if (successMessage.status == 0){
+                $('#session-code-label').animateCss('zoomOut');
+                $('#session-code-value').animateCss('zoomOut',function(){
+                    // Redirect to page which handles session joining functionality / guest account creation
+                    window.location = "/public/sessions/join/"+sessionCode;
+                    $('#session-code-label').hide();
+                    $('#session-code-value').hide();
+                });
+            } else {
+                setTimeout(function(){
+                    resetSessionModal();
+                    $("#session-code-label").text(failureMessage.message);
+                }, 1000);
+            }
         });
 }
 
