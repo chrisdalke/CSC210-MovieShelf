@@ -161,6 +161,12 @@ public class SessionService {
         recommendationResults.addRecommendation(titleRepository.getByTitleId("tt1375666")); // Inception
         recommendationResults.addRecommendation(titleRepository.getByTitleId("tt0816692")); // Interstellar
         recommendationResults.addRecommendation(titleRepository.getByTitleId("tt3659388")); // The Martian
+        recommendationResults.addRecommendation(titleRepository.getByTitleId("tt3659388")); // The Martian
+        recommendationResults.addRecommendation(titleRepository.getByTitleId("tt3659388")); // The Martian
+        recommendationResults.addRecommendation(titleRepository.getByTitleId("tt3659388")); // The Martian
+        recommendationResults.addRecommendation(titleRepository.getByTitleId("tt3659388")); // The Martian
+        recommendationResults.addRecommendation(titleRepository.getByTitleId("tt3659388")); // The Martian
+        recommendationResults.addRecommendation(titleRepository.getByTitleId("tt3659388")); // The Martian
 
         return recommendationResults;
     }
