@@ -65,7 +65,7 @@ public class IndexController {
     @GetMapping("/")
     public String indexPage(HttpServletRequest request, Model model){
         if (request.getUserPrincipal() == null) {
-            model.addAttribute("title", "Not Logged In");
+            return "redirect:/login";
         } else {
             User user = userService.getLoggedInUser();
             model.addAttribute("title", "Logged In");

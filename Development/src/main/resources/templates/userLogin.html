@@ -8,9 +8,6 @@
 
         <div class="uk-offcanvas-content uk-light">
 
-            <!-- Include the nav fragment -->
-            <div th:include="fragments/nav :: nav"></div>
-
             <div class="main-div uk-padding">
 
                 <!-- Display a login form if the user is not already loggeed in -->
@@ -51,16 +48,18 @@
                                 </div>
 
 
-                                <div class="uk-margin">
+                                <div class="uk-margin-small">
                                     <input class="uk-width-1-1 uk-button uk-button-default" type="submit" value="Sign In"/>
                                 </div>
-
-
                             </fieldset>
                         </form>
 
+                        <div class="uk-margin-small">
+                            <input class="uk-width-1-1 uk-button uk-button-default" type="submit" value="Sign Up"/>
+                        </div>
+
                         <div class="hr-sect">Or</div>
-                        <button id="join-session" class="uk-button uk-button-primary uk-width-1-1" href="#modal-session-code" uk-toggle>Join Session</button>
+                        <button id="join-session" class="uk-button uk-button-primary uk-width-1-1 uk-button-large" href="#modal-session-code" uk-toggle>Join as Guest</button>
 
                     </div>
                 </div>

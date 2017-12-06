@@ -1,6 +1,6 @@
 $(function(){
     $("#session-code-form").submit(function(e){
-        var sessionCode = $("#session-code-value").val();
+        var sessionCode = $("#session-code-value").val().toUpperCase();
         joinSession(sessionCode);
 
         e.preventDefault();
