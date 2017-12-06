@@ -11,6 +11,7 @@ package com.grup.movieshelf.Service;
 /////////////////////////////////////////////////////////////
 
 import com.grup.movieshelf.Controller.API.Entity.ResponseStatus;
+import com.grup.movieshelf.JPA.Entity.Movies.Title;
 import com.grup.movieshelf.JPA.Entity.Users.Friendship;
 import com.grup.movieshelf.JPA.Entity.Users.User;
 import com.grup.movieshelf.JPA.Entity.Users.UserOptions;
@@ -59,6 +60,9 @@ public class UserService implements UserDetailsService {
     @Autowired
     private SessionRepository sessionRepository;
 
+    @Autowired
+    private ShelfService shelfService;
+
     @Lazy
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
@@ -79,6 +83,13 @@ public class UserService implements UserDetailsService {
         for(User friend : getFriends()) {
             removeFriend(friend.getUsername());
         }
+
+        // remove all movies from shelf
+        for(Title title : shelfService.getShelfForUser()) {
+            shelfService.removeTitleFromShelf(title.getTitleId());
+        }
+
+        // TODO: delete options, roles, sessions
 
         userRepository.delete(user);
     }
