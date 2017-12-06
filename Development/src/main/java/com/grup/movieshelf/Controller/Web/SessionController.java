@@ -36,6 +36,9 @@ public class SessionController {
     @Autowired
     UserService userService;
 
+    @Autowired
+    MetadataService metadataService;
+
     //------------------------------------------------
     // Request Mappings
     //------------------------------------------------
@@ -67,6 +70,7 @@ public class SessionController {
     @RequestMapping("/sessions/results")
     public String sesh(Model model){
         model.addAttribute("sessionResults", sessionService.getSessionRecommendations("shitSession"));
+        model.addAttribute("metadataService", metadataService);
         return "sessionResults";
     }
 
