@@ -14,7 +14,6 @@ package com.grup.movieshelf.Controller.Web;
 import com.grup.movieshelf.JPA.Entity.Movies.Title;
 import com.grup.movieshelf.JPA.Entity.Users.User;
 import com.grup.movieshelf.JPA.Entity.Users.UserOptions;
-import com.grup.movieshelf.JPA.Repository.RoleRepository;
 import com.grup.movieshelf.JPA.Repository.UserRepository;
 import com.grup.movieshelf.Service.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,9 +38,6 @@ public class UserController {
 
     @Autowired
     private UserRepository userRepository;
-
-    @Autowired
-    private RoleRepository roleRepository;
 
     @Autowired
     private UserService userService;

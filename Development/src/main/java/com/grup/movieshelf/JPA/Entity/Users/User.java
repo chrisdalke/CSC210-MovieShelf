@@ -52,12 +52,10 @@ public class User implements Comparable<User>, Serializable, UserDetails {
     @Column(name = "password")
     private String password;
 
+    // Whether the user is a guest or not
     @NotNull
-    @ManyToMany(targetEntity = Role.class, cascade = {CascadeType.ALL})
-    @JoinTable(name = "UsersRoles",
-            inverseJoinColumns = { @JoinColumn(referencedColumnName = "roleName")},
-            joinColumns = { @JoinColumn( referencedColumnName = "userId")})
-    private Set<Role> roles = new HashSet< Role >();
+    @Column(name = "guest")
+    private Boolean isGuest;
 
     @CreationTimestamp
     @Column(name = "created")
@@ -71,8 +69,10 @@ public class User implements Comparable<User>, Serializable, UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
-        for (Role role : getRoles()){
-            authorities.add(new SimpleGrantedAuthority(role.getRoleName()));
+        if (isGuest){
+            authorities.add(new SimpleGrantedAuthority("GUEST"));
+        } else {
+            authorities.add(new SimpleGrantedAuthority("USER"));
         }
         return authorities;
     }

@@ -14,7 +14,6 @@ import com.grup.movieshelf.JPA.Entity.Sessions.Session;
 import com.grup.movieshelf.JPA.Entity.Sessions.UserSession;
 import com.grup.movieshelf.Controller.API.Entity.RecommendationList;
 import com.grup.movieshelf.JPA.Entity.Movies.Title;
-import com.grup.movieshelf.JPA.Entity.Users.Role;
 import com.grup.movieshelf.JPA.Entity.Users.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
