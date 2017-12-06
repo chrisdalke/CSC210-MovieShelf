@@ -19,7 +19,7 @@ public class UserSession implements Comparable<UserSession>, Serializable {
     public UserSession(Integer userId, Integer sessionId) {
         this.userId = userId;
         this.sessionId = sessionId;
-        this.userSessionId = String.valueOf(userId) + String.valueOf(sessionId);
+        this.userSessionId = String.valueOf(userId) + "_" + String.valueOf(sessionId);
     }
 
     @Id

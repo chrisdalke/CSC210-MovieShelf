@@ -11,12 +11,14 @@ package com.grup.movieshelf.Controller.API;
 /////////////////////////////////////////////////////////////
 
 import com.grup.movieshelf.Controller.API.Entity.RecommendationList;
+import com.grup.movieshelf.Controller.API.Entity.ResponseStatus;
 import com.grup.movieshelf.JPA.Entity.Sessions.Session;
 import com.grup.movieshelf.JPA.Repository.SessionRepository;
 import com.grup.movieshelf.JPA.Repository.TitleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.ui.Model;
 import com.grup.movieshelf.Service.*;
+import org.springframework.web.bind.annotation.*;
 
 /////////////////////////////////////////////////////////////
 // Sessions API
@@ -48,9 +50,9 @@ public class SessionAPI {
         return sessionService.createSession();
     }
 
-    @GetMapping("/api/session/{sessionId}")
-    public void getSession(@PathVariable("sessionId") String sessionId){
-
+    @GetMapping("/api/session/{sessionCode}")
+    public Session getSession(@PathVariable("sessionCode") String sessionCode){
+        return sessionService.getSession(sessionCode);
     }
 
     @DeleteMapping("/api/session/{sessionId}")
@@ -58,10 +60,36 @@ public class SessionAPI {
         //TODO
     }
 
+    @DeleteMapping("/api/session/{sessionId}/finish")
+    public void finishSession(@PathVariable("sessionId") Integer sessionId){
+        // Finishes a session and triggers session service to asyncronously handle recommendation algorithm.
+        // session service will automatically tell clients to redirect when it has finished algorithm.
+        sessionService.finishSession(sessionId);
+    }
+
     @GetMapping("/api/session/{sessionId}/recommend")
     public RecommendationList getSessionRecommendations(@PathVariable("sessionId") String sessionId){
         return sessionService.getSessionRecommendations(sessionId);
     }
+
+    //------------------------------------------------
+    // Session Join Functionality
+    //------------------------------------------------
+
+    @GetMapping("/api/public/session/{sessionCode}/join_check")
+    public ResponseStatus getSessionJoinable(@PathVariable("sessionCode") String sessionCode){
+        Session session = sessionService.getSession(sessionCode);
+        if (session != null){
+            if (session.isExpired()){
+                return new ResponseStatus(2,"Old Session Code!");
+            } else {
+                return new ResponseStatus();
+            }
+        } else {
+            return new ResponseStatus(1,"Invalid Session Code!");
+        }
+    }
+
 
 }
 
