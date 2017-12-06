@@ -1,3 +1,6 @@
+#Ignore hibernate search indexes
+indexes/**
+
 .gradle
 /build/
 
