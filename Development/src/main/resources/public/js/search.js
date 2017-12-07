@@ -42,7 +42,7 @@ function buildResults(searchObject){
         var user = searchObject.users[i];
         var userEntry = $("<div class=\"uk-grid-match uk-grid-collapse \" uk-grid></div><br>");
         var userCard=$("<div class=\"uk-card uk-width-expand@m\"></div>");
-        var userCardText=$("<a class=\"uk-position-center\" href=\"/users/"+user.username+"\">"+user.username+"</a>");
+        var userCardText=$("<a class=\"uk-position-center\" href=\"/user/profile/"+user.username+"\">"+user.username+"</a>");
         var userButtonCard=$("<div class=\"uk-card uk-width-auto@m\"></div>");
         userButtonCard.attr('id',user.username);
 
