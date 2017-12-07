@@ -8,6 +8,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 @Entity
@@ -31,6 +32,9 @@ public class UserSession implements Comparable<UserSession>, Serializable {
 
     @Column(name = "sessionId")
     private Integer sessionId;
+
+    @Column(name = "status")
+    private Integer isReady = 0;
 
     @Override
     public int compareTo(UserSession o) {

@@ -34,6 +34,9 @@
 }
 
 .movie {
+
+    border-radius: 15px;
+    overflow: hidden;
     box-sizing: border-box;
     position: absolute;
     width: 90%;

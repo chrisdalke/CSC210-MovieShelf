@@ -12,10 +12,13 @@ package com.grup.movieshelf.Controller.API;
 
 import com.grup.movieshelf.Controller.API.Entity.RecommendationList;
 import com.grup.movieshelf.Controller.API.Entity.ResponseStatus;
+import com.grup.movieshelf.Controller.API.Entity.UserSessionData;
 import com.grup.movieshelf.JPA.Entity.Sessions.Session;
 import com.grup.movieshelf.JPA.Entity.Users.User;
 import com.grup.movieshelf.JPA.Repository.SessionRepository;
 import com.grup.movieshelf.JPA.Repository.TitleRepository;
+import com.grup.movieshelf.JPA.Repository.UserSessionRepository;
+import com.grup.movieshelf.JPA.Repository.UserSuggestionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import com.grup.movieshelf.Service.*;
@@ -41,6 +44,12 @@ public class SessionAPI {
 
     @Autowired
     private SessionRepository sessionRepository;
+
+    @Autowired
+    private UserSessionRepository userSessionRepository;
+
+    @Autowired
+    private UserSuggestionRepository userSuggestionRepository;
 
     @Autowired
     private SessionService sessionService;
@@ -94,11 +103,23 @@ public class SessionAPI {
         }
     }
 
-    @GetMapping("/api/public/session/{sessionCode}/users")
-    public List<User> getSessionUsers(@PathVariable("sessionCode") String sessionCode){
-        Session session = sessionService.getSession(sessionCode);
+    @GetMapping("/api/public/session/{sessionId}/users_other")
+    public List<UserSessionData> getOtherSessionUsers(@PathVariable("sessionId") Integer sessionId){
+        Session session = sessionRepository.getOne(sessionId);
         if (session != null){
-            return sessionService.getUsersForSession(session);
+
+            List<User> users = sessionService.getUsersForSession(session);
+            List<UserSessionData> userSessionDataList = new ArrayList<>();
+
+            for (User user : users){
+                UserSessionData userSessionData = new UserSessionData();
+                userSessionData.setUser(user);
+                userSessionData.setUserSession(userSessionRepository.getOne(user.getUserId() + "_" + session.getSessionId()));
+                userSessionData.setUserSuggestionList(userSuggestionRepository.getAllByUserIdAndSessionId(user.getUserId(),session.getSessionId()));
+                userSessionDataList.add(userSessionData);
+            }
+
+            return userSessionDataList;
         } else {
             return new ArrayList<>();
         }
