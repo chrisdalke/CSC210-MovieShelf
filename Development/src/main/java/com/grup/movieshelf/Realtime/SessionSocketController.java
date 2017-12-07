@@ -16,9 +16,7 @@ package com.grup.movieshelf.Realtime;
 // Handles realtime bidirectional communication for sessions.
 /////////////////////////////////////////////////////////////
 
-import com.grup.movieshelf.JPA.Entity.Sessions.Session;
-import com.grup.movieshelf.JPA.Entity.Sessions.UserSession;
-import com.grup.movieshelf.JPA.Entity.Sessions.UserSuggestion;
+import com.grup.movieshelf.JPA.Entity.Sessions.*;
 import com.grup.movieshelf.JPA.Entity.Users.User;
 import com.grup.movieshelf.JPA.Repository.SessionRepository;
 import com.grup.movieshelf.JPA.Repository.UserRepository;
@@ -26,6 +24,7 @@ import com.grup.movieshelf.JPA.Repository.UserSessionRepository;
 import com.grup.movieshelf.JPA.Repository.UserSuggestionRepository;
 import com.grup.movieshelf.Realtime.Entity.SessionMessage;
 import com.grup.movieshelf.Realtime.Entity.SessionServerMessage;
+import com.grup.movieshelf.Service.MetadataService;
 import com.grup.movieshelf.Service.RecommendationService;
 import com.grup.movieshelf.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,6 +53,10 @@ public class SessionSocketController {
 
     @Autowired
     SessionRepository sessionRepository;
+
+    @Autowired
+    MetadataService metadataService;
+
 
     @Autowired
     UserRepository userRepository;
@@ -101,6 +104,8 @@ public class SessionSocketController {
                 UserSuggestion userSuggestion = new UserSuggestion(userObject.getUserId(),Integer.parseInt(sessionId),clientMessage.getContent());
                 userSuggestionRepository.save(userSuggestion);
 
+                // Realtime: After sending message, get metadata for this movie in preparation
+
                 return new SessionServerMessage(SessionServerMessage.MESSAGE_REFRESH_USERS,"User Added Movie.");
             }
             case SessionMessage.MESSAGE_REMOVE_MOVIE: {
@@ -137,7 +142,13 @@ public class SessionSocketController {
                     template.convertAndSend("/topic/session/"+sessionId,new SessionServerMessage(SessionServerMessage.MESSAGE_TRIGGER_LOAD,"All Users Ready!"));
 
                     // Process the session repository for recommendations
-                    recommendationService.doSessionRecommend(Integer.parseInt(sessionId));
+                    RecommendationResult results = recommendationService.doSessionRecommend(Integer.parseInt(sessionId));
+
+                    // Load metadata for all the boops
+                    for (Recommendation result : results.getRecommendations()){
+                        System.out.println("Checking metadata for "+result.getTitle());
+                        metadataService.getMetadataForTitle(result.getTitle().getTitleId());
+                    }
 
                     template.convertAndSend("/topic/session/"+sessionId,new SessionServerMessage(SessionServerMessage.MESSAGE_TRIGGER_RESULTS,"Results Processed!"));
                 } else {
