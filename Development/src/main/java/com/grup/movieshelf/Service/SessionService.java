@@ -12,12 +12,10 @@ package com.grup.movieshelf.Service;
 
 import com.grup.movieshelf.Controller.API.Entity.RecommendationList;
 import com.grup.movieshelf.JPA.Entity.Sessions.Session;
+import com.grup.movieshelf.JPA.Entity.Sessions.SessionResult;
 import com.grup.movieshelf.JPA.Entity.Sessions.UserSession;
 import com.grup.movieshelf.JPA.Entity.Users.User;
-import com.grup.movieshelf.JPA.Repository.SessionRepository;
-import com.grup.movieshelf.JPA.Repository.TitleRepository;
-import com.grup.movieshelf.JPA.Repository.UserRepository;
-import com.grup.movieshelf.JPA.Repository.UserSessionRepository;
+import com.grup.movieshelf.JPA.Repository.*;
 import com.grup.movieshelf.Utility.RandomStringUtility;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -41,6 +39,9 @@ public class SessionService {
     private SessionRepository sessionRepository;
     @Autowired
     private UserSessionRepository userSessionRepository;
+
+    @Autowired
+    private SessionResultRepository sessionResultRepository;
 
     @Autowired
     private UserRepository userRepository;
@@ -169,25 +170,14 @@ public class SessionService {
     // Sessions Recommendations
     //------------------------------------------------
 
-    public RecommendationList getSessionRecommendations(String sessionId){
+    public RecommendationList getSessionRecommendations(Integer sessionId){
 
-        // Based on the users in this session and their movie choices, generate a movie recommendation.
-        // Return it as a RecommendationList object containing movie titles encoded as JSON.
-        // This should probably only be called a single time, because it takes a long time and returns random results.
-        // TODO
 
         RecommendationList recommendationResults = new RecommendationList();
 
-        // For now, let's just add some movies we know everyone likes...
-        recommendationResults.addRecommendation(titleRepository.getByTitleId("tt1375666")); // Inception
-        recommendationResults.addRecommendation(titleRepository.getByTitleId("tt0816692")); // Interstellar
-        recommendationResults.addRecommendation(titleRepository.getByTitleId("tt3659388")); // The Martian
-        recommendationResults.addRecommendation(titleRepository.getByTitleId("tt3659388")); // The Martian
-        recommendationResults.addRecommendation(titleRepository.getByTitleId("tt3659388")); // The Martian
-        recommendationResults.addRecommendation(titleRepository.getByTitleId("tt3659388")); // The Martian
-        recommendationResults.addRecommendation(titleRepository.getByTitleId("tt3659388")); // The Martian
-        recommendationResults.addRecommendation(titleRepository.getByTitleId("tt3659388")); // The Martian
-        recommendationResults.addRecommendation(titleRepository.getByTitleId("tt3659388")); // The Martian
+        for (SessionResult results : sessionResultRepository.getAllBySessionId(sessionId)){
+            recommendationResults.addRecommendation(titleRepository.getByTitleId(results.getTitleId()));
+        }
 
         return recommendationResults;
     }

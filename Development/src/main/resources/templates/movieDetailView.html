@@ -14,21 +14,26 @@
     </div>
 
     <div id="main-with-sidebar" class="uk-padding">
-        <span><h2 th:text="${title.getTitleName()}"></h2><span>(<b th:text="${title.getYear()}"></b>)</span></span>
-        <hr>
+        <span>
+            <h2><b th:text="${title.getTitleName()}"></b>
+            <span id="session-subtitle">(<span th:text="${title.getYear()}"></span>)</span>
+            </h2>
+        </span>
+        <div class="hr-sect">Summary</div>
         <div>
           <!-- main content -->
+            <img th:src="${metadataService.getImage(title.getTitleId())}" class="thumbnail">
             <p class = "summary">
               <!-- Scraped Description -->
-              <div class="thumbnail"><img th:src="${metadataService.getImage(title.getTitleId())}" width="100%" height="100%"></div>
-            <p th:text="${metadataService.getDescription(title.getTitleId())}"></p>
-
+                <p th:text="${metadataService.getDescription(title.getTitleId())}"></p>
+            <span>Release Year: <b th:text="${title.getYear()}"></b></span><br>
+            <span>Runtime: <b><span th:text="${title.getRuntimeMinutes()}"></span> Minutes</b></span></b><br>
             </p>
-              <span>Release Year: <b th:text="${title.getYear()}"></b></span><br>
-            <span>Runtime: <b th:text="${title.getRuntimeMinutes()}"></b></span></b><br>
-            <span>Personnel: <div style="height:300px;width:50%;border:1px solid;overflow:auto;"
-                                  th:text="${metadataService.getPersonnel(title.getAssociatedPeople())}"></div></span></b><br>
+            <div class="clear"></div>
         </div>
+        <div class="hr-sect">Cast and Crew</div>
+        <div style="height:300px;border:1px solid;overflow:auto;" class="uk-width-1-1 uk-margin uk-padding"
+        th:text="${metadataService.getPersonnel(title.getAssociatedPeople())}"></div>
     </div>
 </div>
 

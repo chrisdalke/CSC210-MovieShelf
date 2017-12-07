@@ -38,6 +38,7 @@ function refreshShelf(){
             }
             shelfDivString += "</div></div>";
         }
+        shelfDivString += "<p class=\"uk-margin uk-text-center uk-padding\"><i>Add more items to your shelf by searching for movies using MovieShelf's Search function!</i></p>";
         $("#main-with-sidebar").html(shelfDivString);
     },null);
 }

@@ -3,7 +3,7 @@ $(function(){
         return false;
     });
     $("#create-session-submit").click(function(){
-        var sessionName = $("#sessionNameField").val();
+        var sessionName = $(".session-name-field").last().val();
         // On create session submit, call ajax request and then redirect to the session.
 
         UIkit.modal($("#modal-session-join")).show()

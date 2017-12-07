@@ -5,7 +5,7 @@ var isReady = 0;
 var userId = -1;
 var sessionUserList = [];
 var numSessionUserSuggestions = 0;
-var isSession = true;
+isSession = true;
 
 $(function(){
     // On page load, grab the session id
