@@ -26,6 +26,7 @@ import java.util.Set;
 /////////////////////////////////////////////////////////////
 
 @Entity
+@Indexed
 @Table(name = "Titles")
 @Data
 @NoArgsConstructor
