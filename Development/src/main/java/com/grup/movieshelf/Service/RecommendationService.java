@@ -168,48 +168,37 @@ public class RecommendationService {
         // top 3 genres
         String genre1 = null;
         String genre2 = null;
-        String genre3 = null;
 
         int genreCount1 = 0;
         int genreCount2 = 0;
-        int genreCount3 = 0;
 
         for(String genre : genres.keySet()) {
             int count = genres.get(genre);
             if(count > genreCount1) {
                 // reorder
-                genreCount3 = genreCount2;
-                genre3 = genre2;
                 genreCount2 = genreCount1;
                 genre2 = genre1;
                 genreCount1 = count;
                 genre1 = genre;
             } else if(count > genreCount2) {
                 // reorder
-                genreCount3 = genreCount2;
-                genre3 = genre2;
                 genreCount2 = count;
                 genre2 = genre;
-            } else if(count > genreCount3) {
-                // reorder
-                genreCount3 = count;
-                genre3 = genre;
             }
         }
 
         /**
             ASSIGN POINTS:
 
-            +3 if one of title's genres matches #1 most popular
+            +5 if one of title's genres matches #1 most popular
             +2 if one of title's genres matches #2 most popular
-            +1 if one of title's genres matches #3 most popular
 
             NOTE: a title can receive points from multiple matchings
                 ex. if #1 genre is "Comedy" and #2 genre is "Family",
-                    a title matching both genres would receive +5 points
+                    a title matching both genres would receive +8 points
          **/
 
-        System.out.println("TOP 3 GENRES: " + genre1 + ", " + genre2 + ", " + genre3);
+        System.out.println("TOP 2 GENRES: " + genre1 + ", " + genre2);
 
         List<String> genre1List = new ArrayList<>();
         for(TitleGenre titleGenre : titleGenreRepository.getAllByGenre(genre1)) {
@@ -219,19 +208,13 @@ public class RecommendationService {
         for(TitleGenre titleGenre : titleGenreRepository.getAllByGenre(genre2)) {
             genre2List.add(titleGenre.getTitleId());
         }
-        List<String> genre3List = new ArrayList<>();
-        for(TitleGenre titleGenre : titleGenreRepository.getAllByGenre(genre3)) {
-            genre3List.add(titleGenre.getTitleId());
-        }
 
         for(Recommendation recommendation : result.getRecommendations()) {
             String titleId = recommendation.getTitle().getTitleId();
             if(genre1List.contains(titleId)) {
                 recommendation.setScore(recommendation.getScore() + 5);
             } else if(genre2List.contains(titleId)) {
-                recommendation.setScore(recommendation.getScore() + 3);
-            } else if(genre3List.contains(titleId)) {
-                recommendation.setScore(recommendation.getScore() + 1);
+                recommendation.setScore(recommendation.getScore() + 2);
             }
         }
 
@@ -284,7 +267,9 @@ public class RecommendationService {
         // shuffle, sort by score, and slice results
         Collections.shuffle(result.getRecommendations());
         Collections.sort(result.getRecommendations());
-        result.getRecommendations().subList(20, result.getRecommendations().size()).clear();
+        if(result.getRecommendations().size() > 20) {
+            result.getRecommendations().subList(20, result.getRecommendations().size()).clear();
+        }
 
         System.out.println("RECOMMENDATIONS:");
         for(Recommendation recommendation : result.getRecommendations()) {
