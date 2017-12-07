@@ -36,15 +36,18 @@
 .movie {
     box-sizing: border-box;
     position: absolute;
-    width: 100%;
-    height: 100%;
-    padding: 5%;
+    width: 90%;
+    height: 90%;
     color: white;
-    background-color: rgba(41, 40, 41, 0.71);
     -webkit-box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.75);
     -moz-box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.75);
-    box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.75);
     transition: all .2s ease-in-out;
+
+}
+
+.coverArt{
+  box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.75);
+  background-color: rgba(41, 40, 41, 0.71);
 }
 
 .movie:hover {
