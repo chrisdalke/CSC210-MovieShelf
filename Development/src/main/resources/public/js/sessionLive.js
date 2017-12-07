@@ -20,7 +20,9 @@ $(function(){
     $(".session-user").each(function(item){
         var tempId = $(this).attr('id');
         if (tempId) {
-            sessionUserList.push(parseInt(tempId.replace("session-user-", "")));
+            var userIdTemp = parseInt(tempId.replace("session-user-", ""))
+            sessionUserList.push(userIdTemp);
+            $("#session-user-"+userIdTemp).animateCss("bounceIn");
         }
     });
 
@@ -67,10 +69,12 @@ function socketReceive(message){
         }
         case 2: {
             // Trigger the loading page
+            sessionShowLoad();
             break;
         }
         case 3: {
             // Trigger the final session results page
+            location.reload();
             break;
         }
         case 4: {
@@ -107,7 +111,7 @@ function refreshUsers(){
             var tempUserSuggestionList = userDataList[i].userSuggestionList;
 
             htmlString += `
-            <div class="session-user" id="session-user-"`+tempUser.userId+`>
+            <div class="session-user" id="session-user-`+tempUser.userId+`">
                 <div uk-grid>
                     <div class="uk-width-auto session-user-holder uk-flex uk-flex-column uk-flex-center">`+tempUser.username+`</div>
                     <div class="noborder uk-width-auto uk-flex uk-flex-column uk-flex-center"><div class="session-arrow-left"></div></div>
@@ -142,6 +146,10 @@ function sessionAddTitle(titleId){
 
 function sessionRemoveTitle(titleId){
 
+}
+
+function sessionShowLoad(){
+    UIkit.modal($("#modal-session-load")).show()
 }
 
 function sessionDisconnect(){

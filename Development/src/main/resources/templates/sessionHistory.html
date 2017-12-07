@@ -16,8 +16,18 @@
     <!-- Landing page for a logged-in user -->
     <div id="main-with-sidebar" class="uk-padding">
 
-        <h2>Session History</h2>
-        <p>You have not been a part of any sessions.</p>
+        <h2><b>Session History</b></h2>
+        <div class="hr-sect">Current Sessions</div>
+        <div th:if="${currentSessions.isEmpty()}">You are not part of any currently open sessions! </div>
+        <div th:each="currentSession : ${currentSessions}" th:object="${currentSession}">
+            <h3><a th:href="${'/sessions/' + currentSession.getSessionCode()}" th:text="${currentSession.getSessionName()}"></a></h3>
+        </div>
+        <div class="hr-sect">Archived Sessions</div>
+        <div th:if="${oldSessions.isEmpty()}">You have not been part of any archived sessions.</div>
+        <div th:each="oldSession : ${oldSessions}" th:object="${oldSession}">
+            <h3><a th:href="${'/sessions/' + oldSession.getSessionCode()}" th:text="${oldSession.getSessionName()}"></a></h3>
+        </div>
+
     </div>
 
     <!-- Include the footer fragment -->

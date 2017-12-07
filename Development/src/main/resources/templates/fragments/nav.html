@@ -1,10 +1,17 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <div th:fragment="nav">
-    <div uk-sticky>
+    <a href="/"><div id="title-display" class="uk-visible@m"></div></a>
+
+    <div uk-sticky id="nav-sticky-container">
         <div id="nav" class="uk-container uk-container-expand">
             <nav class="uk-navbar-container uk-navbar-transparent" uk-navbar>
                 <div class="uk-navbar-left">
-                    <a uk-toggle href="#side-nav" class="uk-hidden@m uk-navbar-toggle uk-navbar-toggle-icon" uk-icon="icon: menu"></a>
+                    <ul class="uk-navbar-nav">
+                        <li>
+                            <a uk-toggle href="#side-nav" class="uk-hidden@m uk-navbar-toggle uk-navbar-toggle-icon" uk-icon="icon: menu"></a>
+                            <a uk-toggle href="#side-nav" class="uk-visible@m uk-navbar-toggle uk-navbar-toggle-icon" uk-icon="icon: menu" style="visibility: none;"></a>
+                        </li>
+                    </ul>
                 </div>
 
                 <div class="uk-navbar-right" >

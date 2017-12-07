@@ -6,6 +6,9 @@
         <!-- Include the landing page background image fragment -->
         <div th:include="fragments/landing-bg :: landing-bg"></div>
 
+        <div class="landing-movie-tape-effect-left landing-movie-tape-effect"></div>
+        <div class="landing-movie-tape-effect-right landing-movie-tape-effect"></div>
+
         <div class="uk-offcanvas-content uk-light">
 
             <!-- Include the modals fragment -->
@@ -18,6 +21,8 @@
 
                 <!-- Display a login form if the user is not already loggeed in -->
                 <div id="landing-sidebar" class="uk-card-secondary uk-card-body" sec:authorize="isAnonymous()">
+
+
                     <form th:action="@{/login}" method="post">
                         <fieldset class="uk-fieldset">
 

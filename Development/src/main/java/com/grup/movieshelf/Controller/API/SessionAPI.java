@@ -12,6 +12,7 @@ package com.grup.movieshelf.Controller.API;
 
 import com.grup.movieshelf.Controller.API.Entity.RecommendationList;
 import com.grup.movieshelf.Controller.API.Entity.ResponseStatus;
+import com.grup.movieshelf.Controller.API.Entity.SessionCreationRequest;
 import com.grup.movieshelf.Controller.API.Entity.UserSessionData;
 import com.grup.movieshelf.JPA.Entity.Sessions.Session;
 import com.grup.movieshelf.JPA.Entity.Users.User;
@@ -59,8 +60,11 @@ public class SessionAPI {
     //------------------------------------------------
 
     @PostMapping("/api/session")
-    public Session createSession(){
-        return sessionService.createSession();
+    public Session createSession(@RequestBody SessionCreationRequest sessionCreationRequest){
+        Session newSession = sessionService.createSession();
+        newSession.setSessionName(sessionCreationRequest.getSessionName());
+        sessionRepository.save(newSession);
+        return newSession;
     }
 
     @GetMapping("/api/session/{sessionCode}")
@@ -94,7 +98,7 @@ public class SessionAPI {
         Session session = sessionService.getSession(sessionCode);
         if (session != null){
             if (session.isExpired()){
-                return new ResponseStatus(2,"Old Session Code!");
+                return new ResponseStatus(2,"Session Code has Expired!");
             } else {
                 return new ResponseStatus();
             }

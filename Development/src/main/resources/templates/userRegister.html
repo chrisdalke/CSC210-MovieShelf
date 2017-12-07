@@ -6,6 +6,9 @@
         <!-- Include the landing page background image fragment -->
         <div th:include="fragments/landing-bg :: landing-bg"></div>
 
+        <div class="landing-movie-tape-effect-left landing-movie-tape-effect"></div>
+        <div class="landing-movie-tape-effect-right landing-movie-tape-effect"></div>
+
         <div class="uk-offcanvas-content uk-light">
 
             <!-- Include the modals fragment -->
@@ -34,12 +37,15 @@
                             </div>
 
                             <div class="uk-margin" th:if="${showForm}">
-                                <input class="uk-width-1-1 uk-button uk-button-default" type="submit" value="Register"/>
+                                <input class="uk-width-1-1 uk-button uk-button-primary" type="submit" value="Register"/>
                             </div>
                         </fieldset>
                     </form>
 
-                    <a href="/login"><button class="uk-button uk-button-default uk-width-1-1">Cancel</button></a>
+                    <a href="/login">
+                        <button class="uk-button uk-button-default uk-width-1-1" th:if="${showForm}">Cancel</button>
+                        <button class="uk-button uk-button-default uk-width-1-1" th:if="${!showForm}">Back</button>
+                    </a>
 
                 </div>
 

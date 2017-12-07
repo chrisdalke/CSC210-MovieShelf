@@ -36,7 +36,7 @@ function joinSession(sessionCode) {
             } else {
                 setTimeout(function(){
                     resetSessionModal();
-                    $("#session-code-label").text(failureMessage.message);
+                    $("#session-code-label").text(successMessage.message);
                 }, 1000);
             }
         });

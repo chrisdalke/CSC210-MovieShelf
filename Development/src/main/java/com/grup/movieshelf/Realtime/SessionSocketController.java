@@ -16,8 +16,10 @@ package com.grup.movieshelf.Realtime;
 // Handles realtime bidirectional communication for sessions.
 /////////////////////////////////////////////////////////////
 
+import com.grup.movieshelf.JPA.Entity.Sessions.Session;
 import com.grup.movieshelf.JPA.Entity.Sessions.UserSession;
 import com.grup.movieshelf.JPA.Entity.Users.User;
+import com.grup.movieshelf.JPA.Repository.SessionRepository;
 import com.grup.movieshelf.JPA.Repository.UserRepository;
 import com.grup.movieshelf.JPA.Repository.UserSessionRepository;
 import com.grup.movieshelf.Realtime.Entity.SessionMessage;
@@ -42,6 +44,9 @@ public class SessionSocketController {
 
     @Autowired
     UserSessionRepository userSessionRepository;
+
+    @Autowired
+    SessionRepository sessionRepository;
 
     @Autowired
     UserRepository userRepository;
@@ -103,8 +108,15 @@ public class SessionSocketController {
                         allReady = false;
                     }
                 }
+
+                Session session = sessionRepository.getOne(Integer.parseInt(sessionId));
+
                 if (allReady){
+                    session.setExpired(true);
+                    sessionRepository.save(session);
+
                     return new SessionServerMessage(SessionServerMessage.MESSAGE_TRIGGER_LOAD,"All Users Ready!");
+
                 } else {
                     return new SessionServerMessage(SessionServerMessage.MESSAGE_TRIGGER_READY,""+userObject.getUserId());
                 }
