@@ -175,6 +175,7 @@ public class SessionController {
             return "sessionInvalidCode";
         }
         RecommendationList recommendationList = sessionService.getSessionRecommendations(session.getSessionId());
+        model.addAttribute("userSession",session);
         model.addAttribute("first", recommendationList.getRecommendations().remove(0));
         model.addAttribute("second", recommendationList.getRecommendations().remove(0));
         model.addAttribute("third", recommendationList.getRecommendations().remove(0));

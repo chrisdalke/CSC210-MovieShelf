@@ -20,7 +20,6 @@
             <!-- Landing page for a logged-in user -->
             <div id="main-with-sidebar" sec:authorize="isAuthenticated()">
 
-
                 <div th:each="userTitleRow : ${userTitleRows}" th:object="${userTitleRow}">
                     <div class="shelf">
                         <div class="shelf-grid uk-grid-collapse uk-child-width-expand@s" uk-grid>
