@@ -29,6 +29,9 @@ function runSearch(){
 function buildResults(searchObject){
     console.log(searchObject);
     $("#search-results").html("");
+    if(searchObject.users.length == 0 && searchObject.titles.length == 0) {
+      $("#search-results").append("<i>No Results<\i>");
+    }
     // append users
     if(searchObject.users.length > 0) {
         $("#search-results").append("Users");
@@ -114,4 +117,23 @@ function buildResults(searchObject){
         entry.append(buttonCard);
         $("#search-results").append(entry);
     }
+}
+
+//SHHHHHHH
+function plug(contents){
+  var lastShelf=$(".flag:last");
+  switch (contents) {
+    case 3:
+    case 0:
+      break;
+    case 1:
+    lastShelf.append("<div class=\"shelf-item-holder\"></div>");
+    lastShelf.append("<div class=\"shelf-item-holder\"></div>");
+      break;
+    case 2:
+    lastShelf.append("<div class=\"shelf-item-holder\"></div>");
+        break;
+    default:
+    break;
+  }
 }

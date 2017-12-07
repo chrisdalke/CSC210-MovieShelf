@@ -14,7 +14,10 @@ package com.grup.movieshelf.Controller.Web;
 import com.grup.movieshelf.JPA.Entity.Movies.Title;
 import com.grup.movieshelf.JPA.Entity.Users.User;
 import com.grup.movieshelf.JPA.Entity.Users.UserOptions;
+import com.grup.movieshelf.JPA.Entity.Users.UserTitle;
+import com.grup.movieshelf.JPA.Repository.TitleRepository;
 import com.grup.movieshelf.JPA.Repository.UserRepository;
+import com.grup.movieshelf.JPA.Repository.UserTitlesRepository;
 import com.grup.movieshelf.Service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.parameters.P;
@@ -22,6 +25,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /////////////////////////////////////////////////////////////
@@ -44,6 +48,15 @@ public class UserController {
 
     @Autowired
     private ShelfService shelfService;
+
+    @Autowired
+    private UserTitlesRepository userTitlesRepository;
+
+    @Autowired
+    private TitleRepository titleRepository;
+
+    @Autowired
+    private MetadataService metaDaniel;
 
     //------------------------------------------------
     // Request Mappings
@@ -79,12 +92,32 @@ public class UserController {
             UserOptions userOptions = userService.getUserOptions(user);
             List<User> userFriends = userService.getFriends(user.getUserId());
             List<Title> userTitles = shelfService.getShelfForUser(user.getUserId());
+
+            ArrayList<ArrayList<Title>> titleRows = new ArrayList<>();
+            // Build titles list into static rows to make the page appear to load faster
+            List<UserTitle> titles = userTitlesRepository.getAllByUserId(user.getUserId());
+
+            for (int i = 0; i < titles.size(); i +=3){
+                ArrayList<Title> singleRow = new ArrayList<>();
+                if (i < titles.size()){
+                    singleRow.add(titleRepository.getByTitleId(titles.get(i+0).getTitleId()));
+                }
+                if (i + 1 < titles.size()){
+                    singleRow.add(titleRepository.getByTitleId(titles.get(i+1).getTitleId()));
+                }
+                if (i + 2 < titles.size()){
+                    singleRow.add(titleRepository.getByTitleId(titles.get(i+2).getTitleId()));
+                }
+                titleRows.add(singleRow);
+            }
             model.addAttribute("user",user);
             model.addAttribute("userOptions",userOptions);
             model.addAttribute("userFriends",userFriends);
             model.addAttribute("userTitles",userTitles);
             model.addAttribute("incomingRequests", userService.getIncomingFriendRequestUsers());
             model.addAttribute("outgoingRequests", userService.getOutgoingFriendRequestUsers());
+            model.addAttribute("userTitleRows",titleRows);
+            model.addAttribute("metadataService",metaDaniel);
             return "userProfile";
         } else {
             // User does not exist
