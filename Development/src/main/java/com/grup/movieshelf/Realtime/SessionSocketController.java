@@ -16,19 +16,35 @@ package com.grup.movieshelf.Realtime;
 // Handles realtime bidirectional communication for sessions.
 /////////////////////////////////////////////////////////////
 
+import com.grup.movieshelf.JPA.Entity.Sessions.UserSession;
+import com.grup.movieshelf.JPA.Entity.Users.User;
+import com.grup.movieshelf.JPA.Repository.UserRepository;
+import com.grup.movieshelf.JPA.Repository.UserSessionRepository;
 import com.grup.movieshelf.Realtime.Entity.SessionMessage;
+import com.grup.movieshelf.Realtime.Entity.SessionServerMessage;
+import com.grup.movieshelf.Service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import javax.transaction.Transactional;
+import java.util.List;
 
 @Controller
+@Transactional
 public class SessionSocketController {
 
+    @Autowired
+    private UserService userService;
 
-    // Controller URL formats;
-    // READS from /session/client/{sessionId}
-    // WRITES to /session/server/{sessionId}
+    @Autowired
+    UserSessionRepository userSessionRepository;
+
+    @Autowired
+    UserRepository userRepository;
 
     /*
 
@@ -47,36 +63,62 @@ public class SessionSocketController {
 
     @MessageMapping("/session/{sessionId}")
     @SendTo("/topic/session/{sessionId}")
-    public SessionMessage sessionMessageManager(@DestinationVariable String sessionId,SessionMessage clientMessage){
+    public SessionServerMessage sessionMessageManager(@DestinationVariable String sessionId, SessionMessage clientMessage){
+
+        User userObject = userRepository.getOne(clientMessage.getUserId());
+
+        System.out.println("Received message from socket: "+clientMessage+ " and user "+userObject);
 
         switch (clientMessage.getMessageType()){
             case SessionMessage.MESSAGE_JOIN: {
-                return new SessionMessage(SessionMessage.MESSAGE_CONFIRM,"Confirmed.");
+                // User has joined the server. Send a message to all clients telling them to update their client list.
+                return new SessionServerMessage(SessionServerMessage.MESSAGE_REFRESH_USERS,"User Joined.");
             }
             case SessionMessage.MESSAGE_LEAVE: {
-                return new SessionMessage(SessionMessage.MESSAGE_CONFIRM,"Confirmed.");
+                // User has left the server. Send a message to all clients telling them to update their client list.
+                return new SessionServerMessage(SessionServerMessage.MESSAGE_REFRESH_USERS,"User Left.");
             }
             case SessionMessage.MESSAGE_ADD_MOVIE: {
-                return new SessionMessage(SessionMessage.MESSAGE_CONFIRM,"Confirmed.");
+                // Update database and send update message to all the other users
+
+                return new SessionServerMessage(SessionServerMessage.MESSAGE_REFRESH_USERS,"User Added Movie.");
             }
             case SessionMessage.MESSAGE_REMOVE_MOVIE: {
-                return new SessionMessage(SessionMessage.MESSAGE_CONFIRM,"Confirmed.");
+                // Update database and send update message to all the other users
+
+                return new SessionServerMessage(SessionServerMessage.MESSAGE_REFRESH_USERS,"User Removed Movie.");
             }
             case SessionMessage.MESSAGE_READY: {
-                return new SessionMessage(SessionMessage.MESSAGE_CONFIRM,"Confirmed.");
+                // Set this user as being ready.
+                // Get the user session object
+                UserSession userSession = userSessionRepository.getOne(userObject.getUserId()+"_"+sessionId);
+                userSession.setIsReady(1);
+                userSessionRepository.save(userSession);
+
+                // Check if all users are ready. If so, send a page load event.
+                List<UserSession> userSessionList = userSessionRepository.getAllBySessionId(Integer.parseInt(sessionId));
+                boolean allReady = true;
+                for (UserSession userSession1 : userSessionList){
+                    if (userSession1.getIsReady() == 0){
+                        allReady = false;
+                    }
+                }
+                if (allReady){
+                    return new SessionServerMessage(SessionServerMessage.MESSAGE_TRIGGER_LOAD,"All Users Ready!");
+                } else {
+                    return new SessionServerMessage(SessionServerMessage.MESSAGE_TRIGGER_READY,""+userObject.getUserId());
+                }
+
             }
             case SessionMessage.MESSAGE_READY_CANCEL: {
-                return new SessionMessage(SessionMessage.MESSAGE_CONFIRM,"Confirmed.");
-            }
-            case SessionMessage.MESSAGE_FLAIR: {
-                return new SessionMessage(SessionMessage.MESSAGE_CONFIRM,"Confirmed.");
-            }
-            case SessionMessage.MESSAGE_TEST: {
-                return new SessionMessage(SessionMessage.MESSAGE_CONFIRM,"TEST SUCCESS MESSAGE.");
+                UserSession userSession = userSessionRepository.getOne(userObject.getUserId()+"_"+sessionId);
+                userSession.setIsReady(0);
+                userSessionRepository.save(userSession);
+                return new SessionServerMessage(SessionServerMessage.MESSAGE_TRIGGER_UNREADY,""+userObject.getUserId());
             }
             default: {
                 //Unknown message.
-                return new SessionMessage(SessionMessage.MESSAGE_ERROR,"Unknown message sent by client.");
+                return new SessionServerMessage(SessionServerMessage.MESSAGE_ERROR,"Unknown message sent by client.");
             }
         }
 
