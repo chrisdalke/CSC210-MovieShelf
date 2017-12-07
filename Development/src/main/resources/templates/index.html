@@ -18,7 +18,7 @@
             </div>
 
             <!-- Landing page for a logged-in user -->
-            <div id="main-with-sidebar" class="shelf-bg" sec:authorize="isAuthenticated()">
+            <div id="main-with-sidebar" sec:authorize="isAuthenticated()">
 
 
                 <div th:each="userTitleRow : ${userTitleRows}" th:object="${userTitleRow}">
@@ -31,11 +31,12 @@
                                     </div>
                                 </a></div></div>
                             </div>
-                            <div th:if="${userTitleRow.size() > 1}" class="shelf-item-holder"></div>
-                            <div th:if="${userTitleRow.size() > 2}" class="shelf-item-holder"></div>
+                            <div th:if="${userTitleRow.size() &lt; 2}" class="shelf-item-holder"></div>
+                            <div th:if="${userTitleRow.size() &lt; 3}" class="shelf-item-holder"></div>
                         </div>
                     </div>
                 </div>
+                <p class="uk-margin uk-text-center uk-padding"><i>Add more items to your shelf by searching for movies using MovieShelf's Search function!</i></p>
 
             </div>
 

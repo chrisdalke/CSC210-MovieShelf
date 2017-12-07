@@ -116,8 +116,7 @@ public class SessionController {
 
         // If the session has already expired, just show the session results page
         if (session.isExpired()){
-            model.addAttribute("msSession",session);
-            return "sessionArchived";
+            return "redirect:/sessions/"+sessionCode+"/results";
         }
 
         // If the user is not already a part of the session, have them join this session
@@ -169,9 +168,13 @@ public class SessionController {
 
     }
 
-    @RequestMapping("/sessions/results")
-    public String sesh(Model model){
-        RecommendationList recommendationList = sessionService.getSessionRecommendations("shitSession");
+    @RequestMapping("/sessions/{sessionCode}/results")
+    public String sesh(@PathVariable("sessionCode") String sessionCode, Model model){
+        Session session = sessionService.getSession(sessionCode);
+        if (session == null){
+            return "sessionInvalidCode";
+        }
+        RecommendationList recommendationList = sessionService.getSessionRecommendations(session.getSessionId());
         model.addAttribute("first", recommendationList.getRecommendations().remove(0));
         model.addAttribute("second", recommendationList.getRecommendations().remove(0));
         model.addAttribute("third", recommendationList.getRecommendations().remove(0));

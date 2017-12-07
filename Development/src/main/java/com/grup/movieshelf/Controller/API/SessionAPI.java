@@ -85,10 +85,12 @@ public class SessionAPI {
         sessionService.finishSession(sessionId);
     }
 
+    /*
     @GetMapping("/api/session/{sessionId}/recommend")
     public RecommendationList getSessionRecommendations(@PathVariable("sessionId") String sessionId){
         return sessionService.getSessionRecommendations(sessionId);
     }
+    */
 
     //------------------------------------------------
     // Session Join Functionality
