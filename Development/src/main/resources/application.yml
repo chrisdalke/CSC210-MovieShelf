@@ -19,4 +19,5 @@ spring:
             default:
               directory_provider: filesystem
               indexBase: /var/lucene/indexes
-
+server:
+  port: 5000
