@@ -99,6 +99,18 @@ public class SessionService {
     }
 
     //------------------------------------------------
+    // Sessions User Movie Lists
+    //------------------------------------------------
+
+    public void addSuggestion(){
+
+    }
+
+    public void removeSuggestion(){
+
+    }
+
+    //------------------------------------------------
     // Session / User Relation
     //------------------------------------------------
 
@@ -106,6 +118,15 @@ public class SessionService {
         UserSession userSession = new UserSession(userId,sessionId);
         if (!userSessionRepository.existsById(userSession.getUserSessionId())){
             userSessionRepository.save(userSession);
+        }
+    }
+
+    public void removeUserFromSession(Integer userId, Integer sessionId){
+        UserSession userSession = new UserSession(userId,sessionId);
+        if (userSessionRepository.existsById(userSession.getUserSessionId())){
+            // Delete user/session entry
+            userSessionRepository.delete(userSession);
+            // Delete all the user's session movie suggestions so they don't get used
         }
     }
 

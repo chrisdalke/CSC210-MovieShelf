@@ -39,6 +39,11 @@ public class Session {
     private Integer sessionId;
 
     @NotNull
+    @Column(name = "sessionName", unique = false, updatable = true)
+    private String sessionName;
+
+
+    @NotNull
     @Column(name = "isExpired", unique = false, updatable = true)
     private boolean isExpired;
 
