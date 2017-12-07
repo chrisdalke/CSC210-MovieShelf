@@ -34,7 +34,7 @@ public class RandomStringUtility {
     private static String generateRandomString(int length, String alphabet){
         String randomString = "";
         while (randomString.length() < length) {
-            randomString += RANDOM_CREDENTIAL_ALPHABET.charAt(ThreadLocalRandom.current().nextInt(0,RANDOM_CREDENTIAL_ALPHABET.length()));
+            randomString += alphabet.charAt(ThreadLocalRandom.current().nextInt(0,alphabet.length()));
         }
         return randomString;
     }

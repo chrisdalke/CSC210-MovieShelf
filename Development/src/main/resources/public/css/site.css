@@ -158,11 +158,12 @@ html {
 }
 
 #title-display {
-    background: #2c3e50 url(/img/logo.svg) no-repeat center;
+    background: #54677a url(/img/logo.svg) no-repeat center;
     background-size: contain;
     width: 240px;
-    height: 100px;
-    padding-bottom: 20px;
+    height: 80px;
+    /* padding-bottom: 20px; */
+    padding-left: 10px;
     position: absolute;
     top: 0;
     left: 0;
@@ -207,6 +208,19 @@ html {
     z-index: 100;
 }
 
+/*
+#search-pane::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    height: 40px;
+    background: url("/img/ribbon.png") no-repeat;
+    background-size: 100% 100%;
+    z-index: 100;
+}
+*/
 
 #side-nav::after {
     content: "";
@@ -252,7 +266,7 @@ html {
     -webkit-box-shadow: inset 0px 17px 20px -15px rgba(0,0,0,0.25);
     -moz-box-shadow: inset 0px 17px 20px -15px rgba(0,0,0,0.25);
     box-shadow: inset 0px 17px 20px -15px rgba(0,0,0,0.25);
-    background-color: rgb(27, 27, 27);
+    background-color: rgb(45, 62, 79);
     z-index: 10;
     box-sizing: border-box;
 }
@@ -535,19 +549,50 @@ html {
 }
 
 .session-title-holder {
-    margin: 15px;
-    width: 150px;
-    height: 300px;
+    margin-right: 15px;
+    width: 140px;
+    height: 230px;
     box-sizing: border-box;
     background-color: #7f8c8d;
-    border: 10px solid #95a5a6;
+    border-radius:10px;
     text-align: center;
     display: flex;
     align-items: center;
     justify-content: center;
+    position: relative;
+    float: left;
 }
 
 .large-spinner {
     transform: scale(2);
     margin: 20px;
+}
+
+.session-title-holder img {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+.session-title-holder {
+    overflow: hidden;
+}
+
+.session-suggestion-remove:hover:after {
+    content: "Remove";
+    position: absolute;
+    text-align: center;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(0,0,0,0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
 }

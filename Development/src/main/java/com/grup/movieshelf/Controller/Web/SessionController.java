@@ -14,8 +14,10 @@ import com.grup.movieshelf.JPA.Entity.Sessions.Session;
 import com.grup.movieshelf.JPA.Entity.Sessions.UserSession;
 import com.grup.movieshelf.Controller.API.Entity.RecommendationList;
 import com.grup.movieshelf.JPA.Entity.Movies.Title;
+import com.grup.movieshelf.JPA.Entity.Sessions.UserSuggestion;
 import com.grup.movieshelf.JPA.Entity.Users.User;
 import com.grup.movieshelf.JPA.Repository.UserSessionRepository;
+import com.grup.movieshelf.JPA.Repository.UserSuggestionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,6 +26,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.grup.movieshelf.Service.*;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /////////////////////////////////////////////////////////////
@@ -49,6 +52,9 @@ public class SessionController {
 
     @Autowired
     UserSessionRepository userSessionRepository;
+
+    @Autowired
+    UserSuggestionRepository userSuggestionRepository;
 
     //------------------------------------------------
     // Request Mappings
@@ -126,10 +132,39 @@ public class SessionController {
         // Display the session live page (which has some JS code on clientside to join sockets system.)
         model.addAttribute("msSession",session);
         List<User> sessionUsers = sessionService.getUsersForSession(session);
+        HashMap<Integer,List<UserSuggestion>> userSuggestionMatrix = new HashMap<>();
+        HashMap<Integer,String> guestUserAliases = new HashMap<>();
+        int numGuests = 0;
+        for (User user : sessionUsers){
+            List<UserSuggestion> suggestions = userSuggestionRepository.getAllByUserIdAndSessionId(user.getUserId(),session.getSessionId());
+            if (suggestions == null){
+                suggestions = new ArrayList<UserSuggestion>();
+            }
+            userSuggestionMatrix.put(user.getUserId(),suggestions);
+            if (user.getIsGuest()){
+                guestUserAliases.put(user.getUserId(),"Guest #"+(++numGuests));
+            }
+        }
+        List<UserSuggestion> suggestions = userSuggestionMatrix.get(userObject.getUserId());
         sessionUsers.remove(userObject);
+
+        HashMap<String,String> imageUrls = new HashMap<>();
+
+        for (Integer key : userSuggestionMatrix.keySet()){
+            for (UserSuggestion suggestion : userSuggestionMatrix.get(key)){
+                imageUrls.put(suggestion.getTitleId(),metadataService.getImage(suggestion.getTitleId()));
+            }
+        }
+
+        model.addAttribute("userSuggestionMatrix",userSuggestionMatrix);
         model.addAttribute("sessionUsers",sessionUsers);
         model.addAttribute("userObject",userObject);
         model.addAttribute("userIsReady",userSession.getIsReady());
+        model.addAttribute("suggestions", suggestions);
+        model.addAttribute("imageUrls", imageUrls);
+        model.addAttribute("numSuggestions", suggestions.size());
+        model.addAttribute("guestUserAliases", guestUserAliases);
+
         return "sessionLive";
 
     }

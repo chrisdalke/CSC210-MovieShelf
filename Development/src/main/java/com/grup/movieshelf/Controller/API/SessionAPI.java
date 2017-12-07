@@ -62,6 +62,7 @@ public class SessionAPI {
     @PostMapping("/api/session")
     public Session createSession(@RequestBody SessionCreationRequest sessionCreationRequest){
         Session newSession = sessionService.createSession();
+        newSession = sessionService.getSession(newSession.getSessionCode());
         newSession.setSessionName(sessionCreationRequest.getSessionName());
         sessionRepository.save(newSession);
         return newSession;

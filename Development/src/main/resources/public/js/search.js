@@ -88,15 +88,19 @@ function buildResults(searchObject){
         var buttonCard=$("<div class=\"uk-card uk-width-auto@m\"></div>");
         buttonCard.attr('id',title.titleId);
 
-        if(!searchObject.titles[j].containedInShelf){
+        if(!searchObject.titles[j].containedInShelf | isSession){
             buttonCard.addClass("addButton");
             buttonCard.append($("<span class=\"uk-position-center signs\" uk-icon=\"icon: plus\">"));
             buttonCard.click(function(){
-                addFavorite(this.id,function(){
-                    runSearch();
-                    refreshShelf();
+                if (isSession){
+                    sessionAddTitle(title.titleId);
+                } else {
+                    addFavorite(this.id, function () {
+                        runSearch();
+                        refreshShelf();
 
-                });
+                    });
+                }
                 console.log("added");
             });
 

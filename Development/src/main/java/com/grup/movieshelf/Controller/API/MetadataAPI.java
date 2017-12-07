@@ -10,6 +10,7 @@ package com.grup.movieshelf.Controller.API;
 // Module Imports
 /////////////////////////////////////////////////////////////
 
+import com.grup.movieshelf.Controller.API.Entity.MetaImage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -41,8 +42,8 @@ public class MetadataAPI {
     //------------------------------------------------
 
     @GetMapping("/api/meta/{titleId}")
-    public String getMovieImage(@PathVariable("titleId") String titleId) {
-        return metadataService.getImage(titleId);
+    public MetaImage getMovieImage(@PathVariable("titleId") String titleId) {
+        return new MetaImage(metadataService.getImage(titleId));
     }
 
     @PostMapping("/api/meta/{titleId}/{image}/{descrip}")

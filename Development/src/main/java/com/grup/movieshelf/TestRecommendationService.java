@@ -23,7 +23,9 @@ public class TestRecommendationService implements ApplicationListener<Applicatio
     @Transactional
     public void onApplicationEvent(final ApplicationReadyEvent event) {
         // Test recommendation algorithm with Nate's shelf as the input
+        /*
         RecommendationInput recommendationInput = new RecommendationInput(shelfService.getShelfForUser(9));
         RecommendationResult result = recommendationService.getRecommendations(recommendationInput);
+        */
     }
 }

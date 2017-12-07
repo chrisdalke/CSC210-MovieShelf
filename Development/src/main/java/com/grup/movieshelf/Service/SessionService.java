@@ -67,7 +67,7 @@ public class SessionService {
         }
 
         // Save and return the new session
-        sessionRepository.save(session);
+        session = sessionRepository.save(session);
 
         return session;
     }

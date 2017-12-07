@@ -3,12 +3,8 @@ package com.grup.movieshelf.Service;
 import com.grup.movieshelf.JPA.Entity.Movies.Title;
 import com.grup.movieshelf.JPA.Entity.Movies.TitleGenre;
 import com.grup.movieshelf.JPA.Entity.Movies.TitleRating;
-import com.grup.movieshelf.JPA.Entity.Sessions.Recommendation;
-import com.grup.movieshelf.JPA.Entity.Sessions.RecommendationInput;
-import com.grup.movieshelf.JPA.Entity.Sessions.RecommendationResult;
-import com.grup.movieshelf.JPA.Repository.TitleGenreRepository;
-import com.grup.movieshelf.JPA.Repository.TitleRatingRepository;
-import com.grup.movieshelf.JPA.Repository.TitleRepository;
+import com.grup.movieshelf.JPA.Entity.Sessions.*;
+import com.grup.movieshelf.JPA.Repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,6 +24,24 @@ public class RecommendationService {
 
     @Autowired
     TitleRatingRepository titleRatingRepository;
+
+    @Autowired
+    UserSuggestionRepository userSuggestionRepository;
+
+    @Autowired
+    SessionResultRepository sessionResultRepository;
+
+    public void doSessionRecommend(Integer sessionId){
+        RecommendationInput input = new RecommendationInput();
+
+        for (UserSuggestion suggestion : userSuggestionRepository.getAllBySessionId(sessionId)){
+            input.getTitles().add(titleRepository.getByTitleId(suggestion.getTitleId()));
+        }
+        RecommendationResult result = getRecommendations(input);
+        for (Recommendation recommendation : result.getRecommendations()){
+            sessionResultRepository.save(new SessionResult(sessionId,recommendation.getTitle().getTitleId()));
+        }
+    }
 
     public RecommendationResult getRecommendations(RecommendationInput input) {
         RecommendationResult result = new RecommendationResult();
