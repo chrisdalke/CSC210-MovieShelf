@@ -91,36 +91,43 @@ function buildResults(searchObject){
         if(!searchObject.titles[j].containedInShelf | isSession){
             buttonCard.addClass("addButton");
             buttonCard.append($("<span class=\"uk-position-center signs\" uk-icon=\"icon: plus\">"));
-            buttonCard.click(function(){
-                if (isSession){
-                    sessionAddTitle(title.titleId);
-                } else {
-                    addFavorite(this.id, function () {
-                        runSearch();
-                        refreshShelf();
-
-                    });
-                }
-                console.log("added");
-            });
-
+            setupButtonAddClickListener(buttonCard,title.titleId)
         } else {
             buttonCard.addClass("removeButton");
             buttonCard.append($("<span class=\"uk-position-center signs\" uk-icon=\"icon: minus\">"));
-            buttonCard.click(function(){
-                removeFavorite(this.id,function(){
-                    runSearch();
-                    refreshShelf();
-
-                });
-                console.log("removed");
-            });
+            setupButtonRemoveClickListener(buttonCard,title.titleId)
         }
         titleCard.append(cardText);
         entry.append(titleCard);
         entry.append(buttonCard);
         $("#search-results").append(entry);
     }
+}
+
+function setupButtonAddClickListener(button,titleId){
+    button.click(function(){
+        if (isSession){
+            sessionAddTitle(titleId);
+        } else {
+            addFavorite(titleId, function () {
+                runSearch();
+                refreshShelf();
+
+            });
+        }
+        console.log("added");
+    });
+}
+
+function setupButtonRemoveClickListener(button,titleId){
+    button.click(function(){
+        removeFavorite(titleId,function(){
+            runSearch();
+            refreshShelf();
+
+        });
+        console.log("removed");
+    });
 }
 
 //SHHHHHHH
