@@ -43,26 +43,29 @@ public class MetadataService {
     //------------------------------------------------
 
     public String getDescription (String titleId){
-        if (!contains(titleId)) {
-            try{
-                UserAgent userAgent = new UserAgent();
-                String url = "http://imdb.com/title/" + titleId;
-                userAgent.visit(url);
-                String img_url = userAgent.doc.findFirst("<div class=\"poster\">").findFirst("<img>").getAt("src");
-                String description = userAgent.doc.findFirst("<div class=\"summary_text\">").getText();
-                description = description.replace("&quot;", "\"");
-                addMetadata(titleId, img_url, description);
-            }
-            catch(JauntException e){
-                System.err.println(e);
-            }
+        getMetadataForTitle(titleId);
+        Metadata metadata = metadataRepository.getByTitleId(titleId);
+        if (metadata != null){
+            return metadata.getDescription();
+        } else {
+            return "No Description Found!";
         }
-        return metadataRepository.getByTitleId(titleId).getDescription();
     }
 
     public String getImage (String titleId){
+        getMetadataForTitle(titleId);
+        Metadata metadata = metadataRepository.getByTitleId(titleId);
+        if (metadata != null){
+            return metadata.getImage();
+        } else {
+            return "No Image Found!";
+        }
+    }
+
+    public void getMetadataForTitle(String titleId){
         if (!contains(titleId)) {
-            try{
+            try {
+                //Find and add metadata for this title
                 UserAgent userAgent = new UserAgent();
                 String url = "http://imdb.com/title/" + titleId;
                 userAgent.visit(url);
@@ -70,14 +73,11 @@ public class MetadataService {
                 String description = userAgent.doc.findFirst("<div class=\"summary_text\">").getText();
                 description = description.replace("&quot;", "\"");
                 addMetadata(titleId, img_url, description);
-            }
-            catch(JauntException e){
-                System.err.println(e);
-                // If there is an error, this is a problem. We should put a blank image in the database.
-                addMetadata(titleId, "", "");
+            } catch (JauntException e) {
+                // Don't put any metadata.
             }
         }
-        return metadataRepository.getByTitleId(titleId).getImage();
+
     }
 
     public boolean contains(String titleId){

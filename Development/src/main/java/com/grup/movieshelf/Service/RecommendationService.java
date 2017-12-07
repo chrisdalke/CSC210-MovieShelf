@@ -31,7 +31,7 @@ public class RecommendationService {
     @Autowired
     SessionResultRepository sessionResultRepository;
 
-    public void doSessionRecommend(Integer sessionId){
+    public RecommendationResult doSessionRecommend(Integer sessionId){
         RecommendationInput input = new RecommendationInput();
 
         for (UserSuggestion suggestion : userSuggestionRepository.getAllBySessionId(sessionId)){
@@ -41,6 +41,7 @@ public class RecommendationService {
         for (Recommendation recommendation : result.getRecommendations()){
             sessionResultRepository.save(new SessionResult(sessionId,recommendation.getTitle().getTitleId()));
         }
+        return result;
     }
 
     public RecommendationResult getRecommendations(RecommendationInput input) {
