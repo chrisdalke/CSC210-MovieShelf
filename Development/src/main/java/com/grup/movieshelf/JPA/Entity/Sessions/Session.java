@@ -40,20 +40,20 @@ public class Session {
 
     @NotNull
     @Column(name = "sessionName", unique = false, updatable = true)
-    private String sessionName;
+    private String sessionName = "Untitled Session";
 
 
     @NotNull
     @Column(name = "isExpired", unique = false, updatable = true)
-    private boolean isExpired;
+    private boolean isExpired = false;
 
     @NotNull
     @Column(name = "state")
-    private Integer state;
+    private Integer state = 0;
 
     @NotNull
     @Column(name = "sessionCode", unique = true, updatable = true)
-    private String sessionCode;
+    private String sessionCode = "AAAAAAA";
 
 }
 

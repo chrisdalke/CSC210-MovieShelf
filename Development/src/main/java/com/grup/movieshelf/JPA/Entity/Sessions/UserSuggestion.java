@@ -12,10 +12,16 @@ import javax.validation.constraints.NotNull;
 @NoArgsConstructor
 public class UserSuggestion {
 
+    public UserSuggestion(@NotNull Integer userId, @NotNull Integer sessionId, @NotNull String titleId) {
+        this.userId = userId;
+        this.sessionId = sessionId;
+        this.titleId = titleId;
+        userSuggestionId = userId+"_"+sessionId+"_"+titleId;
+    }
+
     @Id
-    @GeneratedValue
     @Column(name = "userSuggestionId", unique = true, updatable = false)
-    private Integer userSuggestionId = -1;
+    private String userSuggestionId;
 
     @NotNull
     @Column(name = "userId")

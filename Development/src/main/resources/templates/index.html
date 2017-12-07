@@ -20,10 +20,6 @@
             <!-- Landing page for a logged-in user -->
             <div id="main-with-sidebar" class="shelf-bg" sec:authorize="isAuthenticated()">
 
-                <div id="shelf-load-overlay">
-
-                    <div uk-spinner></div> Loading Shelf...
-                </div>
 
                 <div th:each="userTitleRow : ${userTitleRows}" th:object="${userTitleRow}">
                     <div class="shelf">
@@ -35,10 +31,8 @@
                                     </div>
                                 </a></div></div>
                             </div>
-                            <input type="hidden" class="sneakyBoi" th:value="${userTitleRow.size()}"/>
-                            <script type="text/javascript">
-                              plug(parseInt($(".sneakyBoi:last").val()));
-                            </script>
+                            <div th:if="${userTitleRow.size() > 1}" class="shelf-item-holder"></div>
+                            <div th:if="${userTitleRow.size() > 2}" class="shelf-item-holder"></div>
                         </div>
                     </div>
                 </div>

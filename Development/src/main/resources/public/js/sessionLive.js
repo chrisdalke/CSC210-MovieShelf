@@ -4,12 +4,17 @@ var sessionId = null;
 var isReady = 0;
 var userId = -1;
 var sessionUserList = [];
+var numSessionUserSuggestions = 0;
+var isSession = true;
 
 $(function(){
     // On page load, grab the session id
     sessionId = parseInt($("#session-id").text());
     isReady = parseInt($("#session-is-ready").text());
     userId = parseInt($("#session-user-id").text());
+    numSessionUserSuggestions = parseInt($("#session-user-num-suggestions").text());
+
+
     if (isReady == 0){
         sessionSetMyUnready(true);
     } else {
@@ -24,6 +29,13 @@ $(function(){
             sessionUserList.push(userIdTemp);
             $("#session-user-"+userIdTemp).animateCss("bounceIn");
         }
+    });
+
+    // Removal script for static titles
+    $(".session-my-static-title").click(function(){
+        var tempId = $(this).attr('id');
+        var titleIdTemp = tempId.replace("session-suggestions-you-", "");
+        sessionRemoveTitle(titleIdTemp);
     });
 
     // Join the session socket
@@ -74,7 +86,9 @@ function socketReceive(message){
         }
         case 3: {
             // Trigger the final session results page
-            location.reload();
+            setTimeout(function(){
+                location.reload();
+            },3000); // Give the page some time to properly save in the server.
             break;
         }
         case 4: {
@@ -98,24 +112,50 @@ function socketReceive(message){
     }
 }
 
+function updateTitleHolderImage(id, titleId){
+    doAjax("/api/meta/"+titleId,"GET",{},function(dataURL){
+        console.log(dataURL);
+        $("#"+id).html(`<img src="`+dataURL.image+`"></img>`);
+    });
+}
+
 function refreshUsers(){
     doAjax("/api/public/session/"+sessionId+"/users_other",
         "GET",{},function(userDataList){
         var htmlString = "";
         $("#session-users").html(htmlString);
         console.log(userDataList);
+
+
+        var guestId = 1;
         for (var i = 0; i < userDataList.length; i++){
             htmlString = "";
             var tempUser = userDataList[i].user;
             var tempUserSession = userDataList[i].userSession;
             var tempUserSuggestionList = userDataList[i].userSuggestionList;
 
+            if (tempUser.isGuest){
+                tempUser.username = "Guest #"+guestId;
+                guestId++;
+            }
+
             htmlString += `
             <div class="session-user" id="session-user-`+tempUser.userId+`">
                 <div uk-grid>
                     <div class="uk-width-auto session-user-holder uk-flex uk-flex-column uk-flex-center">`+tempUser.username+`</div>
                     <div class="noborder uk-width-auto uk-flex uk-flex-column uk-flex-center"><div class="session-arrow-left"></div></div>
-                    <div class="uk-width-expand session-movie-holder">Movies Chosen</div>
+                    <div class="uk-width-expand session-movie-holder">`;
+
+
+            for (var ii = 0; ii < tempUserSuggestionList.length; ii++){
+                    htmlString += `
+                <div class="session-title-holder" id="session-suggestions-`+tempUser.userId+`-`+tempUserSuggestionList[ii].titleId+`">
+                    <div><div uk-spinner></div></div>
+                </div>`;
+                updateTitleHolderImage("session-suggestions-"+tempUser.userId+"-"+tempUserSuggestionList[ii].titleId,tempUserSuggestionList[ii].titleId);
+            }
+
+            htmlString += `</div>
                     <div class="uk-width-auto session-user-confirm-holder uk-flex uk-flex-column uk-flex-center">
                         <div id="session-ready-`+tempUser.userId+`" class="session-unfinished-icon session-confirm-icon uk-flex uk-align-center uk-flex-column uk-flex-center">
                             <span uk-icon="icon: more" class="session-user-confirm-icon"></span>
@@ -141,11 +181,42 @@ function refreshUsers(){
 }
 
 function sessionAddTitle(titleId){
+    if (numSessionUserSuggestions >= 3){
+        UIkit.modal($("#modal-too-many-titles")).show();
+    } else {
+        // Add session title div
+        var htmlString = `
+            <div class="session-title-holder session-suggestion-remove" id="session-suggestions-you-`+titleId+`">
+                <div><div uk-spinner></div></div>
+            </div>
+        `;
 
+        if (numSessionUserSuggestions == 0){
+            $("#session-suggestions-you").html("");
+        }
+
+        $("#session-suggestions-you").append(htmlString);
+
+        updateTitleHolderImage("session-suggestions-you-"+titleId,titleId);
+
+        $("#session-suggestions-you-"+titleId).click(function(){
+            //Test remove title
+            sessionRemoveTitle(titleId);
+        })
+        numSessionUserSuggestions++;
+
+        socketSend({messageType: 2, content: titleId});
+    }
 }
 
 function sessionRemoveTitle(titleId){
+    $("#session-suggestions-you-"+titleId).remove();
+    numSessionUserSuggestions--;
 
+    if (numSessionUserSuggestions == 0){
+        $("#session-suggestions-you").html(`<div>Use the Search Bar to find movies and add them to your suggestions list.</div>`);
+    }
+    socketSend({messageType: 3, content: titleId});
 }
 
 function sessionShowLoad(){

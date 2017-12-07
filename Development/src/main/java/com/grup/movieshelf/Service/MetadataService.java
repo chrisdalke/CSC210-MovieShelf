@@ -73,6 +73,8 @@ public class MetadataService {
             }
             catch(JauntException e){
                 System.err.println(e);
+                // If there is an error, this is a problem. We should put a blank image in the database.
+                addMetadata(titleId, "", "");
             }
         }
         return metadataRepository.getByTitleId(titleId).getImage();
