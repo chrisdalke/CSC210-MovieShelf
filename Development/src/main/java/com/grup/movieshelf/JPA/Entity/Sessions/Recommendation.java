@@ -8,7 +8,13 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Recommendation {
+public class Recommendation implements Comparable<Recommendation> {
     Title title;
-    int score;
+    Integer score;
+
+
+    @Override
+    public int compareTo(Recommendation o) {
+        return o.getScore().compareTo(getScore());
+    }
 }

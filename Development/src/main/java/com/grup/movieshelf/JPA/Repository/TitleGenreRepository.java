@@ -8,4 +8,6 @@ import java.util.List;
 public interface TitleGenreRepository extends JpaRepository<TitleGenre, String> {
 
     List<TitleGenre> getAllByTitleId(String titleId);
+
+    List<TitleGenre> getAllByGenre(String genre);
 }
