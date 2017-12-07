@@ -24,6 +24,8 @@ public interface TitleRepository extends JpaRepository<Title, String> {
 
     Title getByTitleId(String titleId);
 
+    List<Title> getAllByYearIsBetween(Integer minYear, Integer maxYear);
+
     boolean existsByTitleId(String titleId);
 }
 

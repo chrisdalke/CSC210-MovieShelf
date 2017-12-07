@@ -15,19 +15,27 @@
 
     <!-- Landing page for a logged-in user -->
     <div id="main-with-sidebar" class="uk-padding">
-
-
         <h2 th:text="${userOptions.getDisplayName()}"></h2>
         <hr>
-<<<<<<< HEAD
-        <p><b>Language:</b> <span th:text="${userProfile.getPrimaryLanguage()}"></span></p>
-        <p><b>Birthdate:</b> <span th:text="${userProfile.getBirthdate()}"></span></p>
-        <a href="/user/delete">(Delete)</a>
-=======
         <p><b>Language:</b> <span th:text="${userOptions.getPrimaryLanguage()}"></span></p>
         <p><b>Birthdate:</b> <span th:text="${userOptions.getBirthdate()}"></span></p>
->>>>>>> c41f06390cc7b8e6e4e442314fda9cf0941b340b
-        <hr>
+        
+        <ul uk-tab>
+          <li><a href="#">Friends</a></li>
+        </ul>
+
+        <ul class="uk-switcher uk-margin">
+          <li>
+            <table class="table table-bordered" id="friends-list-table">
+                <tr th:each="friend : ${userFriends}" th:object="${user}">
+                    <td th:id="'friends-list-table-entry-' + ${friend.getUsername()}">
+                        <span th:text="${friend.getUsername()}"></span>
+                    </td>
+                </tr>
+            </table>
+          </li>
+      </ul>
+
     </div>
 
     <!-- Include the footer fragment -->

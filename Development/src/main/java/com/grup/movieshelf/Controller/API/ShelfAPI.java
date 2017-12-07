@@ -10,6 +10,7 @@ package com.grup.movieshelf.Controller.API;
 // Module Imports
 /////////////////////////////////////////////////////////////
 
+import com.grup.movieshelf.Controller.API.Entity.MetaTitle;
 import com.grup.movieshelf.Controller.API.Entity.ResponseStatus;
 import com.grup.movieshelf.JPA.Entity.Movies.Title;
 import com.grup.movieshelf.JPA.Repository.UserTitlesRepository;
@@ -19,6 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /////////////////////////////////////////////////////////////
@@ -42,6 +44,9 @@ public class ShelfAPI {
     @Autowired
     private UserTitlesRepository userTitlesRepository;
 
+    @Autowired
+    private MetadataService metaDaniel;
+
     //------------------------------------------------
     // Request Mappings
     //------------------------------------------------
@@ -62,10 +67,23 @@ public class ShelfAPI {
         return new ResponseStatus();
     }
 
+    /*
     @GetMapping("/api/shelf")
     public List<Title> getShelf(){
         return shelfService.getShelfForUser();
     }
+    */
+
+    @GetMapping("/api/shelf")
+    public List<MetaTitle> getShelf(){
+        ArrayList<MetaTitle> metaTitles = new ArrayList<>();
+        List<Title> titles = shelfService.getShelfForUser();
+        for (Title title:titles) {
+            metaTitles.add(new MetaTitle(title,metaDaniel.getImage(title.getTitleId())));
+        }
+        return metaTitles;
+    }
+
 }
 
 /////////////////////////////////////////////////////////////

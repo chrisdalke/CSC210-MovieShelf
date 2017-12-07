@@ -65,6 +65,9 @@ public class UserController {
     public String displayUserProfile(Model model){
         UserOptions userOptions = userService.getUserOptions();
         model.addAttribute("userProfile", userOptions);
+        model.addAttribute("incomingRequests", userService.getIncomingFriendRequestUsers());
+        model.addAttribute("outgoingRequests", userService.getOutgoingFriendRequestUsers());
+        model.addAttribute("userFriends",userService.getFriends());
         return "myProfile";
     }
 
@@ -80,6 +83,8 @@ public class UserController {
             model.addAttribute("userOptions",userOptions);
             model.addAttribute("userFriends",userFriends);
             model.addAttribute("userTitles",userTitles);
+            model.addAttribute("incomingRequests", userService.getIncomingFriendRequestUsers());
+            model.addAttribute("outgoingRequests", userService.getOutgoingFriendRequestUsers());
             return "userProfile";
         } else {
             // User does not exist
