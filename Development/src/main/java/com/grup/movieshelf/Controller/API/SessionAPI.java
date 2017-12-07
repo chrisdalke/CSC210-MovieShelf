@@ -13,12 +13,16 @@ package com.grup.movieshelf.Controller.API;
 import com.grup.movieshelf.Controller.API.Entity.RecommendationList;
 import com.grup.movieshelf.Controller.API.Entity.ResponseStatus;
 import com.grup.movieshelf.JPA.Entity.Sessions.Session;
+import com.grup.movieshelf.JPA.Entity.Users.User;
 import com.grup.movieshelf.JPA.Repository.SessionRepository;
 import com.grup.movieshelf.JPA.Repository.TitleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import com.grup.movieshelf.Service.*;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /////////////////////////////////////////////////////////////
 // Sessions API
@@ -90,7 +94,15 @@ public class SessionAPI {
         }
     }
 
-
+    @GetMapping("/api/public/session/{sessionCode}/users")
+    public List<User> getSessionUsers(@PathVariable("sessionCode") String sessionCode){
+        Session session = sessionService.getSession(sessionCode);
+        if (session != null){
+            return sessionService.getUsersForSession(session);
+        } else {
+            return new ArrayList<>();
+        }
+    }
 }
 
 /////////////////////////////////////////////////////////////

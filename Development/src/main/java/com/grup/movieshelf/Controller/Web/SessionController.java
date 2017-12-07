@@ -93,7 +93,7 @@ public class SessionController {
 
         // If the session has already expired, just show the session results page
         if (session.isExpired()){
-            model.addAttribute("session",session);
+            model.addAttribute("msSession",session);
             return "sessionArchived";
         }
 
@@ -104,7 +104,9 @@ public class SessionController {
         }
 
         // Display the session live page (which has some JS code on clientside to join sockets system.)
-        model.addAttribute("session",session);
+        model.addAttribute("msSession",session);
+        model.addAttribute("sessionUsers",sessionService.getUsersForSession(session));
+        model.addAttribute("userObject",userObject);
         return "sessionLive";
 
     }
