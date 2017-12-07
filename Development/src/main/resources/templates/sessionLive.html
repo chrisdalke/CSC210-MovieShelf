@@ -16,6 +16,11 @@
     <!-- Landing page for a logged-in user -->
     <div id="main-with-sidebar" class="uk-padding">
 
+        <!-- Hidden session id-->
+        <span id="session-id" style="display: none;" th:text="${msSession.getSessionId()}"></span>
+        <span id="session-is-ready" style="display: none;" th:text="${userIsReady}"></span>
+        <span id="session-user-id" style="display: none;" th:text="${userObject.getUserId()}"></span>
+
         <h2 id="session-title"><b th:text="${msSession.getSessionName()}"></b>
             <!--
         <span id="session-subtitle">Session Code: <span th:text="${msSession.getSessionCode()}"></span></span>-->
@@ -24,7 +29,7 @@
 
         <div class="hr-sect">
             <a class="uk-button" id="button-session-invite" href="#modal-session-invite" uk-toggle>Invite Friends</a>
-            <a class="uk-button" id="button-session-finish">Finish!</a>
+            <a class="uk-button button-session-unfinished" id="button-session-finish">Finish!</a>
         </div>
 
         <div id="session-user-you">
@@ -34,8 +39,11 @@
                     <div class="noborder uk-width-auto uk-flex uk-flex-column uk-flex-center"><div class="session-arrow-left"></div></div>
                     <div class="uk-width-expand session-movie-holder">Movies Chosen</div>
                     <div class="uk-width-auto session-user-confirm-holder uk-flex uk-flex-column uk-flex-center">
-                        <div class="session-confirm-icon uk-flex uk-align-center uk-flex-column uk-flex-center">
-                            <span uk-icon="icon: check" class="session-user-confirm-icon"></span>
+
+
+
+                        <div th:id="${'session-ready-'+ userObject.getUserId()}" class="session-unfinished-icon session-confirm-icon uk-flex uk-align-center uk-flex-column uk-flex-center">
+                            <span uk-icon="icon: more" class="session-user-confirm-icon"></span>
                         </div>
                     </div>
                 </div>
@@ -45,14 +53,14 @@
             Other Users
         </div>
         <div id="session-users">
-            <div class="session-user" th:each="sessionUser : ${sessionUsers}" th:object="${sessionUser}">
+            <div class="session-user" th:each="sessionUser : ${sessionUsers}" th:object="${sessionUser}" th:id="${'session-user-'+sessionUser.getUserId()}">
                 <div uk-grid>
                     <div class="uk-width-auto session-user-holder uk-flex uk-flex-column uk-flex-center" th:text="${sessionUser.getUsername()}"></div>
                     <div class="noborder uk-width-auto uk-flex uk-flex-column uk-flex-center"><div class="session-arrow-left"></div></div>
                     <div class="uk-width-expand session-movie-holder">Movies Chosen</div>
                     <div class="uk-width-auto session-user-confirm-holder uk-flex uk-flex-column uk-flex-center">
-                        <div class="session-confirm-icon uk-flex uk-align-center uk-flex-column uk-flex-center">
-                        <span uk-icon="icon: check" class="session-user-confirm-icon"></span>
+                        <div th:id="${'session-ready-'+ sessionUser.getUserId()}" class="session-unfinished-icon session-confirm-icon uk-flex uk-align-center uk-flex-column uk-flex-center">
+                            <span uk-icon="icon: more" class="session-user-confirm-icon"></span>
                         </div>
                     </div>
                 </div>
@@ -65,15 +73,16 @@
     <div id="modal-session-invite" class="uk-modal-full uk-modal" uk-modal>
         <div class="uk-modal-dialog uk-flex uk-light uk-flex-column uk-flex-center uk-flex-middle asphalt" uk-height-viewport>
             <button style="background-color: rgba(0,0,0,0)" id="session-code-close" class="uk-modal-close-full uk-close-large" type="button" uk-close></button>
-            <h2 style="text-align: center; font-weight: 400; margin: 0px;">Invite your friends to join this Session!</h2>
-            <p style="text-align: center; font-weight: 400;">Share the following code, which can be used as a guest login:</p>
-            <h1 style="margin: 0px; font-style: italic; font-weight: bold;" th:text="${msSession.getSessionCode()}"></h1>
+            <h2 style="text-align: center; font-weight: 400; margin: 10px;">Invite your friends to join this Session!</h2>
+            <h1 style="margin: 0px; font-style: italic; font-weight: bold;" th:text="${'Session Code:'+msSession.getSessionCode()}"></h1>
         </div>
     </div>
 
     <!-- Include the footer fragment -->
     <div th:include="fragments/footer :: footer"></div>
 
+    <script src="/js/sockjs.js"></script>
+    <script src="/js/stomp.js"></script>
     <script src="/js/sessionLive.js"></script>
 </div>
 </body>

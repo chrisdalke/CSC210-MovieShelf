@@ -31,7 +31,6 @@ import java.util.*;
 /////////////////////////////////////////////////////////////
 
 @Entity
-@Indexed
 @Table(name = "Users")
 @Data
 @NoArgsConstructor

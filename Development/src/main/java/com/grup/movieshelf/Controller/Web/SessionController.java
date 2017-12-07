@@ -15,6 +15,7 @@ import com.grup.movieshelf.JPA.Entity.Sessions.UserSession;
 import com.grup.movieshelf.Controller.API.Entity.RecommendationList;
 import com.grup.movieshelf.JPA.Entity.Movies.Title;
 import com.grup.movieshelf.JPA.Entity.Users.User;
+import com.grup.movieshelf.JPA.Repository.UserSessionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -44,6 +45,9 @@ public class SessionController {
 
     @Autowired
     MetadataService metadataService;
+
+    @Autowired
+    UserSessionRepository userSessionRepository;
 
     //------------------------------------------------
     // Request Mappings
@@ -103,10 +107,16 @@ public class SessionController {
             sessionService.addUserToSession(userObject.getUserId(),session.getSessionId());
         }
 
+        // Get the user session object
+        UserSession userSession = userSessionRepository.getOne(userObject.getUserId()+"_"+session.getSessionId());
+
         // Display the session live page (which has some JS code on clientside to join sockets system.)
         model.addAttribute("msSession",session);
-        model.addAttribute("sessionUsers",sessionService.getUsersForSession(session));
+        List<User> sessionUsers = sessionService.getUsersForSession(session);
+        sessionUsers.remove(userObject);
+        model.addAttribute("sessionUsers",sessionUsers);
         model.addAttribute("userObject",userObject);
+        model.addAttribute("userIsReady",userSession.getIsReady());
         return "sessionLive";
 
     }

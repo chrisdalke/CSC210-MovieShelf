@@ -8,15 +8,16 @@
 
         <div class="uk-offcanvas-content uk-light">
 
-            <!-- Include the nav fragment -->
-            <div th:include="fragments/nav :: nav"></div>
+            <!-- Include the modals fragment -->
+            <div th:include="fragments/modals :: modals"></div>
 
-            <div class="main-div uk-padding">
+            <div class="landing-container">
+                <div id="landing-logo">
 
-                <div id="landing-sidebar" class="uk-card-secondary uk-card-hover uk-card-body">
-                    <!-- TODO: Display a registration form here -->
-                     <!-- added to receive message from controller -->
+                </div>
 
+                <!-- Display a login form if the user is not already loggeed in -->
+                <div id="landing-sidebar" class="uk-card-secondary uk-card-body" sec:authorize="isAnonymous()">
                     <form action="#" th:action="@{/user/register}" th:object="${user}" method="post">
                         <fieldset class="uk-fieldset">
                             <legend class="uk-legend">Sign Up</legend>
@@ -37,8 +38,19 @@
                             </div>
                         </fieldset>
                     </form>
+
+                    <a href="/login"><button class="uk-button uk-button-default uk-width-1-1">Cancel</button></a>
+
                 </div>
+
+                <!-- Redirect to the landing page if the user is already logged in (TODO) -->
+                <div sec:authorize="isAuthenticated()">
+                    <h2>Already Logged In!</h2>
+                    <p>Todo: Redirect to landing page.</p>
+                </div>
+
             </div>
+
 
             <!-- Include the footer fragment -->
             <div th:include="fragments/footer :: footer"></div>
