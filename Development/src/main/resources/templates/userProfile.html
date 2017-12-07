@@ -16,20 +16,40 @@
     <!-- Landing page for a logged-in user -->
     <div id="main-with-sidebar" class="uk-padding">
         <h2 th:text="${userOptions.getDisplayName()}"></h2>
-        <hr>
-        <p><b>Language:</b> <span th:text="${userOptions.getPrimaryLanguage()}"></span></p>
-        <p><b>Birthdate:</b> <span th:text="${userOptions.getBirthdate()}"></span></p>
-        
         <ul uk-tab>
+          <li><a href="#">Shelf</a></li>
           <li><a href="#">Friends</a></li>
         </ul>
 
         <ul class="uk-switcher uk-margin">
           <li>
+            <div th:each="userTitleRow : ${userTitleRows}" th:object="${userTitleRow}">
+                <div class="shelf">
+                    <div class=" flag shelf-grid uk-grid-collapse uk-child-width-expand@s" uk-grid>
+                        <div th:each="userTitle : ${userTitleRow}" th:object="${userTitle}">
+                            <div class="shelf-item-holder">
+                            <div class="shelf-item-box">
+                              <a th:href="'/titles/'+${userTitle.getTitleId()}">
+                                <div class="movie">
+                                    <img th:src="${metadataService.getImage(userTitle.getTitleId())}" width="100%" height="100%">
+                                </div>
+                              </a>
+                            </div>
+                          </div>
+                      </div>
+                      <input type="hidden" class="sneakyBoi" th:value="${userTitleRow.size()}"/>
+                      <script type="text/javascript">
+                        plug(parseInt($(".sneakyBoi:last").val()));
+                      </script>
+                    </div>
+                </div>
+            </div>
+          </li>
+          <li>
             <table class="table table-bordered" id="friends-list-table">
                 <tr th:each="friend : ${userFriends}" th:object="${user}">
                     <td th:id="'friends-list-table-entry-' + ${friend.getUsername()}">
-                        <span th:text="${friend.getUsername()}"></span>
+                        <a th:text="${friend.getUsername()}" th:href="@{'/user/profile/'+${friend.getUsername()}}"></a>
                     </td>
                 </tr>
             </table>
