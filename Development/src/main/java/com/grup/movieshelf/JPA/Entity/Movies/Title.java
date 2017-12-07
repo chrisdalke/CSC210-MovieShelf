@@ -49,9 +49,9 @@ public class Title implements Comparable<Title>, Serializable {
     @NotNull
     @Column(name = "runtimeMinutes", unique = false, updatable = false)
     private Integer runtimeMinutes;
-    
+
     @IndexedEmbedded
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(name = "known_for",
             joinColumns = @JoinColumn(name = "tconst", referencedColumnName = "tconst"),
             inverseJoinColumns = @JoinColumn(name = "nconst", referencedColumnName = "nconst"))

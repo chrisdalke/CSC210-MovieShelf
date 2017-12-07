@@ -15,7 +15,6 @@ public class BuildSearchIndex implements ApplicationListener<ApplicationReadyEve
 
     @PersistenceContext
     private EntityManager entityManager;
-
     /**
      * Create an initial Lucene index for the data already present in the
      * database.
