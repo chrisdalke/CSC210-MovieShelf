@@ -24,7 +24,6 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableJpaRepositories
 @EnableTransactionManagement
 public class MovieshelfApplication {
-
 	//------------------------------------------------
 	// Main Method
 	// Runs the project.

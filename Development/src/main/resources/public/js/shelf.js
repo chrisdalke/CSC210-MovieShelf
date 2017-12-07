@@ -47,11 +47,3 @@ function addImageTag(div,img){
   div += img;
   div += "\" width=\"100%\" height=\"100%\">";
 }
-/*
-input = "/api/meta/"+data[i].titleId;
-doAjax(input, "GET", {}, function(img_src) {
-    shelfDivString += "<img src=\"";
-    shelfDivString += img_src;
-    shelfDivString += "\" width=\"100%\" height=\"100%\">";
-}, null);
-*/

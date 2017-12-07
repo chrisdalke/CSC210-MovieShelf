@@ -10,7 +10,6 @@ package com.grup.movieshelf.JPA.Repository;
 // Module Imports
 /////////////////////////////////////////////////////////////
 
-import com.grup.movieshelf.JPA.Entity.Movies.Person;
 import com.grup.movieshelf.JPA.Entity.Movies.Title;
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -24,7 +23,7 @@ public interface TitleRepository extends JpaRepository<Title, String> {
 
     Title getByTitleId(String titleId);
 
-    List<Title> getAllByYearIsBetween(Integer minYear, Integer maxYear);
+    List<Title> findByYearBetween(int minYear, int maxYear);
 
     boolean existsByTitleId(String titleId);
 }
