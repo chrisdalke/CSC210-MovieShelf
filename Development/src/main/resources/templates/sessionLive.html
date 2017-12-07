@@ -37,11 +37,12 @@
                 <div uk-grid>
                     <div class="uk-width-auto session-user-holder uk-flex uk-flex-column uk-flex-center" th:text="${userObject.getUsername()}"></div>
                     <div class="noborder uk-width-auto uk-flex uk-flex-column uk-flex-center"><div class="session-arrow-left"></div></div>
-                    <div class="uk-width-expand session-movie-holder">Movies Chosen</div>
+                    <div class="uk-width-expand session-movie-holder">
+                        <div class="session-title-holder"><div><h1>+</h1></div></div>
+                        <div class="session-title-holder"><div><h1>+</h1></div></div>
+                        <div class="session-title-holder"><div><h1>+</h1></div></div>
+                    </div>
                     <div class="uk-width-auto session-user-confirm-holder uk-flex uk-flex-column uk-flex-center">
-
-
-
                         <div th:id="${'session-ready-'+ userObject.getUserId()}" class="session-unfinished-icon session-confirm-icon uk-flex uk-align-center uk-flex-column uk-flex-center">
                             <span uk-icon="icon: more" class="session-user-confirm-icon"></span>
                         </div>
@@ -75,6 +76,16 @@
             <button style="background-color: rgba(0,0,0,0)" id="session-code-close" class="uk-modal-close-full uk-close-large" type="button" uk-close></button>
             <h2 style="text-align: center; font-weight: 400; margin: 10px;">Invite your friends to join this Session!</h2>
             <h1 style="margin: 0px; font-style: italic; font-weight: bold;" th:text="${'Session Code:'+msSession.getSessionCode()}"></h1>
+        </div>
+    </div>
+
+    <div id="modal-session-load" class="uk-modal-full uk-modal" uk-modal>
+        <div class="uk-modal-dialog uk-flex uk-light uk-flex-column uk-flex-center uk-flex-middle asphalt" uk-height-viewport>
+            <div class="landing-movie-tape-effect-left landing-movie-tape-effect"></div>
+            <div class="landing-movie-tape-effect-right landing-movie-tape-effect"></div>
+            <div uk-spinner class="large-spinner"></div>
+
+            <h2 style="text-align: center; font-weight: 400; margin: 10px;">Loading Session Results...</h2>
         </div>
     </div>
 

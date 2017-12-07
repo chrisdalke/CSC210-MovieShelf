@@ -104,6 +104,29 @@ function getImage(titleId,success){
 // Helper Methods
 //------------------------------------------------
 
+function doAjaxJson(url, method, data, success, failure){
+    $.ajax({
+        url: url,
+        method: method,
+        dataType: 'json',
+        data: JSON.stringify(data),
+        beforeSend: function (xhr){
+            xhr.setRequestHeader("Content-Type","application/json");
+            xhr.setRequestHeader("Accept","application/json");
+        },
+        success: function(result){
+            if (success) {
+                success(result);
+            }
+        },
+        error: function(result){
+            console.log(result);
+            if (failure){
+                failure(result);
+            }
+        }
+    });
+}
 function doAjax(url, method, data, success, failure){
     $.ajax({
         url: url,

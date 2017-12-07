@@ -54,7 +54,7 @@ public class User implements Comparable<User>, Serializable, UserDetails {
     // Whether the user is a guest or not
     @NotNull
     @Column(name = "guest")
-    private Boolean isGuest;
+    private Boolean isGuest = false;
 
     @CreationTimestamp
     @Column(name = "created")

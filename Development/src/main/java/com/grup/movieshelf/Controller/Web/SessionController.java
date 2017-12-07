@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import com.grup.movieshelf.Service.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /////////////////////////////////////////////////////////////
@@ -55,7 +56,19 @@ public class SessionController {
 
     // Page showing history of all the sessions a user has been a part of.
     @RequestMapping("/sessions/history")
-    public String sessionHistory() {
+    public String sessionHistory(Model model) {
+        User userObject = userService.getLoggedInUser();
+        List<Session> currentSessions = new ArrayList<>();
+        List<Session> oldSessions = new ArrayList<>();
+        for (Session session : sessionService.getSessionsForUser(userObject)){
+            if (session.isExpired()){
+                oldSessions.add(session);
+            } else {
+                currentSessions.add(session);
+            }
+        }
+        model.addAttribute("currentSessions",currentSessions);
+        model.addAttribute("oldSessions",oldSessions);
         return "sessionHistory";
     }
 

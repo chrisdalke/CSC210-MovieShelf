@@ -140,7 +140,7 @@ public class UserController {
     public String registerUser (Model model, @ModelAttribute User user) { //get the user object from before
         if (userRepository.findByUsername(user.getUsername()) == null) {
             userService.saveNewUser(user);
-            model.addAttribute("message", "Account made successfully.");
+            model.addAttribute("message", "Account created successfully.");
             model.addAttribute("showForm",false);
         } else {
             model.addAttribute("message", "Account creation failed. Username already exists.");
