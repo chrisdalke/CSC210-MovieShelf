@@ -42,7 +42,11 @@ $(function(){
     socketConnect();
 
     $("#button-session-finish").click(function(e){
-        sessionToggleReady();
+        if (numSessionUserSuggestions == 0){
+            UIkit.modal($("#modal-too-few-titles")).show();
+        } else {
+            sessionToggleReady();
+        }
         return false;
     });
 });
