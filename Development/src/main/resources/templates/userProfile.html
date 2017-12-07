@@ -37,10 +37,8 @@
                             </div>
                           </div>
                       </div>
-                      <input type="hidden" class="sneakyBoi" th:value="${userTitleRow.size()}"/>
-                      <script type="text/javascript">
-                        plug(parseInt($(".sneakyBoi:last").val()));
-                      </script>
+                      <div th:if="${userTitleRow.size() &lt; 2}" class="shelf-item-holder"></div>
+                      <div th:if="${userTitleRow.size() &lt; 3}" class="shelf-item-holder"></div>
                     </div>
                 </div>
             </div>
