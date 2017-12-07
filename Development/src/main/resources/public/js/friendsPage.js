@@ -61,7 +61,7 @@ function addToOutgoingFriendRequests(username) {
     var htmlString =
         "<tr>" +
             "<td id='outgoing-friend-request-table-entry-" + username +"'>" +
-                "<span>" + username + " </span>" +
+                "<a href='/user/profile/" + username + "'>" + username + " </a>" +
                 "<a class='cancel-outgoing-friend-request-link' id='friend-request-cancel-" + username +"'>(Cancel)</a>" +
             "</td>" +
         "</tr>";
@@ -73,7 +73,7 @@ function addFriendToList(username) {
     var htmlString =
         "<tr>" +
             "<td id='friends-list-table-entry-" + username + "'>" +
-                "<span>" + username + " </span>" +
+                "<a href='/user/profile/" + username + "'>" + username + " </a>" +
                 "<a class='remove-friend-link' id='friend-remove-" + username + "'>(Remove)</a>" +
             "</td>" +
         "</tr>";
