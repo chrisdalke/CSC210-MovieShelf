@@ -1,4 +1,4 @@
-# The Grup Term Project: MovieShelf
+# The Grüp Term Project: MovieShelf
 
 ## About MovieShelf
 
